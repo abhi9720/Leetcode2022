@@ -21,20 +21,18 @@ class Solution {
         TreeNode rightNode =  root.right;
         
         flatten(root.left);
-        
+        flatten(rightNode);
         if(leftNode!=null){
             root.left=null;
             root.right =  leftNode ;                
-            TreeNode itr = leftNode;
-            
+            TreeNode itr = leftNode;            
             while(itr!=null && itr.right!=null){
                 itr =  itr.right;                
-            }
-            
+            }            
             itr.right = rightNode ;
             
         }
-        flatten(rightNode);
+        
         
         
         
