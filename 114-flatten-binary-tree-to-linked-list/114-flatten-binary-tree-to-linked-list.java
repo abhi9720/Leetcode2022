@@ -21,7 +21,7 @@ class Solution {
         TreeNode rightNode =  root.right;
         
         flatten(root.left);
-        flatten(rightNode);
+        
         if(leftNode!=null){
             root.left=null;
             root.right =  leftNode ;                
@@ -32,7 +32,7 @@ class Solution {
             itr.right = rightNode ;
             
         }
-        
+        flatten(rightNode);
         
         
         
