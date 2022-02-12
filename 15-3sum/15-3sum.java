@@ -5,13 +5,13 @@ class Solution {
         List<List<Integer>>  ans =  new ArrayList<>();
         for(int i=0;i<n;i++){
             if(i>0 && nums[i]==nums[i-1] ) continue;
-            ArrayList<ArrayList<Integer>> triplet = twoSum(nums,i+1,n-1,nums[i]);            
+            ArrayList<ArrayList<Integer>> triplet = tripletsum(nums,i+1,n-1,nums[i]);            
             ans.addAll(triplet);
         }
         return ans;
         
     }
-    public ArrayList<ArrayList<Integer>> twoSum(int []nums, int i , int j, int target){
+    public ArrayList<ArrayList<Integer>> tripletsum(int []nums, int i , int j, int target){
         ArrayList<ArrayList<Integer>>  ans =  new ArrayList<>();
         
         while(i<j){
