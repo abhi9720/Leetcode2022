@@ -2,19 +2,13 @@ class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);
         int n =  nums.length;
-        Set<List<Integer>>  ans =  new HashSet<>();
+        List<List<Integer>>  ans =  new ArrayList<>();
         for(int i=0;i<n;i++){
-            // if(i>0 && nums[i]==nums[i-1] ) continue;
-            ArrayList<ArrayList<Integer>> twopair = twoSum(nums,i+1,n-1,nums[i]);
-            if(twopair.size()>0 )
-            for(ArrayList<Integer>li : twopair){
-                li.add(nums[i]);
-                
-                
-               ans.add(li) ;                
-            }
+            if(i>0 && nums[i]==nums[i-1] ) continue;
+            ArrayList<ArrayList<Integer>> triplet = twoSum(nums,i+1,n-1,nums[i]);            
+            ans.addAll(triplet);
         }
-        return new ArrayList(ans);
+        return ans;
         
     }
     public ArrayList<ArrayList<Integer>> twoSum(int []nums, int i , int j, int target){
@@ -23,11 +17,12 @@ class Solution {
         while(i<j){
             int sum =  nums[i]+nums[j]+target;
             if(sum==0){
-                ArrayList<Integer> li =  new ArrayList<>();
-                li.add(nums[i]) ;
-                li.add(nums[j]) ;
-                ans.add(li);
-                int ele1=nums[i] , ele2=nums[j];
+                 ArrayList<Integer> triplet = new ArrayList<Integer>(
+                            Arrays.asList(target ,nums[i], nums[j]));
+
+                ans.add(triplet);
+                int ele1 =  nums[i], ele2 =  nums[j];
+                
                 while(i<j && nums[i]==ele1 ) i++;
                 while(i<j && nums[j]==ele2) j--;                
             }
