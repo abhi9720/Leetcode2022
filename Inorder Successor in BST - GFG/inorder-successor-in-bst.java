@@ -125,26 +125,27 @@ class Node{
 class Solution
 {
     // returns the inorder successor of the Node x in BST (rooted at 'root')
-	public Node inorderSuccessor(Node root,Node x){
-	    Node suc = new Node(0);
-	    inorderTraversal(root,x,suc);
-	    return suc.left;
-    }
-    
-    public void inorderTraversal(Node root,Node x,Node suc){
-        if(root==null){
-            return ;
-        }
-        inorderTraversal(root.right,x,suc);
-        if((root.data > x.data)&& ( suc.left==null || suc.left.data>root.data )  ){
-            suc.left =  root;
-        }
-        if(root==x){
-            return;
-        }
-        
-        inorderTraversal(root.left,x,suc);
-        
-    }
-    
+	public Node inorderSuccessor(Node root,Node x)
+         {
+            if(root==null){
+              return null;
+          }
+          
+          Node left  =  inorderSuccessor(root.left,x);
+          
+          if(left!=null){
+              return left;
+          }
+          
+          if(root.data > x.data){
+              return root;
+          }
+          
+          
+          Node right  =  inorderSuccessor(root.right,x);
+          return right;
+         
+          
+          
+         }
 }
