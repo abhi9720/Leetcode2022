@@ -12,10 +12,10 @@ class Solution {
                 ans[stk.pop()]  = nums[i];                
             }            
             stk.push(i); 
-            if(i==0){
+            if(i==n-1){
                 count++;
             }
-            if(count==3){
+            if(count==2){
                 break;
             }
         }
