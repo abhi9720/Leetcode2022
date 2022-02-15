@@ -126,7 +126,12 @@ class GfG
            p.pre=root;
        }
        else if( s.succ==null && root.data > key){
-           
+           // check for s.succ is important if not check succ update by 78 instead of 45
+           /*
+            5
+            78 80 R 78 24 L 24 18 L 24 55 R 80 85 R
+            40
+           */
            s.succ =  root;
            return;
        }
