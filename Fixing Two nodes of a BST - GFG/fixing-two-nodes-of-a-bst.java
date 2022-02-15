@@ -174,48 +174,46 @@ class GfG {
 
 // } Driver Code Ends
 
-
 //User function Template for Java
 
-class Solution
-{
+class Solution {
     //Function to fix a given BST where two nodes are swapped.  
-    public Node correctBST(Node root)
-    {
-    Node [] point = new Node[3];        
-        inorder(root,point);                
-            
-        if(point[2]!=null){
+    public Node correctBST(Node root) {
+
+
+        Node[] point = new Node[4];
+        inorder(root, point);
+
+        if (point[2] != null) {
             // swap first and second
-            int t =  point[0].data;
-            point[0].data =  point[2].data;
-            point[2].data =t;
-        }else{
+            int t = point[0].data;
+            point[0].data = point[2].data;
+            point[2].data = t;
+        } else {
             // swap first and middle
-            int t =  point[0].data;
-            point[0].data =  +point[1].data;
-            point[1].data =t;
+            int t = point[0].data;
+            point[0].data = +point[1].data;
+            point[1].data = t;
         }
         return root;
     }
-    Node pre = null;
-    void inorder(Node root,Node [] point){
-        if(root==null) return ;
-               
-        
-        inorder(root.left,point);
 
-        if(pre!=null && root.data <  pre.data){
-            if(point[0]==null){
-                point[0]  =  pre;
-                point[1]  =  root;                
-            }
-            else{
-                point[2] =  root;
+    void inorder(Node root, Node[] point) {
+        if (root == null) return;
+
+
+        inorder(root.left, point);
+
+        if (point[3] != null && root.data < point[3].data) {
+            if (point[0] == null) {
+                point[0] = point[3];
+                point[1] = root;
+            } else {
+                point[2] = root;
             }
         }
-        pre   =  root;        
-            
-        inorder(root.right,point);                    
+        point[3] = root;
+
+        inorder(root.right, point);
     }
 }
