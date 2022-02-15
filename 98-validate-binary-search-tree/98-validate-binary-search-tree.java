@@ -21,15 +21,13 @@ class Solution {
         if(root ==null){
             return true;
         }
-        
-        if( !((lower==null || lower<root.val) && (higher==null || higher>root.val) ) ){
-             return false;           
-        }
-        
+        boolean l=false,r=false;
+        if(lower==null || lower<root.val ) l=true; 
+        if(higher==null || higher>root.val)  r = true;
         
         
         
-        return validateLimit(root.left,lower,root.val) && validateLimit(root.right,root.val,higher);
+        return (l&r ) && validateLimit(root.left,lower,root.val) && validateLimit(root.right,root.val,higher);
         
     }
 }
