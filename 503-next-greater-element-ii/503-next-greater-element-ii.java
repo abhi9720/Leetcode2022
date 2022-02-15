@@ -6,18 +6,12 @@ class Solution {
         Arrays.fill(ans,-1);
         int index =  0;
         int count  = 0;
-        for(int i=0;i<n && count<n; i=(i+1)%n ){
+        for(int i=0;i<2*n ; i++ ){
             // those which are removed by me , for those element i am the nge
-            while(stk.size()>0 && nums[stk.peek()] < nums[i]  ){
-                ans[stk.pop()]  = nums[i];                
+            while(stk.size()>0 && nums[stk.peek()] < nums[i%n]  ){
+                ans[stk.pop()]  = nums[i%n];                
             }            
-            stk.push(i); 
-            if(i==n-1){
-                count++;
-            }
-            if(count==2){
-                break;
-            }
+            stk.push(i%n);             
         }
         return ans;        
     }
