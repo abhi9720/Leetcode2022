@@ -28,6 +28,7 @@ class Solution {
 //         return i;
 //     }
     
+    // Approach 2: Using simple char array and store index of chars 
     public int firstUniqChar(String s) {
         int freq[] =  new int[26];
         Arrays.fill(freq,-1);
