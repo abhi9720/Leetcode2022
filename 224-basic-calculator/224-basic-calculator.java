@@ -1,41 +1,36 @@
 class Solution {
-    public int calculate(String s) {
-        
-        Stack<Integer> stk =  new Stack<>();
-        int result = 0;        
-        int number =  0;
-        int sign = 1;
-        
-        for(int i=0;i<s.length();i++ ){
-            char ch =  s.charAt(i);
-            if(Character.isDigit(ch)){
-                number =  number*10 + (int)(ch-'0');
-            }
-            else if(ch=='+'){
-                result =  result+sign*number;
-                number  = 0;
-                sign = 1;
-            }
-            else if(ch=='-'){
-                result =  result+sign*number;
-                number = 0;
-                sign=-1;
-            }
-            else if(ch=='('){
-                stk.push(result);
-                stk.push(sign);
-                result = 0;
-                sign =  1;                                    
-            }
-            else if(ch==')'){
-                result =  result + sign*number;
-                result =  result*stk.pop();
-                result =  result+stk.pop();     
-                number=0;
-            }               
-        }
-        
-        if(number!=0) result =  result+sign*number;
-        return result;
-    }
+   public static int calculate(String s) {
+	int len = s.length(), sign = 1, result = 0;
+	Stack<Integer> stack = new Stack<Integer>();
+	for (int i = 0; i < len; i++) {
+		if (Character.isDigit(s.charAt(i))) {
+			int sum = s.charAt(i) - '0';
+			while (i + 1 < len && Character.isDigit(s.charAt(i + 1))) {
+				sum = sum * 10 + s.charAt(i + 1) - '0';
+				i++;
+			}
+			result += sum * sign;
+		} else if (s.charAt(i) == '+')
+			sign = 1;
+		else if (s.charAt(i) == '-')
+			sign = -1;
+		else if (s.charAt(i) == '(') {
+			stack.push(result);
+			stack.push(sign);
+			result = 0;
+			sign = 1;
+		} else if (s.charAt(i) == ')') {
+			result = result * stack.pop() + stack.pop();
+		}
+
+	}
+	return result;
 }
+}
+
+
+
+
+
+
+
