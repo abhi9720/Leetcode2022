@@ -14,32 +14,44 @@
  * }
  */
 class Solution {
-    public boolean isValidBST(TreeNode root) {
-        return validateLimit(root,null,null);
-    }
-    public boolean validateLimit(TreeNode root,Integer lower,Integer higher){
-        if(root ==null){
-            return true;
+    public boolean isValidBST(TreeNode root) {        
+        TreeNode curr =  root;
+        TreeNode prev =  null;
+        while(curr!=null){
+            TreeNode left =  curr.left;
+             
+            if(left==null){
+                if(prev!=null && prev.val>=curr.val) return false;
+                prev =  curr;
+                curr = curr.right;
+            }else{
+                TreeNode rmn =  getRightMostNode(left,curr);
+                if(rmn.right == null){
+                    rmn.right =  curr;
+                    curr =  curr.left;
+                }
+                else{
+                    rmn.right =  null;
+                    if(prev.val>=curr.val) return false;
+                    prev =  curr;
+                    curr =  curr.right;
+                }
+            }
+          
+            
+            
         }
-        boolean l=false,r=false;
-        if(lower==null || lower<root.val ) l=true; 
-        if(higher==null || higher>root.val)  r = true;
         
         
+        return true;
         
-        return (l&r ) && validateLimit(root.left,lower,root.val) && validateLimit(root.right,root.val,higher);
+    }
+    
+    private TreeNode getRightMostNode(TreeNode node , TreeNode curr){
         
+        while(node.right!=null && node.right!=curr){
+            node = node.right;
+        }
+        return node;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
