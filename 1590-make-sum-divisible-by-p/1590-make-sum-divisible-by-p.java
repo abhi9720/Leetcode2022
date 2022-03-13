@@ -16,14 +16,13 @@ class Solution {
         map.put(sum,-1);
         int minLen =  nums.length;
         for(int i=0;i<nums.length;i++){
-            sum = ( sum+(nums[i])%p)%p;
-            long key = (sum-s+p)%p;
+            sum = ( sum + nums[i] )%p;                        
+            long key = (sum-s+p)%p;            
             if(map.containsKey(key) ){
                 int len = i - map.get( key );
                 minLen =  Math.min(minLen , len)  ;              
-            }
-                map.put(sum%p,i);
-            
+            }            
+            map.put(sum,i);            
         }
         return (minLen == nums.length?-1:minLen);
         
