@@ -32,48 +32,26 @@ class Solution
 {
     public static int countKdivPairs(int arr[], int n, int k)
     {
-        HashMap<Integer, Integer> hm = new HashMap<>();
-                
-        for(int val : arr){
-            int t = val%k;   
-            if(t<0){
-                t+=k;
-            }
-            if(hm.containsKey(t)){            
-                hm.put(t, hm.get(t)+1);
-            }
-            else{
-                hm.put(t,1);
+        int freq[] =  new int[k];
+        // store rem in hasmap with freq 
+        for(int  ele : arr){
+            int rem  =   ( (ele%k) +k)%k;
+            freq[rem]++;
+        }
+        int count =  0;
+        // now form pair
+        for(int i=0;i<=k/2;i++){
+            int rem  =  i;
+            if(rem==0 || (k%2==0 && rem==k/2 ) ){
+                int val =  freq[rem];
+                count  +=  (val*(val-1))/2;
+            }else{
+                int f1 =  freq[rem];
+                int f2 =  freq[k-rem];
+                count += (f1*f2);
             }
         }
-        
-        int ans = 0 ;
-        for(int i=0;i<= k/2;i++){
-           int t = i;
-           if( t ==0 || (t== k/2 && k%2==0) ){
-             int t1 = hm.getOrDefault(t,0);
-             hm.remove(t); 
-             if(t1>=1){
-                 int pair = ((t1*(t1-1)) /2 ) ;
-                 ans+=pair;
-             }
-             
-           } else if(hm.containsKey(k - t )){
-               
-              int t1 = hm.getOrDefault(t,0);
-              int t2 = hm.getOrDefault(k-t,0);
-
-              
-               
-               hm.remove(t);
-               hm.remove(k-t);
-               
-               ans=ans+(t1*t2);
-           }
-           
-        }
-        
-        return ans;
-        
+        return count;
     }
 }
+
