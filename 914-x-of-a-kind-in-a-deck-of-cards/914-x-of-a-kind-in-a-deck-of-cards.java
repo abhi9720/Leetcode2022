@@ -8,9 +8,9 @@ class Solution {
        
         // now find gdc  -  gdc what maximum value can divide all element 
         // number of set  = count/ gcd and size  of set =  gcd
-        int gcd =  -1;
+        int gcd =  0;
         for(int k  : map.keySet()){
-            gcd  = _gcd( gcd, map.get(k) ) ;
+            gcd  = (gcd==-1) ? map.get(k) : _gcd( gcd, map.get(k) ) ;
             
         }
         
