@@ -10,15 +10,14 @@ class Solution {
         // number of set  = count/ gcd and size  of set =  gcd
         int gcd =  0;
         for(int k  : map.keySet()){
-            gcd  = (gcd==-1) ? map.get(k) : _gcd( gcd, map.get(k) ) ;
-            
+            gcd  = (gcd==0) ? map.get(k) : _gcd( gcd, map.get(k) ) ;            
         }
         
         return gcd>=2;
     }
     
     private static int _gcd(int n1 ,int n2){
-        if(n1==-1) return n2;
+        
         while(n1%n2!=0){
             int rem  =  n1%n2;
             n1 =  n2;
