@@ -30,28 +30,34 @@ class GFG
 
 class Solution
 {
-    public static int countKdivPairs(int arr[], int n, int k)
-    {
-        int freq[] =  new int[k];
-        // store rem in hasmap with freq 
-        for(int  ele : arr){
-            int rem  =   ( (ele%k) +k)%k;
-            freq[rem]++;
+    public static int countKdivPairs(int arr[], int n, int k){
+        // count pair whose sum divisible by k 
+        int count = 0;
+        HashMap<Integer,Integer> map  =  new HashMap<>();
+        
+        // now find remainder of all pair 
+        // x and k-x , reminder element can pair up 
+        for(int ele : arr){
+            int rem =  ele%k;
+            map.put(rem , map.getOrDefault(rem,0)+1);
         }
-        int count =  0;
-        // now form pair
+        
+        // on dividing element by k , we hav remainder range 0 to k-1
         for(int i=0;i<=k/2;i++){
-            int rem  =  i;
-            if(rem==0 || (k%2==0 && rem==k/2 ) ){
-                int val =  freq[rem];
-                count  +=  (val*(val-1))/2;
+            if(i==0 || (k%2==0 && i==k/2) ){
+                int val =  map.getOrDefault(i,0);
+                count += ((val)*(val-1))/2;
+                
             }else{
-                int f1 =  freq[rem];
-                int f2 =  freq[k-rem];
-                count += (f1*f2);
+                int v1  =  map.getOrDefault(i,0);
+                int v2 =  map.getOrDefault(k-i,0);
+                
+                count+= v1*v2;
             }
+            
         }
         return count;
+        
+        
     }
 }
-
