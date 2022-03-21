@@ -1,30 +1,33 @@
 class Solution {
     public int minSubarray(int[] nums, int p) {
-        
-        long s = 0;
-        for(int ele :nums){
+        long s  =  0;
+        for(int ele : nums){
             s+=ele;
-        }
-        s =  s%p;
-        if(s==0){
-            return 0;
-        }
+        }        
+        long target =  s%p;        
+        if(target==0) return 0;
         
-        // find the subarrays such that its sum%p =  s
-        HashMap<Long,Integer> map =  new HashMap<>();
-        long sum = 0;
-        map.put(sum,-1);
-        int minLen =  nums.length;
+        
+        Map<Long,Integer> map =  new HashMap<>();
+        map.put(0l,-1);
+        long sum = 0 ;
+        int minLength =  nums.length;
+        // now summing up 
         for(int i=0;i<nums.length;i++){
-            sum = ( sum + nums[i] )%p;                        
-            long key = (sum-s+p)%p;            
-            if(map.containsKey(key) ){
-                int len = i - map.get( key );
-                minLen =  Math.min(minLen , len)  ;              
-            }            
-            map.put(sum,i);            
+            sum =   ( sum+(nums[i])%p)%p;
+            long key  =  (sum-target+p)%p;
+            // -target beacuse we want subarray which gives remainder target
+            // and + p to make negative value positive e.g 3 1, 4, 2 , p =  6
+            
+            if(map.containsKey(key)){
+                int len =  i - map.get(key); // previous index this sum occured
+                minLength =  Math.min(minLength,len);
+            }
+            map.put(sum , i);                        
         }
-        return (minLen == nums.length?-1:minLen);
+        return (minLength == nums.length?-1 : minLength);
+        
+        
         
     }
 }
