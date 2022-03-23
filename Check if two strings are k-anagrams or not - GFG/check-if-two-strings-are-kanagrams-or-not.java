@@ -30,16 +30,17 @@ class Solution {
             return false;
         }
         int fres1[]=new int[26];
+        int fres2[]=new int[26];
         
         for(int i=0;i<s1.length();i++ ){
             fres1[s1.charAt(i)-'a']++;
         }
         for(int i=0;i<s2.length() ;i++ ){
-            fres1[s2.charAt(i)-'a']--;
+            fres2[s2.charAt(i)-'a']++;
         }
         int diff = 0;
         for(int i=0;i<26;i++){
-            diff+=Math.abs(fres1[i]);
+            diff+= Math.abs( fres1[i] -  fres2[i] );
         }
         
         
