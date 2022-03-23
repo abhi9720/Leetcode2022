@@ -1,5 +1,5 @@
 # Check if two strings are k-anagrams or not
-##  Easy 
+## Easy 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Given two strings of lowercase alphabets and a value <strong>K</strong>, your task is to complete the given function which tells if&nbsp; two strings are<strong> K-anagrams</strong> of each other or not.</span></p>
 
