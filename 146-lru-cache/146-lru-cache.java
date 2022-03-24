@@ -1,107 +1,111 @@
 class LRUCache {
-    class Node{
-        Node next , pre;
-        int key , value;
-        Node(int key , int value){
-            this.key =  key;
-            this.value =  value;
-            
-        }
-        Node(){
-            this.key =  -1;
-            this.value = -1;
-        }
+    
+    public class Node{
+        
+        int key,value;
+        Node prev,next;
+        
     }
+    
+     
+        HashMap<Integer,Node> hash;
+        int cap;
+        Node head;
+        Node tail;
+        int size=0;
 
-    HashMap<Integer,Node> map;
-    Node head  , tail;
-    int size , capacity;
-    
     public LRUCache(int capacity) {
-        this.capacity =  capacity;
-        this.size = 0;
-        head =  new Node();
-        tail =  new Node();
-        head.next =  tail;
-        tail.pre = head;      
-        map =  new HashMap<>();
-    }
-    
-    private void remove(Node node ){
-       node.next.pre =  node.pre;
-       node.pre.next =  node.next;
-        map.remove(node.key);
-        // print();
+        
+         hash=new HashMap<>();
+         cap=capacity;
+         head=new Node();
+         tail=new Node();
+        
+        head.next=tail;
+        tail.prev=head;
         
     }
-    private void addAtFront(Node node){
-        
-        Node after =  head.next;
-        node.pre =  head;
-        node.next =  after;
-        
-        head.next =  node;
-        node.next.pre =  node;
-    }
-    
     
     public int get(int key) {
         
-        Node address =  map.get(key);
-        if(address==null){ 
-            // print();
+        Node node=hash.get(key);
+        
+        if(node==null){
             return -1;
-        }
-        else{
-            int val =  address.value;
-            remove(address);
-            addAtFront(address);   
-            map.put(key,head.next);    
-            // print();
+        }else{
+            int val=node.value;
+            moveToFront(node);
             return val;
-        }        
+        }
+        
     }
     
     public void put(int key, int value) {
         
-        // three cases possible
-        // check it exists or not
-        // if exists  -  then update value, remove  and add at front
-        // if not exists 
-        //    then size < capacity  , add at front        
-        // if size== capacity first remove then add at front 
-        // and final update hashmap 
+        Node node=hash.get(key);
         
-        Node node =  map.get(key);        
-        if(node!=null){ // exists
-            node.value =  value;
-            remove(node);
-           
-        }else if(capacity == size){ // not exists , cache full
-            node =  new Node();
-            node.key =  key;
-            node.value  =  value;
-            Node lastNode =  tail.pre;
-            // System.out.println("deleting : "+tail.pre.key);
-            remove(lastNode);// remove last
+        if(node==null){
+            Node newNode=new Node();
+            newNode.key=key;
+            newNode.value=value;
             
-           
-        }else{ // not exists cache empty
-            node =  new Node();
-            node.key =  key;
-            node.value  =  value;     
-            size++;
+            if(hash.size()==cap){
+                Node LRU_Node=tail.prev;
+                hash.remove(LRU_Node.key);
+                remove(LRU_Node);
+            }
+            
+            hash.put(key,newNode);//pay attention
+            addFront(newNode);
+        }else{
+            node.value=value;
+            moveToFront(node);
         }
-        addAtFront(node);
-        map.put(key,head.next);     
-        // print();
+        
+    }
+    
+    
+    //linkedlist functions:
+    
+    public void addFront(Node node){
+        
+        //node connect to head and head's next
+        node.next=head.next;
+        node.prev=head;
+        
+        
+        //connecting all
+        head.next.prev=node;
+        head.next=node;
+        
+        size++;
+        
+        
+        
+    }
+    
+    public void remove(Node node){
+        
+      Node prvNbr=node.prev;
+      Node nxtNbr=node.next;
+        
+     prvNbr.next=nxtNbr;
+     nxtNbr.prev=prvNbr;
+        
+    node.next=node.prev=null;
+        
+     size--;
+        
+      
+       
+        
+    }
+    
+    public void moveToFront(Node node){
+    
+        remove(node);
+        addFront(node);
+        
         
     }
 }
-
-/**
- * Your LRUCache object will be instantiated and called as such:
- * LRUCache obj = new LRUCache(capacity);
- * int param_1 = obj.get(key);
- * obj.put(key,value);
- */
