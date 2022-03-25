@@ -43,10 +43,10 @@ private long ldivide(long ldividend, long ldivisor) {
     // other way to do this 
 	// long sum = ldivisor;
 	// long multiple = 1;
-	// while ((sum+sum) <= ldividend) {
-	// 	sum += ldivisor;
-	// 	multiple += 1;
-	// }
+	while ((sum+sum) <= ldividend) {
+		sum += ldivisor;
+		multiple += 1;
+	}
     
     
 	//Look for additional value for the multiple from the reminder (dividend - sum) recursively.
