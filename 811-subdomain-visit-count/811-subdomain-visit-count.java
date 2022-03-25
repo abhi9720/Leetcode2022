@@ -3,9 +3,11 @@ class Solution {
         HashMap<String,Integer> map = new HashMap<>();
         
         for(String web : cpdomains ){
-            String website[] =  web.split(" ");
-            Integer val =  Integer.valueOf(website[0]);
-            String domain  =  website[1];
+             
+                 
+            int  idx =  web.indexOf(' ');
+            Integer val =  Integer.valueOf(web.substring(0,idx) );
+            String domain  =  web.substring(idx+1) ;
             // start traversing form back strng if dot found , then split string 
             int j =  domain.length();
             int i =  j-1;
