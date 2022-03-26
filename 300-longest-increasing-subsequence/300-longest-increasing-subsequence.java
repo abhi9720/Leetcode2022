@@ -1,19 +1,29 @@
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        int len[] =  new int[nums.length];
-        Arrays.fill(len,1);
-        int maxLen = 1;
+        // we can maintain our tail as miniumum possible so any higher element can append;
+        // instead of doing linear back traversal 
+        // we can do binary search 
         
-        for(int i=1;i<nums.length;i++){
-            // move back in pre array 
-            for(int j=i-1;j>=0;j--){
-                if(nums[j] < nums[i] && len[j]+1 > len[i] ){
-                    len[i] =  len[j]+1;
+        int tail[] =  new int[nums.length];
+        int maxLen=  0;// current maxlen  or size 
+        for(int x : nums){
+            int  i =0 , j = maxLen;
+            while(i!=j){
+                int m =  i+(j-i)/2;
+                if(tail[m]<x){
+                    i =  m+1;
+                }else{
+                    j =  m;
                 }
             }
-            maxLen =  Math.max(len[i],maxLen);
+            // if this elment is smaller than tail element then it will be updating tail
+            tail[i] = x;
+            // means if i== maxlen , means this new element is bigger than all elment 
+            // ans will append at the end  tail , so size will increase 
+            if(i==maxLen) ++maxLen;            
         }
-        
         return maxLen;
+        
+        
     }
 }
