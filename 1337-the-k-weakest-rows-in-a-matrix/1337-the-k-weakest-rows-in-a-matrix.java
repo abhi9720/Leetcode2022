@@ -1,28 +1,33 @@
 class Solution {
-    public int[] kWeakestRows(int[][] arr, int k) {
-        int n   =  arr.length;
-        int m  =  arr[0].length;
-        int ans[] =  new int[k];
-        int idx =0;
-        HashSet<Integer> set =  new HashSet<>();
-        for(int j=0;j<m;j++ ){
-            for(int i=0;i<n;i++){
-                if(  arr[i][j]==0  && ( j==0  || arr[i][j-1]!=0 ) ){
-                   ans[idx++]  =  i;
-                    set.add(i);
-                   if(idx==k) return ans;
-                }                
-            }                    
+    public int[] kWeakestRows(int[][] mat, int k) {
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] != b[0] ? b[0] - a[0] : b[1] - a[1]);
+        int[] ans = new int[k];
+        
+        for (int i = 0; i < mat.length; i++) {
+            pq.offer(new int[] {numOnes(mat[i]), i});
+            if (pq.size() > k)
+                pq.poll();
         }
-        if(idx!=k){
-            for(int i=0;i<n;i++){
-                if(!set.contains(i) ){
-                    ans[idx++]  =  i;
-                    set.add(i);
-                    if(idx==k) return ans;
-                }
-            }
-        }
+        
+        while (k > 0)
+            ans[--k] = pq.poll()[1];
+        
         return ans;
+    }
+    
+    private int numOnes(int[] row) {
+        int lo = 0;
+        int hi = row.length;
+        
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            
+            if (row[mid] == 1)
+                lo = mid + 1;
+            else
+                hi = mid;
+        }
+        
+        return lo;
     }
 }
