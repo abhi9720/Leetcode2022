@@ -33,21 +33,28 @@ class Driverclass
 class Solution
 {
     //Function to find the first non-repeating character in a string.
-    static char nonrepeatingCharacter(String s)
-    {
-        char ans = '$';
-        int map[]= new int[26];
-        for(char ch : s.toCharArray() ){
-            map[ ch-'a' ]++;
-        }
-        for(char ch : s.toCharArray() ){
-            if( map[ch-'a']==1 ){
-                ans =  ch;
-                break;
-            }
-        }
-        return ans;
-        
-    }
+     static char nonrepeatingCharacter(String s)
+	    {
+	        char ans = '$';
+	        int map[]= new int[26];
+	        Queue<Character> q =  new ArrayDeque();
+	        for(char ch : s.toCharArray() ){
+	            map[ ch-'a' ]++;
+	            int f = map[ ch-'a'];
+	            
+	            if(f>1 && !q.isEmpty() &&q.peek()==ch){
+	                while(!q.isEmpty() && map[q.peek()-'a']!=1 ){
+	                    q.poll();
+	                }
+	            
+	            }else if(f==1){
+	                q.add(ch);
+	            }
+	        }
+	        
+	        
+	        return q.size()==0 ? '$':q.peek();
+	        
+	    }
 }
 
