@@ -1,51 +1,47 @@
 class Solution {
     public List<List<Integer>> fourSum(int[] nums, int target) {
-        List<List<Integer>> pl=new ArrayList<List<Integer>>();
-        if(nums.length<4) return pl;
         Arrays.sort(nums);
-        for(int i=0;i<nums.length-3;i++)
-        {
-             if(i>0 && nums[i]==nums[i-1])continue;
-            for(int j=i+1;j<nums.length-2;j++)
-            {
-                if(j>i+1 && nums[j]==nums[j-1])continue;
-                int lo=j+1;
-                int hi=nums.length-1;
-               
-                while(lo<hi)
-                {
-                    if(hi<nums.length-1 && nums[hi]==nums[hi+1])
-                {
-                    hi--;
-                    continue;
-                }
-                if(lo>j+1 && nums[lo]==nums[lo-1])
-                {
-                    lo++;
-                    continue;
-                }
-                    
-                    if(nums[lo]+nums[hi]+nums[i]+nums[j]>target)
-                    {
-                        hi--;
-                        
-                    }else if(nums[lo]+nums[hi]+nums[i]+nums[j]<target)
-                    {
-                        lo++;
-                        
-                    }else{
-                       List<Integer> cl= new ArrayList<Integer>();
-                        cl.add(nums[i]);
-                        cl.add(nums[j]);
-                        cl.add(nums[lo]);
-                        cl.add(nums[hi]);
-                        lo++;
-                        hi--;
-                        pl.add(cl);
-                    }
-                }
-            }
-        }
-        return pl;
+        return ksum(nums,target,4,0);
     }
+    
+    	private static List<List<Integer>> ksum(int nums[], int target , int k , int idx){
+	     
+	    if(k==2){
+	       List<List<Integer>> ans =  twoSum(nums,target,idx)    ;
+            return ans;
+	    }else{
+	        List<List<Integer>> ans =  new ArrayList<>();   
+	        for(int i=idx;i<nums.length;i++){
+                if(i>idx && nums[i]==nums[i-1]) continue;
+	            List<List<Integer>>  k1sum =  ksum(nums,target-nums[i],k-1,i+1);
+	            // now we cann append this element at the fron of each element 
+	            for(List<Integer> lis : k1sum){
+	                lis.add(0,nums[i]);
+	            }
+	            ans.addAll( k1sum );
+	        }
+	        return ans;
+	    }
+	}
+	
+	private static List<List<Integer>> twoSum(int nums [], int target, int idx ){
+	    int i =  idx, j =  nums.length-1;
+	    List<List<Integer>> ans =  new ArrayList<>();
+	    while(i<j){
+	        int sum  = nums[i]+nums[j];
+	        if(sum==target){
+	            // ans create
+	            ans.add( new ArrayList<>(Arrays.asList(nums[i],nums[j]))  );
+	            i++;
+	            j--;
+                while(i<j && nums[i]==nums[i-1])i++;
+                while(i<j && nums[j]==nums[j+1])j--;
+	        }else if(sum>target){
+	            j--;
+	        }else{ // less than
+	             i++;
+	        }
+	    }
+	    return ans;
+	}
 }
