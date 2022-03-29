@@ -6,28 +6,18 @@ class Solution {
         int maxLen = 0;
         while(i<n){
             // acqire
-            if(arr[i]==1){
-                count1++;
-            }
-            else{
+            if(arr[i]==0){                
                 count0++;
             }
-            
-            if(count0<=k){
-                maxLen = Math.max(count1+count0 , maxLen);
-            }else{
-                while(count0>k){
-                    if(arr[j]==0) count0--;
-                    else count1--;
-                    j++;
-                }
-            }
-            
-            i++;
-            
-            
-        }
 
+            while(count0>k){
+                if(arr[j]==0) count0--;                    
+                    j++;
+            }
+
+            maxLen = Math.max(i-j+1, maxLen);
+            i++;                        
+        }
         return maxLen;
         
     }
