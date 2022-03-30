@@ -24,14 +24,13 @@ class GfG
 
 //User function Template for Java
 
-class Solution
-{
+class Solution{
     long substrCount (String S, int K) {
         
         return  AtMostK(S,K) - AtMostK(S,K-1);
     }
     
-    	public static long AtMostK(String str, int k) {
+    public static long AtMostK(String str, int k) {
 		long count  = 0, distinct = 0;
 		int i = 0, j = 0 ;
 		int map[] =  new int[26] ;
@@ -52,7 +51,6 @@ class Solution
 		    count+=(i-j+1);
 		    i++;
 		}
-		
 		return count;
 	}
     
