@@ -3,13 +3,14 @@ class Solution {
      
         int i =  0 , j =  nums.length-1;
         while(i<j){
-            int mid =  i+(j-i)/2;
-            if( nums[mid] < target ){
-                i =  mid+1;
+            
+            int mid =  i+(j-i+1)/2;// take uppper mid , we are making decision on right boundary
+            if( nums[mid] > target ){
+                j =  mid-1;
             }else{
-                j =  mid;
+                i = mid;
             }
         }
-        return nums[j]==target?j:-1;
+        return nums[i]==target?i:-1;
     }
 }
