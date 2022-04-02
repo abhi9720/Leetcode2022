@@ -10,19 +10,18 @@
 public class Solution extends GuessGame {
     public int guessNumber(int n) {
      int lower =  1, higher =  n;
-        while( lower<=higher  ){
+        while( lower<higher  ){
             int mid =  lower+(higher-lower)/2;
             int response =  guess(mid);
-            if(response==0) return mid;
-            else if(response == -1){
-                // compress right boundary 
-                higher = mid-1;
+            // compress left boundary 
+            if(response==1){
+             lower =  mid+1;   
             }else{
-                lower  =  mid+1;
+                higher =  mid;
             }
             
         }
-        return -1;
+        return higher;
         
     }
 }
