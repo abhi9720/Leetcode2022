@@ -7,11 +7,11 @@ class Solution {
         int i = 0, j =  s.length()-1;
         int n =  s.length();
         while(i<j){
-            while( i<n && !isValid(Character.toLowerCase(s.charAt(i) )) ){
+            while( i<j && !isValid(Character.toLowerCase(s.charAt(i) )) ){
                 i++;
             }
             
-            while(j>=0 && !isValid(Character.toLowerCase(s.charAt(j) )) ){
+            while(i<j && !isValid(Character.toLowerCase(s.charAt(j) )) ){
                 j--;
             }            
             
