@@ -47,16 +47,11 @@ class Solution {
         }
         else{
         //          case like 1.2(6)  -  herer 6 repeat so only 6 comes in bracket
-        String repeat =  decimal.substring(map.get(r)+1 );
-        String pre =  decimal.substring(0,map.get(r)+1 );                
-        sb.append(pre );
-        sb.append("(");            
-        sb.append(repeat);
-        sb.append(")");            
-            
-            // +repeat+")"
-            
-
+        
+            decimal.insert(map.get(r)+1 , "(");
+            decimal.append(")");
+            sb.append(decimal);
+        
         }
 
         return sb.toString();
