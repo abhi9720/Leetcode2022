@@ -46,7 +46,7 @@ class Solution {
             sb.append(decimal);
         }
         else{
-        //          case like 1.2(6)  -  herer 6 repeat so only 6 comes in bracket
+        
         
             decimal.insert(map.get(r)+1 , "(");
             decimal.append(")");
