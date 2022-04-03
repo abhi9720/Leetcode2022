@@ -50,7 +50,12 @@ class Solution {
         String repeat =  decimal.substring(map.get(r)+1 );
         String pre =  decimal.substring(0,map.get(r)+1 );                
         sb.append(pre );
-        sb.append("("+repeat+")");            
+        sb.append("(");            
+        sb.append(repeat);
+        sb.append(")");            
+            
+            // +repeat+")"
+            
 
         }
 
