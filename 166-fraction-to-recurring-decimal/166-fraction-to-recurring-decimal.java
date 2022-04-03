@@ -25,9 +25,12 @@ class Solution {
         StringBuilder decimal = new StringBuilder(".");
         int idx = 1;
         while(true && r!=0 ){
-            long newR   =  r*10   % denom;
-            long newQ =  r*10  / denom;
-            decimal.append( Math.abs(newQ) );
+            long n =  r*10;
+            long newR   =  n   % denom;
+            long newQ =  n  / denom;
+            
+            
+            decimal.append( Math.abs(newQ) );            
             if(map.containsKey( newR )  ){
                 r =  newR ;
                 break;
@@ -38,14 +41,14 @@ class Solution {
             r = newR;
                 
         }
+        
         if(r==0){
             sb.append(decimal);
         }
         else{
+        //          case like 1.2(6)  -  herer 6 repeat so only 6 comes in bracket
         String repeat =  decimal.substring(map.get(r)+1 );
-        String pre =  decimal.substring(0,map.get(r)+1 );
-        
-        
+        String pre =  decimal.substring(0,map.get(r)+1 );                
         sb.append(pre );
         sb.append("("+repeat+")");            
 
