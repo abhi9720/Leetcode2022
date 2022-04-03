@@ -24,7 +24,7 @@ class Solution {
             
         StringBuilder decimal = new StringBuilder(".");
         int idx = 1;
-        while(true && r!=0 ){
+        while(  r!=0 ){
             long n =  r*10;
             long newR   =  n   % denom;
             long newQ =  n  / denom;
