@@ -1,4 +1,7 @@
 class Solution {
+    
+    // ![image](https://assets.leetcode.com/users/images/f16499c9-c11e-44ed-b44e-140dd35cae49_1648990078.3700552.jpeg)
+
     public void nextPermutation(int[] nums) {
         int n  =  nums.length;
         int i =  n-1;
