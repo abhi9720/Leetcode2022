@@ -1,25 +1,35 @@
 class Solution {
     public int[] numSmallerByFrequency(String[] queries, String[] words) {
-        // precompuete
-        Map<Integer,Integer> map =  new HashMap<>();
+        // pre-compute
+        int frequency[]   =  new int[words.length];
         for(int i=0 ;i < words.length ; i++){
             int freq =  leastCharFreq( words[i] );
-            map.put( i , freq );            
+            frequency[i]  =  freq;
         }
+        Arrays.sort(frequency);
+        
         int ans[] =  new int[ queries.length ];
         int idx = 0;
         for(String q  : queries ){            
-            ans[idx++]  = howManyGreater(map,q);
+            ans[idx++]  = howManyGreater(frequency,q);
         }
         return ans;
     }
-    int howManyGreater( Map<Integer,Integer> map , String  q){
+    int howManyGreater(int frequency[]  , String  q){
         int f = leastCharFreq(q);
-        int count = 0;
-        for(int val : map.keySet() ){
-            count += map.get(val) > f?1:0;
-        }
-        return count;        
+        int count = 0 ;
+        int low = 0 , high = frequency.length-1;
+        while(low <= high ){
+            int mid =  low + (high-low)/2;
+            if( frequency[mid] <= f ){
+                low =  mid+1;
+            }
+            else{
+                high =  mid-1;
+            }
+        }                
+        // diff of lastindex to hight +1 gives length
+        return (frequency.length - low);        
     }
     
     int leastCharFreq(String word){
