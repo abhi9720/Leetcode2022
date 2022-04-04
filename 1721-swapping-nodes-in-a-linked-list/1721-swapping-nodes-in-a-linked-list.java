@@ -10,43 +10,43 @@
  */
 class Solution {
     public ListNode swapNodes(ListNode head, int k) {
-        ListNode dummy   =  new ListNode(-1,head);
-        ListNode t1 = dummy, t1pre =  null;
-        ListNode t2 = dummy, t2pre =  null;
-                        
-        for(int i=0;i<k;i++){            
-            t1pre =  t1;    t1 =  t1.next;            
-            if(t1==null){
-                return  head;
+    //  we have to swap kth index and n-k th index element in list
+        ListNode dummy =  new ListNode(-1);
+        dummy.next =  head;
+        
+        /*move two pointer such that
+            i pointer point to kth index
+            j pointer point to n-kth index         
+        */
+
+        
+        ListNode swap1 = dummy;// store kth index element 
+        ListNode swap2 = dummy ;// store n-kth index element 
+        ListNode  prev1 =  null , prev2 = null;
+        
+        
+        // noww find
+        ListNode temp = dummy;
+        int idx = 0;
+        while(temp!=null){
+            if(idx<k){
+                prev1 =  swap1;
+                swap1 =  swap1.next;
+            }else{
+                prev2 =  swap2;
+                swap2 =  swap2.next;
             }
-        }        
-        ListNode itr1 =  t1 ;
-        while(itr1!=null){
-            t2pre =  t2; t2 =  t2.next;
-            itr1 =  itr1.next;            
+            idx++;
+            temp =  temp.next;
         }
         
-        // now swap these two nodes        
-       // approach 1 working 
-//         t1pre.next =  t2;
-//         t2pre.next =  t1;
-        
-//         ListNode temp =  t1.next;
-//         t1.next = t2.next;
-//         t2.next = temp;
-                                            
-        // 2nd approch but this not working
-        t1pre.next =  t2;
-        t2pre.next =  t1;
-        
-        ListNode t1next  =  t1.next;
-        ListNode t2next =  t2.next;  
-        
-        t1.next =  t2next;
-        t2.next = t1next;  
-       
+        // swap connection
+        prev1.next = swap2;
+        prev2.next =  swap1;
+        ListNode swap1next =  swap1.next;
+        swap1.next =  swap2.next;
+        swap2.next =  swap1next;
         
         return dummy.next;
-        
     }
 }
