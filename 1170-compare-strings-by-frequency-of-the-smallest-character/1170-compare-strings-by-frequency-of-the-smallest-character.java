@@ -17,19 +17,20 @@ class Solution {
     }
     int howManyGreater(int frequency[]  , String  q){
         int f = leastCharFreq(q);
+        
         int count = 0 ;
         int low = 0 , high = frequency.length-1;
-        while(low <= high ){
-            int mid =  low + (high-low)/2;
+        while(low <= high){
+            int mid =  low+(high-low)/2;
+            
             if( frequency[mid] <= f ){
                 low =  mid+1;
-            }
-            else{
+            }else{
                 high =  mid-1;
             }
-        }                
-        // diff of lastindex to hight +1 gives length
-        return (frequency.length - low);        
+        }
+        return frequency.length-low;
+           
     }
     
     int leastCharFreq(String word){
