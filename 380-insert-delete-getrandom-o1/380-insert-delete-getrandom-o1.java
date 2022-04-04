@@ -1,48 +1,36 @@
 class RandomizedSet {
 
-    ArrayList<Integer> valueList;
-    HashMap<Integer,Integer> map;
-    Random rand = null;
+    ArrayList<Integer> list= null;
+    Map<Integer,Integer> valToIndex = null;
+    Random  rand =  null;
     public RandomizedSet() {
-        valueList =  new ArrayList<>();
-        map =  new HashMap<>();
-        rand = new Random();
+        list =  new ArrayList<>();
+        valToIndex =  new HashMap<>();
+        rand =  new Random();
+        
     }
     
     public boolean insert(int val) {
-        
-        boolean present =  map.containsKey(val);
-        if(present) return false;
-        valueList.add(val);
-        map.put(val, valueList.size()-1);
+        if(valToIndex.containsKey( val ) ) return false;
+        list.add(val);
+        valToIndex.put(val , list.size()-1 );        
         return true;
     }
     
     public boolean remove(int val) {
-        int idx =  map.getOrDefault(val,-1);
+        int idx  =  valToIndex.getOrDefault(val,-1);
         if(idx==-1) return false;
         
-        int lidx =  valueList.size()-1;
+        int lastIdx =  list.size()-1;
+        list.set( idx , list.get(lastIdx) );// swapping done 
         
-        
-        map.put( valueList.get(lidx) , idx );
-        valueList.set(idx , valueList.get(lidx));
-        
-        map.remove( val );
-        valueList.remove(lidx);
+        valToIndex.put( list.get(lastIdx) , idx );
+        list.remove(lastIdx);
+        valToIndex.remove(val);
         return true;
     }
     
     public int getRandom() {
-        
-        return valueList.get( rand.nextInt(valueList.size()) );
+        return list.get( rand.nextInt( list.size() )  ) ;
     }
 }
-
-/**
- * Your RandomizedSet object will be instantiated and called as such:
- * RandomizedSet obj = new RandomizedSet();
- * boolean param_1 = obj.insert(val);
- * boolean param_2 = obj.remove(val);
- * int param_3 = obj.getRandom();
- */
