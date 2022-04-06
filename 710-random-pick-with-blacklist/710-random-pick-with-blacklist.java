@@ -5,16 +5,17 @@ class Solution {
     int range  ;
     public Solution(int n, int[] blacklist) {
         // range     is n -  blacklist.size()
-        this.range = n-1 -  blacklist.length;
+        this.range = n -  blacklist.length;
        // 7 - 3 =  4 i.e., 0 to 4 
-        HashSet<Integer> set =  new HashSet<>();
+        
        for(int ele : blacklist){
-           set.add(ele);
+           map.put(ele , -1);
        }
+        
        int pointer =  n-1;
         for(int ele : blacklist){
-            if(ele >  range) continue;
-            while( set.contains(pointer) ) pointer-=1;
+            if(ele >=  range) continue;
+            while( map.containsKey(pointer) ) pointer-=1;
             map.put(ele , pointer);    
             pointer-=1;
         }
@@ -25,7 +26,7 @@ class Solution {
     public int pick() {
         
         
-        int idx =  rand.nextInt(range+1);
+        int idx =  rand.nextInt(range);
         // System.out.println(idx);
         return map.getOrDefault(idx,idx);
     }
