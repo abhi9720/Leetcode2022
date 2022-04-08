@@ -16,7 +16,7 @@ class KthLargest {
     public int add(int val) {
         // need to do k-1 removal then kth element as kth largest
         q.offer(val);
-        while(q.size()>k ){
+        if(q.size()>k ){
             q.poll();
         }
         return q.peek();
