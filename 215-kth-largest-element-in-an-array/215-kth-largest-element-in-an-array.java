@@ -6,7 +6,7 @@ class Solution {
         
         int left =  0, right=nums.length-1;
         while(left<=right){
-            int pidx =  new Random().nextInt(right - left + 1) + left;
+            int pidx =  new Random().nextInt(right-left+1)+left;
             int idx =  partitionArray(nums,left,right,pidx);
             
             if(idx+1==k){
@@ -23,7 +23,8 @@ class Solution {
     }
     
     int partitionArray(int nums[] , int left, int right,int pidx){
-        int pele =  nums[pidx];        
+        int pele =  nums[pidx];    
+        // take this element to last
         swap(nums,pidx , right);                        
         pidx = left;
         for(int i =  left ; i<right;i++){
