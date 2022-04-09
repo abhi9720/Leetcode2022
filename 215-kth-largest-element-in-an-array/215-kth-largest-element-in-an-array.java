@@ -1,10 +1,13 @@
 class Solution {
+    
+  
+    
     public int findKthLargest(int[] nums, int k) {
         
         int left =  0, right=nums.length-1;
         while(left<=right){
-            
-            int idx =  partitionArray(nums,left,right);
+            int pidx =  new Random().nextInt(right - left + 1) + left;
+            int idx =  partitionArray(nums,left,right,pidx);
             
             if(idx+1==k){
                 return nums[idx];
@@ -19,24 +22,20 @@ class Solution {
         return -1;
     }
     
-    int partitionArray(int nums[] , int left, int right){
-        // partition index 
-        int pidx =  right;
-        int pele =  nums[pidx];
-        
-        int storeIdx = left;
-        for(int i =  left ; i<=right;i++){
-            if(nums[i] > pele ){
-                swap(nums, storeIdx , i);
-                storeIdx++;                    
+    int partitionArray(int nums[] , int left, int right,int pidx){
+        int pele =  nums[pidx];        
+        swap(nums,pidx , right);                        
+        pidx = left;
+        for(int i =  left ; i<right;i++){
+            if( nums[i] > pele  ){
+                swap(nums, pidx , i);
+                pidx++;                    
             }
         }
-        // swap partion element 
-        swap(nums,storeIdx , pidx);
-        
-        
-        
-        return storeIdx;
+        // partition :   > | = | <= 
+        // take partition element of its correct positin
+        swap(nums,pidx , right);                        
+        return pidx;
     }
     private void swap(int nums[], int a ,int b){
         int t =  nums[a];
