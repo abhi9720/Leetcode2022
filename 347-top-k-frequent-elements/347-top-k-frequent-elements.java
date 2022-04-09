@@ -1,12 +1,15 @@
 class Solution {
-    class pair{
+   public class pair implements Comparable<pair>{
         int ele ;
         int freq;
         public pair(int ele , int freq){
             this.ele  =  ele;
             this.freq =  freq;            
         }
-        
+        @Override
+        public int compareTo(pair p){
+            return this.freq - p.freq;
+        }
     }
     class pairComparator implements Comparator<pair>{
          public int compare(pair p1, pair p2) {
@@ -22,7 +25,7 @@ class Solution {
             map.put( ele , map.getOrDefault(ele,0)+1 );
         }
         
-        PriorityQueue<pair> q =  new PriorityQueue<>(new pairComparator());
+        PriorityQueue<pair> q =  new PriorityQueue<>();
         for(int key : map.keySet() ){
             q.add( new pair(key, map.get(key) )  ) ;
             if(q.size() > k ){
