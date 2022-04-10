@@ -1,29 +1,33 @@
 public class Codec {
 
-  HashMap<String, String> map;
-    public Codec(){
-        map = new HashMap<>();
-    }
     
-    // Encodes a URL to a shortened URL.
+    static String charSet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    HashMap<String, String> urlToCode =  new HashMap<>();
+    HashMap<String,String> codeToUrl =  new HashMap<>();
     public String encode(String longUrl) {
-        StringBuilder sb = new StringBuilder();
-        Random r = new Random();
-        char ch = (char)r.nextInt(100);
-        sb.append(ch);
-        
-        while(map.containsKey(sb.toString()) == true){
-            ch = (char)r.nextInt(100);
-            sb.append(ch);
+        if(urlToCode.containsKey(longUrl) ){
+            return urlToCode.get(longUrl);
         }
         
-        map.put(sb.toString(), longUrl);
-        return sb.toString();
+        StringBuilder sb =  new StringBuilder( );
+        String key =  "";
+        do{
+            for(int i=0;i<6;i++){
+                int idx =  (int)Math.random()*charSet.length();
+                sb.append( charSet.charAt(idx) );
+            }
+            
+            key  =  sb.toString();
+        }
+        while( codeToUrl.containsKey(key) );
+        urlToCode.put(longUrl,key);
+        codeToUrl.put(key,longUrl);
+        return key;
     }
 
-    // Decodes a shortened URL to its original URL.
+    // Decodes a shortened URL to its original URL .
     public String decode(String shortUrl) {
-        return map.get(shortUrl);
+        return codeToUrl.get(shortUrl);
     }
 }
 
