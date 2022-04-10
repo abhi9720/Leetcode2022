@@ -8,12 +8,8 @@ class Solution {
         int petrol =  startFuel;;
         int count  = 0,i=0;
         while(petrol < target){
-            while(i<stations.length){
-                if(stations[i][0] <= petrol){
-                    pq.add(stations[i][1]);
-                }else{
-                    break;
-                }
+            while(i<stations.length && stations[i][0] <= petrol){                
+                pq.add(stations[i][1]);                
                 i++;
             }
             if(pq.size()==0 ){
