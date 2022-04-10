@@ -38,7 +38,8 @@ class Solution {
                 }
                 j++;
             }
-            if(i-j+1 > len && map.size()==k ){
+            if(i-j+1 > len && map.size()==k ){// need to check map 
+            // size is k ot not, it make be smaller than k
                     len =  i-j+1;
             }
             i++;
