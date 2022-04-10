@@ -5,19 +5,17 @@ class Solution {
         int ptr =  0;
         for(String op : ops){
             if(op.equals("+") ){
-                BigInteger num1  =  new BigInteger(stk[ptr-1] );
-                BigInteger num2  =  new BigInteger(stk[ptr-2] );
-                num1  =  num1.add(num2);
-                stk[ptr++] =  num1.toString();                                
+                int num1 =  Integer.valueOf(stk[ptr-1] );
+                int num2 =  Integer.valueOf(stk[ptr-2] );
+                stk[ptr++] =  String.valueOf(num1+num2);
+                                               
             }else if(op.equals("C") ){
                 ptr-=1;
-                stk[ptr] =  null;                
+                stk[ptr] =  null;                     
             }
             else if( op.equals("D") ){
-                BigInteger num1  =  new BigInteger(stk[ptr-1] );
-                BigInteger bi2 = BigInteger.valueOf(2L);
-                num1 =  num1.multiply(bi2);
-                stk[ptr++] =  num1.toString();                
+                int num1 =  Integer.valueOf(stk[ptr-1] );
+                stk[ptr++] =  String.valueOf(num1*2);
             }
             else{
                 stk[ptr++] =  op;
