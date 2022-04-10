@@ -1,13 +1,33 @@
 public class Codec {
 
-    // Encodes a URL to a shortened URL.
+    
+    static String charSet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    HashMap<String, String> urlToCode =  new HashMap<>();
+    HashMap<String,String> codeToUrl =  new HashMap<>();
     public String encode(String longUrl) {
-        return longUrl;
+        if(urlToCode.containsKey(longUrl) ){
+            return urlToCode.get(longUrl);
+        }
+        
+        StringBuilder sb =  new StringBuilder( );
+        String key =  "";
+        do{
+            for(int i=0;i<6;i++){
+                int idx =  (int)Math.random()*charSet.length();
+                sb.append( charSet.charAt(idx) );
+            }
+            
+            key  =  sb.toString();
+        }
+        while( codeToUrl.containsKey(key) );
+        urlToCode.put(longUrl,key);
+        codeToUrl.put(key,longUrl);
+        return key;
     }
 
-    // Decodes a shortened URL to its original URL.
+    // Decodes a shortened URL to its original URL .
     public String decode(String shortUrl) {
-        return shortUrl;
+        return codeToUrl.get(shortUrl);
     }
 }
 
