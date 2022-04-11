@@ -35,7 +35,7 @@ class Solution {
             }            
             prev = p;
         }        
-        if(!pq.isEmpty() || prev!=null && prev.freq!=0 ) return "";
+        if(prev!=null && prev.freq!=0 ) return "";
         return sb.toString();                    
     }
 }
