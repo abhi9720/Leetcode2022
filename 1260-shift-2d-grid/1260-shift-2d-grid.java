@@ -18,14 +18,7 @@ class Solution {
                  count = 0;
              }
              i =  (i+1)%size;                 
-         }
-        
-        
-        
-        
-        
-        System.out.println( ans  );
-        
+         }                                                
         return ans;
     }
 }
