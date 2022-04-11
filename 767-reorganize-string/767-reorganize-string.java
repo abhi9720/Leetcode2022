@@ -8,9 +8,7 @@ class Solution {
         }        
     }
     public String reorganizeString(String s) {
-        PriorityQueue<pair> pq =  new PriorityQueue<>( (a,b)->{
-            return b.freq -  a.freq;
-        } );
+        PriorityQueue<pair> pq =  new PriorityQueue<>( (a,b)-> b.freq -  a.freq);
         int freq[] =  new int[26];
         for(char ch : s.toCharArray() ){
             freq[ch-'a']++;
