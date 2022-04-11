@@ -1,14 +1,17 @@
 class Solution {
-    class pair{
+    class pair implements Comparable<pair>{
         char ele;
         int freq ;
         public pair(char ele , int freq){
             this.ele =  ele;
             this.freq =  freq;
         }        
+        public int compareTo(pair p){
+            return p.freq - this.freq;
+        }
     }
     public String reorganizeString(String s) {
-        PriorityQueue<pair> pq =  new PriorityQueue<>( (a,b)-> b.freq -  a.freq);
+        PriorityQueue<pair> pq =  new PriorityQueue<>();
         int freq[] =  new int[26];
         for(char ch : s.toCharArray() ){
             freq[ch-'a']++;
