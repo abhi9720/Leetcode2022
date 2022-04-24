@@ -20,11 +20,9 @@ class avgObject{
         this.c =  c;
         this.avg  =  time;
     }
-    void updateAvg(double newavg){
-        
+    void updateAvg(double newavg){        
         this.avg =  newavg;
-        this.c+=1;
-        // System.out.println("avg updated : "+ avg );
+        this.c+=1;        
     }    
 }
 class UndergroundSystem {
@@ -43,8 +41,7 @@ class UndergroundSystem {
         customerData newcust =  new customerData(t,stationName);
         train.put(id,newcust);
         
-        // System.out.println("check in : "+stationName);
-        // System.out.println("train : "+train);
+
         
     }
     
@@ -64,20 +61,15 @@ class UndergroundSystem {
             endstation.put(stationName,entry);
             
         }
-        train.remove(id);
-     
-        //  System.out.println("check out : "+stationName);
-        // System.out.println("record : "+record);
-        // System.out.println("endstation : "+endstation);
-        // System.out.println("-----------------------------------------");
-        
+        train.remove(id);             
     }
     
     public double getAverageTime(String startStation, String endStation) {
-        if(record.containsKey(startStation) ){
-            if(record.get(startStation).containsKey(endStation)){
-                // System.out.println(record.get(startStation).get(endStation).c);
-                return record.get(startStation).get(endStation).avg;
+        HashMap<String,avgObject > station =  record.get(startStation);
+        if(station!=null){
+            avgObject entry =  station.get(endStation);
+            if(entry!=null){
+                return entry.avg;
             }
         }
         return 0;
