@@ -51,8 +51,8 @@ class UndergroundSystem {
         int duration =  t - cust.t;
         record.putIfAbsent(startStation,new HashMap<>());
         HashMap<String,avgObject > endstation = record.get(startStation);
-        if(endstation.containsKey(stationName) ){
-            avgObject e = endstation.get(stationName);
+        avgObject e = endstation.get(stationName);
+        if(e!=null){            
             double newavg =  ((e.avg*e.c ) + duration)/(e.c+1);
             e.updateAvg(newavg);
         }
