@@ -1,50 +1,32 @@
 class Solution {
-     char mat[][] ;
+     
     public void solveSudoku(char[][] board) {
-        solveSudoku(board,0,0);
-        for(int x=0;x<board.length;x++){
-            for(int y=0;y<board.length;y++){
-                   board[x][y]=mat[x][y];
+        solveSudokuHelper(board);
+       
+    }
+    
+    
+    public  boolean solveSudokuHelper(char[][] board) {
+    
+    for(int i = 0; i < board.length; i++){
+            for(int j = 0; j < board[0].length; j++){
+                if(board[i][j] == '.'){
+                    for(char c = '1'; c <= '9'; c++){//trial. Try 1 through 9
+                        if(isSafe(board, i, j, c)){
+                            board[i][j] = c; //Put c for this cell
+                            
+                            if(solveSudokuHelper(board))
+                                return true; //If it's the solution return true
+                            else
+                                board[i][j] = '.'; //Otherwise go back
+                        }
+                    }
+                    
+                    return false;
+                }
             }
         }
-        
-    }
-    
-    
-    public  void solveSudoku(char[][] board, int i, int j) {
-    
-    if(i==board.length){
-        mat = new char[board.length][board.length];
-        for(int x=0;x<board.length;x++){
-            for(int y=0;y<board.length;y++){
-                mat[x][y] =  board[x][y];
-            }
-        }
-        
-        return;
-        
-    }
-    
-    // for current i,j find its submatrix
-    
-    
-    int n  =  board.length;
-     int newY = j==n-1?0:j+1;
-     int newX = j==n-1?i+1:i;
-    
-    if(board[i][j]!=46){        
-        solveSudoku(board,newX,newY );
-        return;
-    }
-    
-   
-    for(char num='1';num<='9';num++){
-        if(isSafe(board,i,j,num) ){
-            board[i][j] =  num;
-            solveSudoku(board,newX,newY );
-            board[i][j] =  '.';
-        }
-    }
+        return true;      
   }
     
     private static boolean isSafe(char[][] board , int i ,int j,char num){
@@ -55,7 +37,6 @@ class Solution {
         for(int x= x1;x<=x2;x++){
             for(int y=y1;y<=y2;y++){
                 if(board[x][y] == num ){
-                    // System.out.println("{"+x+" "+y+"} used   : "+board[x][y] );
                     return false;
                 }
             }
@@ -63,7 +44,6 @@ class Solution {
         // check column 
         for(int x=0;x<board.length;x++){
             if(board[x][j]==num){ 
-                // System.out.println("{"+x+" "+j+"} used   : "+board[x][j] );
                 return false;}
         }
         //check row 
