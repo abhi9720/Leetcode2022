@@ -149,34 +149,35 @@ class Node
 class Solution
 {
     
-    Node head=null;
-	Node prev=null;
-	int f=0;
+    
 	
-    void solve(Node root){
+    void solve(Node root, Node head[],Node prev[],int f[]){
        if(root==null){
            return;
        }
-       solve(root.left);
-       if(f==0){
-           f=1;
-           head=root;
-           prev=head;
+       solve(root.left,head,prev,f);
+       if(f[0]==0){
+           f[0]=1;
+           head[0]=root;
+           prev[0]=head[0];
        }else{
-           prev.right=root;
-           prev.right.left=prev;
-           prev=prev.right;
+           prev[0].right=root;
+           prev[0].right.left=prev[0];
+           prev[0]=prev[0].right;
        }
-       solve(root.right);
+       solve(root.right,head,prev,f);
    }
     
     Node bToDLL(Node root)
     {
 	//  Your code here
 	
+	Node head[] = new Node[1];
+	Node prev[] = new Node[1];
+	int f[] = new int[1];
 	
-	solve(root);
-	return head;
+	solve(root,head,prev,f);
+	return head[0];
 	
     }
 }
