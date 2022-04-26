@@ -127,40 +127,56 @@ class BT_To_DLL
 }
 // } Driver Code Ends
 
+
+//User function Template for Java
+
+/* class Node
+class Node
+{
+	Node left, right;
+	int data;
+	
+	Node(int d)
+	{
+		data = d;
+		left = right = null;
+	}
+	
+}*/
+
+//This function should return head to the DLL
+
 class Solution
 {
-    //Function to convert binary tree to doubly linked list and return it.
+    
+    Node head=null;
+	Node prev=null;
+	int f=0;
+	
+    void solve(Node root){
+       if(root==null){
+           return;
+       }
+       solve(root.left);
+       if(f==0){
+           f=1;
+           head=root;
+           prev=head;
+       }else{
+           prev.right=root;
+           prev.right.left=prev;
+           prev=prev.right;
+       }
+       solve(root.right);
+   }
+    
     Node bToDLL(Node root)
     {
-        if(root==null  || (root.left==null && root.right==null) ){
-            return root;
-        }
-        
-        Node leftreturn  =  bToDLL(root.left);
-        Node rightreturn =  bToDLL(root.right);
-        
-        if(leftreturn!=null){
-            Node itr =  leftreturn;
-            while(itr!=null && itr.right!=null){
-                itr =  itr.right;
-            }
-            itr.right = root;
-            root.left = itr;
-        }
-        
-        if(rightreturn!=null){
-            root.right  =  rightreturn;
-            rightreturn.left =  root;
-        }
-        return leftreturn==null?root:leftreturn;
-        
-        
-        
-        
-        
-        
-        
+	//  Your code here
+	
+	
+	solve(root);
+	return head;
+	
     }
-}    
-    
-   
+}
