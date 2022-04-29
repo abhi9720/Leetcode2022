@@ -12,7 +12,33 @@ class pair{
  
 class Solution {
     
-    //  dfs
+    public boolean isBipartite(int[][] graph) {
+        int n =  graph.length;
+        int colors[] =  new int[n];
+        for(int i=0;i<n;i++){
+            if(colors[i]==0 && !dfs(graph,colors,1,i) ){
+                return false;
+            }
+        }
+        return true;
+    }
+    private boolean dfs(int [][]graph,int colors[],int color,int src){
+        
+        if(colors[src]!=0 ){
+            return colors[src]==color;
+        }
+        
+        colors[src]  =  color;
+        for(int nbr:graph[src]){
+            if(!dfs(graph,colors,-color,nbr)){
+                return false;
+            }
+        }
+        return true;
+    }
+  
+    /*
+//     bfs
     public boolean isBipartite(int[][] graph) {
         int n =  graph.length;
         Integer visited[]= new Integer[n];
@@ -51,7 +77,7 @@ class Solution {
         }
         return true;        
     }
-    
+    */
     
     
 }
