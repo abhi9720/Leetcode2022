@@ -12,6 +12,7 @@ class pair{
  
 class Solution {
     
+    //  dfs
     public boolean isBipartite(int[][] graph) {
         int n =  graph.length;
         Integer visited[]= new Integer[n];
