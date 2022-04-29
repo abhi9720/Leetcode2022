@@ -22,6 +22,9 @@ class Solution {
         }
         return true;
     }
+    // 0  = not colored yet
+    // 1 =  colored red
+    // -1 = colored blue 
     private boolean dfs(int [][]graph,int colors[],int color,int src){
         
         if(colors[src]!=0 ){
