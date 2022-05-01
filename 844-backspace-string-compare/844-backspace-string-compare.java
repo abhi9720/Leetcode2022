@@ -4,7 +4,7 @@ class Solution {
         int i = n1-1;
         int j =  n2-1;
         int c1 = 0,c2 =0;
-        while( true ){
+        while( i>=0 || j>=0 ){
             c1 = 0;
             
             for(;i>=0;i--){                
