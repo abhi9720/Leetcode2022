@@ -1,13 +1,11 @@
-class Triplet implements Comparable<Triplet>{
+class Triplet{
     int x,  y,  t;
     public Triplet(int x,int y, int t){
         this.x =  x;
         this.y =  y;
         this.t = t ;
     }
-    public int compareTo(Triplet o){
-        return this.t - o.t;
-    }         
+        
     public String toString(){
         return "["+x+","+y+"@ "+t+"] ";
     }
@@ -21,7 +19,7 @@ class Solution {
 
         int n =  grid.length;
         int m =  grid[0].length;
-        PriorityQueue<Triplet> pq =  new PriorityQueue<>();
+        Queue<Triplet> pq =  new ArrayDeque<>();
         // insert rotten oranfe at t  =0;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
