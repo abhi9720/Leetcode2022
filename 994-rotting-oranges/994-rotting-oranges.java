@@ -4,11 +4,7 @@ class Triplet{
         this.x =  x;
         this.y =  y;
         this.t = t ;
-    }
-        
-    public String toString(){
-        return "["+x+","+y+"@ "+t+"] ";
-    }
+    }          
 }
 class Solution {
     public int orangesRotting(int[][] grid) {
@@ -19,6 +15,7 @@ class Solution {
 
         int n =  grid.length;
         int m =  grid[0].length;
+        int count  = 0;
         Queue<Triplet> pq =  new ArrayDeque<>();
         // insert rotten oranfe at t  =0;
         for(int i=0;i<n;i++){
@@ -26,6 +23,7 @@ class Solution {
                 if(grid[i][j]==2){
                     pq.offer(new Triplet( i,j,0 ) );
                 }
+                if(grid[i][j]!=0) count++;
             }
         }
         
@@ -33,11 +31,11 @@ class Solution {
         int dir[][]  = {{-1,0},{0,1},{0,-1},{1,0}};
         int time = 0;
         while(pq.size() >0 ){
-            Triplet  p =  pq.remove();   
-            
+            Triplet  p =  pq.remove();               
             if( visited[p.x][p.y] ) continue;            
             visited[p.x][p.y] =  true;
             time =  Math.max(time,p.t);
+            count-=1;
             for(int d[]:dir){
                 int nx =  p.x+d[0];
                 int ny =  p.y+d[1];
@@ -48,14 +46,8 @@ class Solution {
             
         }      
         
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(grid[i][j]!=0 ){
-                    if(visited[i][j]==false ) return -1;
-                }
-            }
-        }
-        return time;
+        
+        return (count==0)?time:-1;
     }
     
     private boolean isValid(int n , int m,int newx,int newy){
