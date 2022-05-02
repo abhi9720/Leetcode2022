@@ -44,8 +44,7 @@ class Solution {
                 int nx =  p.x+d[0];
                 int ny =  p.y+d[1];
                 if(isValid(n,m,nx,ny) && visited[nx][ny]== false && grid[nx][ny]==1 ){
-                    pq.offer( new Triplet( nx,ny,p.t+1 )   );
-                    
+                    pq.offer( new Triplet( nx,ny,p.t+1 )   );                    
                 }
             }
             
