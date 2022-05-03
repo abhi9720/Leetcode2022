@@ -6,19 +6,23 @@ class Solution {
         // either less than the max till now 
         // prev > curr
         int start =  -1,end =  -1;
-        int max = nums[0];
+        int max =  nums[0];
         for(int i=1;i<nums.length;i++ ){
-            boolean fail =  false;                        
-            if(nums[i] < max ) fail =  true;
-            max  =  Math.max(nums[i],max);
-            if(fail){
+                              
+            
+            
+            if(nums[i] < max){
                 if(start==-1){
                     start  = i-1;                    
                 }
-                while(start-1>=0 && nums[start-1]>nums[i]) start--;
+                while(start-1>=0 && nums[start-1]>nums[i]){
+
+                    start--;
+                }
                 end =  i+1;
                 
             }            
+            max  =  Math.max(nums[i],max);
         }
         return end-start;
         
