@@ -16,13 +16,13 @@ class Solution {
             visited[x][y]  =  true;                        
             for(int d[]:dir){
                 int nx  =  x+d[0] , ny =  y+d[1];
-                if(nx>=0 && ny>=0 && nx<n && ny<n){
-                    if(  !visited[nx][ny] ){       
+                if(nx>=0 && ny>=0 && nx<n && ny<n && !visited[nx][ny] ){
+                    
 /* always insert neighbour,
  we can only move through neighbour,so our current node definalty rise to that level , that why we did not put current node in  with incremnet time again ,to match with neighbour elevation                       
  */
                         q.offer(new int[]{nx,ny,Math.max(grid[nx][ny],t) }); 
-                    }
+                    
                 }                
             }                        
             
