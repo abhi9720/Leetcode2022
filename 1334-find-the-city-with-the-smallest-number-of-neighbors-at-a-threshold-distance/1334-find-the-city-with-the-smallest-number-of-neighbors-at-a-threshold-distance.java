@@ -19,8 +19,7 @@ class Solution {
         int node = -1;
         int ans =  Integer.MAX_VALUE;
         for(int i=0;i<n;i++){
-            int count = bfs(n,graph,i,distanceThreshold);
-            // System.out.println("i : "+i+"  count : "+count);
+            int count = bfs(n,graph,i,distanceThreshold);            
             if(ans >=count){
                 node =  i;
                 ans =  count;                    
@@ -38,7 +37,7 @@ class Solution {
     private int bfs(int n , ArrayList<int []>[]graph, int src,int vo  ){
         Queue<int[]> q =  new ArrayDeque<>();
         int distTillNow[]= new int[n];
-        boolean visited[]= new boolean[n];
+        
         Arrays.fill(distTillNow,-1);
         q.add(new int[]{src,0});
         int count = 0;
@@ -46,13 +45,14 @@ class Solution {
             int peek[] =  q.remove(); 
             int node =  peek[0] , dist = peek[1];            
             if(dist > vo ) continue;
-            if(visited[node] ){
-                if(distTillNow[node] != -1 && dist > distTillNow[node]    ) continue;
+            if(distTillNow[node] != -1 ){
+                if( dist > distTillNow[node]    ) continue;
             }
-            if(!visited[node]){
+            
+            if(distTillNow[node] == -1){// increase count only if first time visitng
                 count++;
             }
-            visited[node] =  true;                                    
+            
             distTillNow[node] = dist;                                        
                                     
             for(int ed[]:graph[peek[0]]){
