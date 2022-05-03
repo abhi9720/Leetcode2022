@@ -1,0 +1,73 @@
+// The Reason of DFS Not Working (Explain Graph and Example)
+// https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/discuss/490555/The-Reason-of-DFS-Not-Working-(Explain-Graph-and-Example)
+
+class Solution {
+    public int findTheCity(int n, int[][] edges, int distanceThreshold) {
+        
+        ArrayList<int []>[]graph =  new ArrayList[n];
+        for(int i=0;i<n;i++){
+            graph[i] =  new ArrayList<>();
+        }
+        for(int i=0;i<edges.length;i++){            
+            int v1=  edges[i][0];
+            int v2 =  edges[i][1];
+            int wt =  edges[i][2];
+            graph[v1 ].add(new int[]{v1,v2,wt});            
+            graph[v2 ].add(new int[]{v2,v1,wt});            
+            
+        }
+        int node = -1;
+        int ans =  Integer.MAX_VALUE;
+        for(int i=0;i<n;i++){
+            int count = bfs(n,graph,i,distanceThreshold);
+            // System.out.println("i : "+i+"  count : "+count);
+            if(ans >=count){
+                node =  i;
+                ans =  count;                    
+            }
+        }
+       
+        
+        return node;
+        
+        
+        
+    }
+    
+    
+    private int bfs(int n , ArrayList<int []>[]graph, int src,int vo  ){
+        Queue<int[]> q =  new ArrayDeque<>();
+        int distTillNow[]= new int[n];
+        boolean visited[]= new boolean[n];
+        Arrays.fill(distTillNow,-1);
+        q.add(new int[]{src,0});
+        int count = 0;
+        while(q.size() >0 ){
+            int peek[] =  q.remove(); 
+            int node =  peek[0] , dist = peek[1];            
+            if(dist > vo ) continue;
+            if(visited[node] ){
+                if(distTillNow[node] != -1 && dist > distTillNow[node]    ) continue;
+            }
+            if(!visited[node]){
+                count++;
+            }
+            visited[node] =  true;                                    
+            distTillNow[node] = dist;                                        
+                                    
+            for(int ed[]:graph[peek[0]]){
+                if(dist+ed[2] <= vo) q.add(new int[]{ed[1],dist+ed[2]});                
+            }                     
+        }
+        
+        return count-1;
+        
+    }
+}
+
+
+
+
+
+
+
