@@ -18,8 +18,13 @@ class Solution {
                 int nx  =  x+d[0] , ny =  y+d[1];
                 if(nx>=0 && ny>=0 && nx<n && ny<n && !visited[nx][ny] ){
                     
-/* always insert neighbour,
- we can only move through neighbour,so our current node definalty rise to that level , that why we did not put current node in  with incremnet time again ,to match with neighbour elevation                       
+/* 
+Always insert neighbour, don't wait to raise our level
+we can only move through neighbour right?
+two cases -  our level less than neighbour or neighbour level less than our level
+in both cases, we have to wait for the same amount of time, so their level become equal
+and neighbour level will be Max of both currentNode level and neighbour level, at least one of them has to
+raise to the same level so the wait will be the max of both of their level.
  */
                         q.offer(new int[]{nx,ny,Math.max(grid[nx][ny],t) }); 
                     
