@@ -36,20 +36,26 @@ class Solution {
     
     private int bfs(int n , ArrayList<int []>[]graph, int src,int vo  ){
         Queue<int[]> q =  new ArrayDeque<>();
-        int distTillNow[]= new int[n];
-        
+        int distTillNow[]= new int[n];        
         Arrays.fill(distTillNow,-1);
+        
         q.add(new int[]{src,0});
         int count = 0;
         while(q.size() >0 ){
             int peek[] =  q.remove(); 
-            int node =  peek[0] , dist = peek[1];            
+            int node =  peek[0] , dist = peek[1];   
+            
+            // if threshold crossed then continue , no reason to explore in this path
             if(dist > vo ) continue;
+            
+            // if this node previously visited, then only visit it again if we 
+           //  visiting it in smaller distance
             if(distTillNow[node] != -1 ){
                 if( dist > distTillNow[node]    ) continue;
             }
             
-            if(distTillNow[node] == -1){// increase count only if first time visitng
+            // increase count only if first time visiting
+            if(distTillNow[node] == -1){
                 count++;
             }
             
