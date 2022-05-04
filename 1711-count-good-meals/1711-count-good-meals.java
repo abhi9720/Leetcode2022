@@ -17,7 +17,7 @@ class Solution {
                 power*=2;
             }       
             map.put(ele,map.getOrDefault( ele,0 )+1 );
-            
+            // by doing this we are avoding duplicay, 1,3 not happen , but 3,1 happend
         }
 
         return (int)count;
