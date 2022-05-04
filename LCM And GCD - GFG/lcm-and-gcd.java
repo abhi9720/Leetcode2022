@@ -34,11 +34,11 @@ class Solution {
             return gcd(B%A,A);
     }
     static Long _gcd(Long A,Long B){
-        while(B!=0){
+        while(A!=0){
             Long r =  B%A;
             B =  A;
             A =  r;
         }
-        return A;
+        return B;
     }
 };
