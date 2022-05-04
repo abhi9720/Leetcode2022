@@ -62,6 +62,7 @@ class Solution {
             distTillNow[node] = dist;                                        
                                     
             for(int ed[]:graph[peek[0]]){
+                // if threshold is not crossing the only push this neighbour
                 if(dist+ed[2] <= vo) q.add(new int[]{ed[1],dist+ed[2]});                
             }                     
         }
