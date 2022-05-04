@@ -50,9 +50,9 @@ class Solution {
             
             // if this node previously visited, then only visit it again if we 
            //  visiting it in smaller distance
-            if(distTillNow[node] != -1 ){
-                if( dist > distTillNow[node]    ) continue;
-            }
+            
+            if(distTillNow[node] != -1 && dist > distTillNow[node]    ) continue;
+            
             
             // increase count only if first time visiting
             if(distTillNow[node] == -1){
