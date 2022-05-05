@@ -26,10 +26,7 @@ class Solution {
             }
         }
        
-        
         return node;
-        
-        
         
     }
     
@@ -48,7 +45,7 @@ class Solution {
             // if threshold crossed then continue , no reason to explore in this path
             if(dist > vo ) continue;
             
-            // if this node previously visited, then only visit it again if we 
+            // if this node previously visited !=-1, then only visit it again if we 
            //  visiting it in smaller distance
             
             if(distTillNow[node] != -1 && dist > distTillNow[node]    ) continue;
