@@ -62,17 +62,7 @@ class Solution
     //Function to return list containing vertices in Topological order. 
     static int[] topoSort(int V, ArrayList<ArrayList<Integer>> graph) 
     {
-        // System.out.println(graph);
-        // boolean present[] =  new boolean[V];
-        // for(int i=0;i<graph.size();i++ ){
-        //     for(Integer vtx : graph.get(i) ){
-        //         present[vtx] =  true;
-        //     }
-        //     if(graph.get(i).size()!=0 ){
-        //         present[i] =  true;
-        //     }
-        // }
-        // System.out.println(Arrays.toString(present) );
+        
         boolean visited[] =  new boolean[V];
         Stack<Integer> stk =  new Stack<>();
         for(int i=0;i<V;i++){
@@ -81,13 +71,13 @@ class Solution
         }
     }
     
-    // System.out.println(stk);
+    
     
     int arr[] = new int[stk.size()];
     for(int i=0;i<arr.length;i++){
         arr[i] =  stk.pop();
     }
-    // System.out.println(Arrays.toString(arr) );
+
     return arr;
   
 }
