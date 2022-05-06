@@ -22,9 +22,7 @@ class Solution {
                 pair p = stk.pop();                
                 p.count+=1;
                 stk.push(p);
-            }
-            
-            
+            }                        
             if(stk.peek().count==k){
                stk.pop();                
             }
@@ -33,8 +31,8 @@ class Solution {
         
         StringBuilder sb =  new StringBuilder();
         for(pair p : stk){
-            while(p.count-->0)
-            sb.append(p.ch);
+            String str =  (p.ch+"").repeat(p.count);                         
+            sb.append(str);
         }
         return sb.toString();
            
