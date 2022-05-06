@@ -1,4 +1,6 @@
 class Solution {
+    // if there is no cycle in directed graph then there will be topological sort work
+    // otherwise no order of compilation possible
     public boolean canFinish(int n, int[][] prerequisites) {
         // if there is cycle in graph then no answer possible 
         ArrayList<Integer>[] graph =  new ArrayList[n];
