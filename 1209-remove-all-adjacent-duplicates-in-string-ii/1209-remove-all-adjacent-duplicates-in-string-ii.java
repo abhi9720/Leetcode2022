@@ -5,6 +5,9 @@ class pair{
         this.ch =  ch;
         this.count  =  count;
     }        
+    public String toString(){
+        return "["+ch+"-"+count+"";
+    }
 }
 class Solution {
     
@@ -16,19 +19,21 @@ class Solution {
                 stk.push(new pair(c , 1) );
             }
             else{
-                int peekCount  =  stk.peek().count;
-                stk.push(new pair(c , peekCount+1) );                                
+                pair p = stk.pop();                
+                p.count+=1;
+                stk.push(p);
             }
+            
+            
             if(stk.peek().count==k){
-                    int loop =  k;
-                     while(loop-->0){
-                         stk.pop();
-                     }                    
+               stk.pop();                
             }
                 
         }
+        
         StringBuilder sb =  new StringBuilder();
         for(pair p : stk){
+            while(p.count-->0)
             sb.append(p.ch);
         }
         return sb.toString();
