@@ -30,8 +30,7 @@ class Solution {
         
         StringBuilder sb =  new StringBuilder();
         for(int[] p : stk){
-            String str =  ( ((char)p[0]) +"").repeat(p[1]);                         
-            sb.append(str);
+            while(p[1]-->0) sb.append((char)p[0]);
         }
         return sb.toString();
            
