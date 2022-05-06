@@ -12,30 +12,14 @@ class pair{
 class Solution {
     
     
-    public String removeDuplicates(String s, int k) {
-        Stack<pair> stk  =  new Stack<>();
-        for(char c : s.toCharArray() ){
-            if(stk.isEmpty() || stk.peek().ch!=c ){
-                stk.push(new pair(c , 1) );
-            }
-            else{
-                pair p = stk.pop();                
-                p.count+=1;
-                stk.push(p);
-            }                        
-            if(stk.peek().count==k){
-               stk.pop();                
-            }
-                
+   public String removeDuplicates(String s, int k) {
+        int i = 0, n = s.length(), count[] = new int[n];
+        char[] stack = s.toCharArray();
+        for (int j = 0; j < n; ++j, ++i) {
+            stack[i] = stack[j];
+            count[i] = i > 0 && stack[i - 1] == stack[j] ? count[i - 1] + 1 : 1;
+            if (count[i] == k) i -= k;
         }
-        
-        StringBuilder sb =  new StringBuilder();
-        for(pair p : stk){
-            String str =  (p.ch+"").repeat(p.count);                         
-            sb.append(str);
-        }
-        return sb.toString();
-           
-        
+        return new String(stack, 0, i);
     }
 }
