@@ -16,9 +16,7 @@ class Solution {
             prevCol =  newCol;
             previousSum =  sum;
         }
-        
-        
-        
+                        
         return previousSum;
         
         
