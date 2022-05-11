@@ -14,7 +14,7 @@ class Solution {
                 newCol[i] = newCol[0] - c;
                 sum+=newCol[i];
             }        
-            prevCol =  newCol.clone();
+             System.arraycopy(newCol, 0, prevCol, 0, 5);             
             previousSum =  sum;
         }
         
