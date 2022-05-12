@@ -1,6 +1,6 @@
 class Solution {
     public List<List<Integer>> permuteUnique(int[] nums) {
-        List<Integer> permu  =  new ArrayList<>();
+        
         List<List<Integer> > ans =  new ArrayList<>();
         HashMap<Integer,Integer> map =  new HashMap<>();
         Set<Integer> unique =  new HashSet<>();
@@ -10,9 +10,8 @@ class Solution {
             map.put(ele,map.get(ele)+1);
         }
         
-        helper(map,permu,ans,nums.length,unique);
-        return ans;
-        
+        helper(map,new ArrayList<>(),ans,nums.length,unique);
+        return ans;        
     }
     private void helper(HashMap<Integer,Integer> map ,List<Integer> permu ,List<List<Integer> > ans ,int n,Set<Integer> unique){
         if(permu.size() == n ){
