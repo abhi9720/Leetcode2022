@@ -11,49 +11,51 @@ public:
 
     bool check(vector<int>adj[],vector<int>&colo,int s)
     {
-        colo[s]=1;
+        colo[s]=0;
         queue<int>q;
-        q.push(s);  
+        q.push(s);
         while(!q.empty())
         {
             int cur=q.front();
             q.pop();
-            
-            for(int child: adj[cur])
+            //bool a=true;
+            for(int child=0;child<adj[cur].size();child++)
             {
-                if(!colo[child]) // if this node is not colored 
+                if(colo[adj[cur][child]]!=-1)
                 {
-                    colo[child] =  -colo[cur];// giving alternate color 
-                    // if 1 then -1 or if -1 then 1
-                    q.push(child);
+                    if(colo[adj[cur][child]]==colo[cur])
+                    return false;
                 }
-                else if(colo[child]==colo[cur] ){
-                    return false;// if already colored with same color, can't be bipartite!
+                else
+                {
+                    if(colo[cur]==0)
+                    colo[adj[cur][child]]=1;
+                    else
+                    colo[adj[cur][child]]=0;
+                    q.push(adj[cur][child]);
                 }
-               
             }
         }
         return true;
     }
-
-    bool isBipartite(int V, vector<int>adj[]){
+	bool isBipartite(int V, vector<int>adj[]){
 	    // Code here
-	    vector<int>colo(V,0);
-	    // 0  =  no color , 1 means color A, -1 means color B
-	    // 1,-1 becuse so we can give alternate color 
+	    vector<int>colo(V,-1);
 	    int ans=false;
 	    for(int i=0;i<V;i++)
 	    {
-	        if(!colo[i])
+	        if(colo[i]==-1)
 	        {
-	            if(check(adj,colo,i)==false) return false;
+	            if(!check(adj,colo,i))
+	            {
+	                return false;
+	            }
 	        }
 	    }
 	    return true;
 	}
 
 };
-
 
 // { Driver Code Starts.
 int main(){
