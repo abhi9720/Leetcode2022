@@ -52,11 +52,10 @@ class Solution {
         
         
         
-        int left[] = helper(root.left);
-        
-        
+        int left[] = helper(root.left);                
         int right[] =  helper(root.right);
         int ans[] =  new int[2];
+        
         if(left[0]==right[0] ){
             ans[0] =  left[0];
             ans[1] =  left[1]+right[1];
@@ -69,7 +68,8 @@ class Solution {
             ans[0]  =  left[0];
             ans[1]  =  left[1];
         }
-        ans[0]+=1;
+        
+        ans[0]+=1;// increase for increase in depth
         
         return ans;
     }
