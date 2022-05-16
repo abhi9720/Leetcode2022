@@ -147,9 +147,5 @@ class Tree
             }
         }
         return leftview;
-      
     }
-    
-    
-    
 }
