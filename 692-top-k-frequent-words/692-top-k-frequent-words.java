@@ -45,6 +45,7 @@ class Solution {
             k--;
             if(k==0) break;
         }
+        ans.clear();
         
         
         return res;
