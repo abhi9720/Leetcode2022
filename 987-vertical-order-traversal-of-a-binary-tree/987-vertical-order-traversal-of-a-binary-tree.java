@@ -10,8 +10,10 @@ class pair  implements Comparable<pair> {
     }
     public int compareTo(pair o){
         if(this.level==o.level){
+        // level same then compare on the basis on values
          return this.node.val-  o.node.val;
         }else{
+            // if vertcial level not same , then sort ont the basis on vertcial level
             return this.level-o.level;
         }
     }
@@ -26,13 +28,12 @@ class Solution {
         max = 0;
         min = 0;
         preOrder(root,0,0,hm);
+        
         List<List<Integer>> ans =  new ArrayList<>();
-        // System.out.println(hm);
         for(int i =  min ;i<=max;i++){
             ArrayList<pair> pairs =  hm.get(i);
             ArrayList<Integer> vert =  new ArrayList<>();
             Collections.sort(pairs);
-            // System.out.println(pairs);
             for(pair p : pairs){
                 vert.add(p.node.val);
             }
