@@ -20,17 +20,18 @@ class pair  implements Comparable<pair> {
     
 }
 class Solution {
-    int max , min;
+    int max_X , min_X;
     public List<List<Integer>> verticalTraversal(TreeNode root) {
         
         // horizontal distance , arraylist of<pair of node,level>
         HashMap<Integer, ArrayList<pair> > hm = new HashMap<>();
-        max = 0;
-        min = 0;
+        max_X = 0;
+        min_X = 0;
         preOrder(root,0,0,hm);
         
         List<List<Integer>> ans =  new ArrayList<>();
-        for(int i =  min ;i<=max;i++){
+        
+        for(int i =  min_X ;i<=max_X;i++){
             ArrayList<pair> pairs =  hm.get(i);
             ArrayList<Integer> vert =  new ArrayList<>();
             Collections.sort(pairs);
@@ -45,8 +46,8 @@ class Solution {
                          HashMap<Integer, ArrayList<pair> > hm
                          ){
         if(root==null) return ;
-        max  = Math.max(max,dist);
-        min  = Math.min(min,dist);
+        max_X  = Math.max(max_X,dist);
+        min_X  = Math.min(min_X,dist);
         
         hm.putIfAbsent(dist,new ArrayList<>());
         hm.get(dist).add(new pair(root,level) );
