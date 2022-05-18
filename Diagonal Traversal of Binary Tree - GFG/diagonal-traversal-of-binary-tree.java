@@ -137,7 +137,8 @@ class Tree
      public ArrayList<Integer> diagonal(Node root)
       {
            
-           HashMap<Integer,ArrayList<Integer>> map =  new HashMap<>();
+           
+        //   as they are accepting answer in recursive way 
         //   while(q.size() > 0 ){
         //       pair peek =  q.remove();
         //       int diag =  peek.diag;
@@ -156,12 +157,13 @@ class Tree
         //       }
         //   }
         
-            treeTraversal(root,map,0);
-           ArrayList<Integer> res   =  new ArrayList<>();
-           for(int i=0;i<map.size() ;i++){
-               res.addAll(map.get(i) );
-           }
-           return res;
+        //   treeTraversal(root,map,0);
+        //   ArrayList<Integer> res   =  new ArrayList<>();
+        //   for(int i=0;i<map.size() ;i++){
+        //       res.addAll(map.get(i) );
+        //   }
+        //   return res;
+        return bfsTraversal(root);
       }
       
       private void treeTraversal(Node node,  HashMap<Integer,ArrayList<Integer>> map, int diag){
@@ -172,6 +174,21 @@ class Tree
           
           treeTraversal(node.left,map,diag+1);
           treeTraversal(node.right,map,diag);
+      }
+      
+      private ArrayList<Integer> bfsTraversal(Node root){
+          ArrayList<Integer> res   =  new ArrayList<>();
+          Queue<Node> q =  new ArrayDeque<>();
+          q.add(root);
+          while(q.size() >0 ){
+              Node peek =  q.remove();
+              while(peek!=null){
+                  res.add(peek.data);
+                  if(peek.left!=null) q.add(peek.left);
+                  peek =  peek.right;
+              }
+          }
+          return res;
       }
 }
 
