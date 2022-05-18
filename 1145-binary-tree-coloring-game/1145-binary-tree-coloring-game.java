@@ -14,10 +14,13 @@
  * }
  */
 class Solution {
+    int s2 , s3;
     public boolean btreeGameWinningMove(TreeNode root, int n, int x) {
-        TreeNode p2  =  findNode(root,x);        
-        int s2 =  countNode(p2.left);
-        int s3 =  countNode(p2.right);
+        s2 = 0;
+        s3 = 0;
+        findNode(root,x);        
+        
+        
         int s1  =   n -  (s2+s3+1);
         int count =  Math.max(s1, Math.max(s2,s3) );
         
@@ -26,14 +29,16 @@ class Solution {
     }
     
     
-    private TreeNode findNode(TreeNode node, int x){
-        if(node==null) return null;
+    private void findNode(TreeNode node, int x){
+        if(node==null) return ;
         
-        if(node.val==x) return node;
-        TreeNode left = findNode(node.left,x);
-        if(left!=null) return left;
-        TreeNode right = findNode(node.right,x);
-        return right;
+        if(node.val==x){
+            s2 =  countNode(node.left);
+            s3 =  countNode(node.right);            
+        }
+        findNode(node.left,x);        
+        findNode(node.right,x);
+        
     }
     
     private int  countNode (TreeNode start  ){
