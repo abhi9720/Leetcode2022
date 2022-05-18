@@ -1,59 +1,68 @@
-class pair  implements Comparable<pair> {
-    TreeNode node;
-    int level;
-    public pair(TreeNode node, int level){
-        this.level =  level;
-        this.node =  node;        
-    }
-    public String toString(){
-        return node.val+" @ "+level;
-    }
-    public int compareTo(pair o){
-        if(this.level==o.level){
-        // level same then compare on the basis on values
-         return this.node.val-  o.node.val;
-        }else{
-            // if vertcial level not same , then sort ont the basis on vertcial level
-            return this.level-o.level;
+class Solution
+{
+    //Function to find the vertical order traversal of Binary Tree.
+    static class pair implements Comparable<pair>{
+        TreeNode node;
+        int h;
+        int d;
+        pair(TreeNode node,int h,int d)
+        {
+            this.node=node;
+            this.h=h;
+            this.d=d;
+        }
+        public int compareTo(pair other){
+            if(this.d == other.d){
+                return this.node.val - other.node.val;
+            } else {
+                return this.d - other.d;
+            }
         }
     }
     
-}
-class Solution {
-    int max_X , min_X;
     public List<List<Integer>> verticalTraversal(TreeNode root) {
+    
+       LinkedList<pair>list = new LinkedList<>();
+       HashMap<Integer,PriorityQueue<pair>>map=new HashMap<>();
+       int min =0;
+       int max=0;
+       list.add(new pair(root,0,1));
+       while(list.size()>0)
+       {
+           pair p = list.removeFirst();
+           if(!map.containsKey(p.h)){
+               map.put(p.h, new PriorityQueue<>());
+               map.get(p.h).add( p );
+           }
+           else{
+            map.get(p.h).add(p);
+           }
+           
+           min=Math.min(min,p.h);
+           max=Math.max(max,p.h);
+           
+           if(p.node.left!=null)
+           {
+               list.addLast(new pair(p.node.left,p.h-1,p.d+1));
+           }
+           if(p.node.right!=null)
+           {
+               list.addLast(new pair(p.node.right,p.h+1,p.d+1));
+           }
+       }
         
-        // horizontal distance , arraylist of<pair of node,level>
-        HashMap<Integer, ArrayList<pair> > hm = new HashMap<>();
-        max_X = 0;
-        min_X = 0;
-        preOrder(root,0,0,hm);
-        
-        List<List<Integer>> ans =  new ArrayList<>();
-        
-        for(int i =  min_X ;i<=max_X;i++){
-            ArrayList<pair> pairs =  hm.get(i);
-            ArrayList<Integer> vert =  new ArrayList<>();
-            Collections.sort(pairs);
-            for(pair p : pairs){
-                vert.add(p.node.val);
-            }
-            ans.add(vert);
+       List<List<Integer>>ans=new ArrayList<>();
+       for(int i=min;i<=max;i++)
+       {
+        PriorityQueue<pair>p=map.get(i);
+        ArrayList<Integer>a=new ArrayList<>();
+        while(p.size()>0)
+        {
+            a.add(p.remove().node.val   );
         }
-        return ans;
-    }
-    private void preOrder(TreeNode root, int dist , int level,
-                         HashMap<Integer, ArrayList<pair> > hm
-                         ){
-        if(root==null) return ;
-        max_X  = Math.max(max_X,dist);
-        min_X  = Math.min(min_X,dist);
-        
-        hm.putIfAbsent(dist,new ArrayList<>());
-        hm.get(dist).add(new pair(root,level) );
-        
-        preOrder(root.left , dist-1, level+1,hm);
-        preOrder(root.right, dist+1, level+1,hm);
-        
+        ans.add(a);
+       }
+       return ans;
+
     }
 }
