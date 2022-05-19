@@ -119,54 +119,51 @@ class GfG {
 
 class pair{
     Node node;
-    int level;
+    int y;// vertical 
+    int x; // horizonal
     // level because  deeper node may visit before the upper node because of recursion
-    public pair(Node node , int level){
+    public pair(Node node , int x, int y){
         this.node =  node;
-        this.level  =  level;
+        this.x  = x;
+        this.y  =  y;
     }
 }
 
 class Solution
 {
-    //Function to return a list of nodes visible from the top view 
-    //from left to right in Binary Tree.
     
-    static int min , max;
     static ArrayList<Integer> bottomView(Node root)
     {
         // horizontal_distance , pair
         HashMap<Integer,pair> map = new HashMap<>();
         ArrayList<Integer> ans =  new ArrayList<>();
+        Queue<pair> q =  new ArrayDeque<>();
         if(root==null) return ans;
-        
-        min = 0;
-        max = 0;
-        preOrder(root,map,0,0);
-        
-        for(int i=min;i<=max;i++){
-            ans.add( map.get(i).node.data );
+        q.add(new pair(root,0,0) ) ;
+        int min = 0;
+        while(q.size() >0 ){
+           pair p =  q.remove();
+           min =  Math.min(min, p.x);
+           pair mapped =  map.get(p.x);
+           if(mapped==null || mapped.x <= p.x ){
+               map.put(p.x , p );
+           }
+           if(p.node.left!=null){
+               q.add(new pair(p.node.left,p.x-1,p.y+1) );
+           }
+           
+           if(p.node.right!=null){
+               q.add(new pair(p.node.right,p.x+1,p.y+1) );
+           }
+        }
+       
+        for(int i=min;i<min+map.size();i++ ){
+            ans.add(map.get(i).node.data );
         }
         return ans;
-        
-        
     }
     
-    private static void preOrder(Node root , HashMap<Integer,pair> map, int dis , int level ){
-        
-        if(root==null) return;
-        // root here 
-        
-            min  =  Math.min(dis,min);
-            max  =  Math.max(dis,max);
-            pair preanswer =  map.get(dis);
-            if(preanswer==null || preanswer.level <= level  ){
-                map.put(dis, new pair(root,level) );
-            }
-        
-        preOrder(root.left,map,dis-1,level+1);
-        preOrder(root.right,map,dis+1,level+1);
-    }
+   
     
 }
 
