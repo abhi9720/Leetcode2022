@@ -126,9 +126,12 @@ class Node{
 class pair{
     Node node;
     int level;
-    public pair(Node node , int level){
+    int width;
+    // level because  deeper node may visit before the upper node because of recursion
+    public pair(Node node , int level,int width){
         this.node =  node;
         this.level  =  level;
+        this.width =  width;
     }
 }
 
@@ -137,42 +140,46 @@ class Solution
     //Function to return a list of nodes visible from the top view 
     //from left to right in Binary Tree.
     
-    static int min , max;
+    
     static ArrayList<Integer> topView(Node root)
     {
         // horizontal_distance , pair
-        HashMap<Integer,pair> map = new HashMap<>();
-        ArrayList<Integer> ans =  new ArrayList<>();
-        if(root==null) return ans;
+        HashMap<Integer,Integer> map = new HashMap<>();
         
-        min = 0;
-        max = 0;
-        preOrder(root,map,0,0);
+        Queue<pair> q  =  new ArrayDeque<>();
+        if(root==null) return  new ArrayList<>();
+        q.add(new pair(root,0,0) );// node , level , width
+        int min = 0;
         
-        for(int i=min;i<=max;i++){
-            ans.add( map.get(i).node.data );
+        while(q.size() >0 ){
+            pair peek =  q.remove();
+            Node n =  peek.node;
+            int w =  peek.width;
+            int l =  peek.level;
+            min =  Math.min(w,min);
+            if(!map.containsKey(w) ){
+                map.put(w ,n.data );
+            }
+            
+            if(n.left!=null){
+                q.add(new pair(n.left,l+1,w-1) );
+            }
+            if(n.right!=null){
+                q.add(new pair(n.right,l+1,w+1) );
+            }
+            
         }
+        ArrayList<Integer> ans =  new ArrayList<>();
+        for(int i=min ;i<min+map.size();i++ ){
+            ans.add(map.get(i) );
+        }
+        
+        
         return ans;
         
-        
     }
     
-    private static void preOrder(Node root , HashMap<Integer,pair> map, int dis , int level ){
-        
-        if(root==null) return;
-        // root here 
-        
-            min  =  Math.min(dis,min);
-            max  =  Math.max(dis,max);
-            pair preanswer =  map.get(dis);
-            if(preanswer==null || preanswer.level > level  ){
-                map.put(dis, new pair(root,level) );
-            }
-        
-        preOrder(root.left,map,dis-1,level+1);
-        preOrder(root.right,map,dis+1,level+1);
-    }
-    
+  
 }
 
 
