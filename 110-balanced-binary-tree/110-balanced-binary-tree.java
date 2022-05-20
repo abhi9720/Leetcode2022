@@ -5,6 +5,7 @@
 class Solution {
     boolean isBalanced=true;
     public boolean isBalanced(TreeNode root) {
+        isBalanced =  true;
         heightDiff(root);
         return isBalanced;
     }
