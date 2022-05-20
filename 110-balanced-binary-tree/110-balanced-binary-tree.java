@@ -3,26 +3,17 @@
     
     
 class Solution {
-    boolean isBalanced=true;
     public boolean isBalanced(TreeNode root) {
-        isBalanced =  true;
-        heightDiff(root);
-        return isBalanced;
+        return height(root) != -1;
     }
-
-    private int heightDiff(TreeNode root) {
-        if (root == null) {
+    
+    private int height(TreeNode node) {
+        if(node == null)
             return 0;
-        }
-        int lh = heightDiff(root.left);
-        if(!isBalanced) return lh;
-        int rh = heightDiff(root.right);
-        
-        
-        
-        boolean isBalance =  Math.abs(lh - rh)<=1 ;
-        isBalanced =  isBalanced && isBalance;
-
-        return Math.max(lh,rh)+1 ;
+        int left = height(node.left);
+        int right = height(node.right);
+        if(left == -1 || right == -1 || Math.abs(left - right) > 1) 
+            return -1; // unbalanced
+        return Math.max(left, right) + 1;
     }
 }
