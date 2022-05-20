@@ -6,15 +6,16 @@ class Solution {
         for(int rows[] : path){
             Arrays.fill(rows,-1);
         }
-        return dfs(grid,path,0,0);
+        return dfs_memo(grid,path,0,0);
     }
-    
+    // 
     int dir[][] =  {{1,0},{0,1}};
-    private int dfs(int grid[][],int path[][], int i , int j){
+    private int dfs_memo(int grid[][],int path[][], int i , int j){
         int n  =  grid.length , m =  grid[0].length;
         if(i==n-1 && j == m-1){
             return 1;
         }
+        
         if( path[i][j]!=-1  ){
             return path[i][j];
         }
@@ -23,7 +24,7 @@ class Solution {
         for(int d[] : dir){
             int nx =  i+d[0] , ny =  j+d[1];
             if(nx>=0 && ny>=0 && nx<n && ny < m && grid[nx][ny]==0 ){
-                count+=dfs(grid,path,nx,ny);
+                count+=dfs_memo(grid,path,nx,ny);
             }
         }
         
