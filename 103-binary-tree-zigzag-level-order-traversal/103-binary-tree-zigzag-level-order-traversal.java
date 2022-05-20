@@ -38,9 +38,10 @@ class Solution {
                 level =  0;
             }
             ans.add(level_nodes);
-            while(!q.isEmpty() ){
-                stk.push(q.poll());
-            }                        
+            
+            stk.addAll(q);
+            q.clear();
+            
         }
         return ans;
     }
