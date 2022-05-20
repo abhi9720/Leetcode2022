@@ -15,7 +15,7 @@ class Solution {
             return 0;
         }
         int lh = heightDiff(root.left);
-        
+        if(!isBalanced) return lh;
         int rh = heightDiff(root.right);
         
         
