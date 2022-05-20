@@ -1,37 +1,27 @@
-class pair {
-    int h;
-    boolean isBalanced;
+
+  
     
-    public pair(int h, boolean isBalanced) {
-        this.h = h;
-        this.isBalanced = isBalanced;
-    }
-    public String toString(){
-        return this.h+" "+this.isBalanced;
-    }
-}
-
+    
 class Solution {
-
+    boolean isBalanced=true;
     public boolean isBalanced(TreeNode root) {
-        return heightDiff(root).isBalanced;
+        heightDiff(root);
+        return isBalanced;
     }
 
-    private pair heightDiff(TreeNode root) {
+    private int heightDiff(TreeNode root) {
         if (root == null) {
-            return new pair(0, true);
+            return 0;
         }
-        pair left = heightDiff(root.left);
-        if(!left.isBalanced) return left;
-
-        pair right = heightDiff(root.right);
-        if(!right.isBalanced) return right;
-
+        int lh = heightDiff(root.left);
         
-        int diff = Math.abs(left.h - right.h);
+        int rh = heightDiff(root.right);
         
-        boolean isBalanced =  diff<=1 ;
+        
+        
+        boolean isBalance =  Math.abs(lh - rh)<=1 ;
+        isBalanced =  isBalanced && isBalance;
 
-        return new pair(Math.max(left.h,right.h)+1 , isBalanced);
+        return Math.max(lh,rh)+1 ;
     }
 }
