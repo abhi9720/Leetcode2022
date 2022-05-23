@@ -13,30 +13,29 @@
  *     }
  * }
  */
-class Solution {
-     public static TreeNode buildTree(int[] preorder, int[] inorder) {
+class Solution{
+     public static TreeNode buildTree(int[] pre, int[] in) {
         
-        return buildTree_helper(preorder,inorder,0,preorder.length-1,0,inorder.length-1);
-        
-    }
+        return helper(pre,in,0,pre.length-1,0,in.length-1);
+     }
     
-    public static TreeNode buildTree_helper(int[] preorder, int[] inorder, int sp,int ep,int si,int ei) {
+    public static TreeNode helper(int[] pre, int[] in, int sp,int ep,int si,int ei) {
         
-        // recur. terminate condition
+        
         if(sp > ep || si >ei){
             return null;
         }
         
         // make root 
-        TreeNode root = new TreeNode(preorder[sp] );
+        TreeNode root = new TreeNode(pre[sp] );
         int count = 0;
         for(int i =  si;i<=ei;i++){
-            if(inorder[i] == preorder[sp] ) break;
+            if(in[i] == pre[sp] ) break;
             count++;
         }
         
-        root.left  =  buildTree_helper(preorder,inorder,sp+1,sp+count,si,si+count-1);
-        root.right = buildTree_helper(preorder,inorder,sp+count+1,ep,si+count+1,ei);
+        root.left  =  helper(pre,in,sp+1,sp+count,si,si+count-1);
+        root.right = helper(pre,in,sp+count+1,ep,si+count+1,ei);
         return root;
     }
 }
