@@ -29,8 +29,9 @@ class Solution {
         int leftSum  = helper(root.left);
         int rightSum = helper(root.right);
         
-        int maxTillNow =  Math.max(leftSum,0) +Math.max(rightSum,0) +root.val;
-        max =  Math.max(max,maxTillNow);
+        int maxFromThisNode =  Math.max(leftSum,0) +Math.max(rightSum,0) +root.val;
+        
+        max =  Math.max(max,maxFromThisNode);
         
         int val =  Math.max(0,Math.max(leftSum,rightSum));
         return val+ root.val;
