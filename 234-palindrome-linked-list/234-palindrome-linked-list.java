@@ -9,34 +9,18 @@
  * }
  */
 class Solution {
+   ListNode ref;
     public boolean isPalindrome(ListNode head) {
-        ListNode fast=  head , slow = head;
-        while( fast!=null && fast.next!=null ){
-            fast =  fast.next.next;
-            slow =  slow.next;
-            
-        }
-
-        
-        ListNode curr =  head;
-        
-        Stack<ListNode> stk =  new Stack<>();
-        while(curr!=slow){
-            stk.push(curr)   ;
-            curr =  curr.next;
-        }
-        if(fast!=null){
-          curr =  curr.next;   
-        }
-        
-        while(stk.size()>0  ){
-            if(stk.peek().val!=curr.val) return false;
-            stk.pop();
-            curr =  curr.next;
-        }
-        
-        return stk.size()==0 && curr==null;
+        ref = head;        
+        return check(head);
     }
     
+    public boolean check(ListNode node){
+        if(node == null) return true;
+        boolean ans = check(node.next);
+        boolean isEqual = (ref.val == node.val)? true : false; 
+        ref = ref.next;
+        return ans && isEqual;
+    }
   
 }
