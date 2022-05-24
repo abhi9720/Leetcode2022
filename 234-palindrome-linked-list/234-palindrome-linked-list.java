@@ -10,23 +10,33 @@
  */
 class Solution {
     public boolean isPalindrome(ListNode head) {
-        ListNode ptr[] =  new ListNode[1];
-        ptr[0] =  head;
-        return isPalindrome( head , ptr );
+        ListNode fast=  head , slow = head;
+        while( fast!=null && fast.next!=null ){
+            fast =  fast.next.next;
+            slow =  slow.next;
+            
+        }
+
+        
+        ListNode curr =  head;
+        
+        Stack<ListNode> stk =  new Stack<>();
+        while(curr!=slow){
+            stk.push(curr)   ;
+            curr =  curr.next;
+        }
+        if(fast!=null){
+          curr =  curr.next;   
+        }
+        
+        while(stk.size()>0  ){
+            if(stk.peek().val!=curr.val) return false;
+            stk.pop();
+            curr =  curr.next;
+        }
+        
+        return stk.size()==0 && curr==null;
     }
     
-    private boolean isPalindrome(ListNode head, ListNode ptr[]){
-        if(head==null){
-            return true;
-        }        
-        boolean resTillNow = isPalindrome(head.next , ptr);
-        if(resTillNow==false) return false;
-        
-        if(ptr[0].val!= head.val ){
-            return false;
-        }
-        ptr[0] =  ptr[0].next;
-        return true;
-            
-    }
+  
 }
