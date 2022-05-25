@@ -8,13 +8,12 @@ class Solution {
 
     private void dfs(TreeNode root, List<String> ans, String path) {
         if (root == null) return;
-        if (root.left == null && root.right == null) {
-            path  +=   root.val;
-            ans.add(path);
+        if (root.left == null && root.right == null) {            
+            ans.add(path  +   root.val);
             return;
         }
-        path  +=   root.val+"->";
         
+        path  +=   root.val+"->";        
         dfs(root.left, ans, path);
         dfs(root.right, ans, path);
     }
