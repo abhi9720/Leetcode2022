@@ -1,57 +1,51 @@
+// width is increasing, but if two widths are the same, the height is decreasing
+// after sorting, all envolopes are valid 'based on width', so we just binary search based on 'heights'
+// to choose 'some of them' to meet the requirement
+// Ex. after sorting: (1,3),(3,4), (3,3), (6,8), (6,7), (8,4), (9,5) 
+// transform to question find LIS: [3,4,3,8,7,4,5] => like '300. Longest Increasing Subsequence'
+
+// For example, [[3,3] cannot fit in [3,4]]. Sorting height in descending order when there is a tie prevents such a sequence to be included in the solution i.e., (3,4) ,(3,3) 
+// not 3,4 cannot we form and not give wrong answer 
+
 class Solution {
 
     public int maxEnvelopes(int[][] env) {
         int n = env.length;
-        Arrays.sort(
-            env,
-            (o1, o2) -> {
-                if (o2[0] == o1[0]) return o2[1] - o1[1]; else return o1[0] - o2[0];
+        Arrays.sort(env,(o1, o2) -> {
+                if (o2[0] == o1[0]) return o2[1] - o1[1]; 
+                else return o1[0] - o2[0];
             }
         );
-        int count[] = new int[n];
-        int overallmax = 0;
-        Arrays.fill(count, 1);
-
-        // System.out.println(Arrays.deepToString(env));
-
-        // for(int i=0;i<n;i++){
-        //     // to fill ith , move from 0 to i-1
-        //     int max  = count[i];
-        //     // for(int j=0;j<i;j++){
-        //     //     if( env[j][0] > env[i][0] && env[j][1] > env[i][1] ){
-        //             // if( count[j]+1 > max ){
-        //             //     max =  count[j]+1;
-        //             // }
-        //     //     }
-        //     // }
-        //     int lo = 0 , hi =  i-1;
-        //     System.out.println("low : "+lo+"  high: "+hi);
-        //     while(lo<=hi){
-        //         int mid =  (hi-lo)/2 + lo;
-        //         System.out.println(mid+"   :   "+(env[mid][0] > env[i][0] && env[mid][1] > env[i][1]));
-        //         if(env[mid][0] > env[i][0] && env[mid][1] > env[i][1]){
-        //             if( count[mid]+1 > max ){
-        //                 max =  count[mid]+1;
-        //             }
-        //             lo =  mid+1;
-        //         }
-        //         else{
-        //             hi =  mid-1;
-        //         }
-        //     }
-        //     System.out.println("max at : "+i+"    is -> "+max);
-        //     count[i] =  max;
-        //     overallmax =  Math.max(overallmax,max);
-        //     System.out.println("----------------------------------");
-        // }
-        int dp[] = new int[env.length];
-        int len = 0;
-        for (int[] envelope : env) {
-            int index = Arrays.binarySearch(dp, 0, len, envelope[1]);
-            if (index < 0) index = -(index + 1);
-            dp[index] = envelope[1];
-            if (index == len) len++;
+        
+        int tails[] =  new int[env.length];
+        int size = 0;
+         // we can maintain our tail as miniumum possible so any higher element can append;
+        // instead of doing linear back traversal 
+        // we can do binary search 
+        // we have to implement lis on heights
+        for(int e[] : env){
+            
+            int lo =  0, hi = size,mid;
+            while(lo<hi){
+                mid =  lo+(hi-lo)/2;
+                if(tails[mid] < e[1] ){
+                    lo =  mid+1;
+                }else{
+                    hi =  mid;
+                    // hi  =  mid because we donot mid element is equal to greater
+                }
+            }
+            
+            // we have figured our correct position of e[1]
+            tails[lo] =  e[1];
+            if( lo == size ){
+                size+=1;
+            }
         }
-        return len;
+        // size longest increasing lis 
+        // width is sorted , not height mattern which forming lis of length -> size
+        // so this number of   envelopes you can Russian doll
+        return size;
+        
     }
 }
