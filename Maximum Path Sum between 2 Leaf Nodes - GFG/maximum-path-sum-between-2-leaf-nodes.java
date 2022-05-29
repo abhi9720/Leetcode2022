@@ -120,15 +120,13 @@ class Solution
     static int maxLeafPath =  Integer.MIN_VALUE;
     int maxPathSum(Node root){ 
         maxLeafPath = Integer.MIN_VALUE;
+        if(root.left==null && root.right==null){
+		    return root.data;
+		}
         
-        int ans = dfs(root);
-
         
-        
-		if(root.left==null || root.right==null){
-		    return Math.max(maxLeafPath,ans);
-		};
-		
+		int ans = dfs(root);
+		if(root.left==null || root.right==null) return Math.max(ans,maxLeafPath);
         
 		return maxLeafPath;
     } 
@@ -155,18 +153,4 @@ class Solution
 		
 		
 	}
-	
-	 Node setTree(Node root){
-       
-      Node temp = new Node(0);
-      //if tree is left most
-      if(root.right==null){
-          root.right=temp;
-      }
-      else{    //if tree is right most
-          root.left=temp;
-      }
-       
-      return root;
-    }
 }
