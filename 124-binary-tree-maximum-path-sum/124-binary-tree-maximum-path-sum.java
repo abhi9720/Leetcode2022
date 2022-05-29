@@ -13,13 +13,13 @@
  *     }
  * }
  */
-
+// Maximum path sum ANY Node to ANY Node 
 class Solution {
-    static int max;
+    static int globalmax;
     public int maxPathSum(TreeNode root) {
-        max =  Integer.MIN_VALUE;
+        globalmax =  Integer.MIN_VALUE;
         helper(root);
-        return max;
+        return globalmax;
         
     }
     private int helper(TreeNode root){
@@ -31,9 +31,12 @@ class Solution {
         
         int maxFromThisNode =  Math.max(leftSum,0) +Math.max(rightSum,0) +root.val;
         
-        max =  Math.max(max,maxFromThisNode);
+        globalmax =  Math.max(globalmax,maxFromThisNode);
         
         int val =  Math.max(0,Math.max(leftSum,rightSum));
         return val+ root.val;
     }
+    
+    
+    
 }
