@@ -16,7 +16,7 @@ class Solution {
 		currSum+=root.val;
         
 		int targetSumPathEndingAtCurrNode =  map.getOrDefault(currSum-targetSum,0);
-     
+        
 		
 		//Map : update target sum path ending at current node
 		map.put(currSum,map.getOrDefault(currSum,0)+1);
