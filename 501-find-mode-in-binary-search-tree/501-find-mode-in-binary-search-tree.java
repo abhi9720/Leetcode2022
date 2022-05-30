@@ -1,30 +1,49 @@
 class Solution {
-	int max =  0;
+	int counter =1;
+	int maxCouter  = 0;
+	int prev = -(int)1e4;
     public int[] findMode(TreeNode root) {
-		max = 0;
-        Map<Integer,Integer> map = new HashMap<>();
-		helper(root,map);
-		ArrayList<Integer> ans =  new ArrayList<>();
-		for(int key : map.keySet() ){
-			if( map.get(key)==max ){
-				ans.add(key );
+        counter =0;
+	    maxCouter  = 0;
+	    prev = -(int)1e4;
+        TreeNode temp =  root;
+        while(temp!=null && temp.left!=null){
+            temp = temp.left;
+        }
+        prev =  temp.val;
+        ArrayList<Integer> ans =  new ArrayList<>();
+        inorder(root,ans);
+        int res[] =  new int[ans.size() ];
+        for(int i=0;i<ans.size();i++ ){
+            res[i] = ans.get(i);
+        }
+        return res;
+    }
+    private void inorder(TreeNode root, ArrayList<Integer> ans){
+        
+		if(root==null) return ;
+        
+		inorder(root.left,ans);
+        
+        // System.out.println(prev+"  "+root.val);
+		if(prev==root.val) counter++;
+        else counter = 1;
+		if(counter>maxCouter){
+			maxCouter  = counter;
+			ans.clear();
+			ans.add(root.val);
+		}
+		else if(counter==maxCouter){
+			if(ans.size() >0 ){
+				if(ans.get(ans.size()-1 ) != root.val ){
+					ans.add(root.val);
+				}
 			}
 		}
-		int res[]  =  new int[ans.size() ];
-		for(int i=0;i<ans.size();i++ ){
-			res[i] =  ans.get(i);
-		}
-		return res;
-    }
+		prev =  root.val;
+		inorder(root.right,ans);
+		
 
-	private void helper(TreeNode root, Map<Integer,Integer>map ) {
-		if(root==null) return ;
 
-		map.putIfAbsent(root.val,0);
-		int prev = map.put(root.val,map.get(root.val)+1 );
-		max =  Math.max(prev+1,max);
-		helper(root.left,map);
-		helper(root.right,map);
 	}
-
 }
