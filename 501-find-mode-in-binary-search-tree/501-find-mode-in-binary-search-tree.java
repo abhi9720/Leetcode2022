@@ -28,7 +28,7 @@ class Solution {
                                    
                     // inorder visit
                     
-//    ------- Checking previous code and update list START                
+//    ------- Checking previous ele and update list START                
                     if (prev == -1 || prev == curr.val) counter++; else counter = 1;
                     // System.out.println(prev+" => "+curr.val+" , "+counter+" , "+maxCouter);
                     
@@ -56,7 +56,7 @@ class Solution {
                     
                     // inorder visit
                     
-//    ------- Checking previous code and update list START      
+//    ------- Checking previous ele and update list START      
                     
                     if (prev == -1 || prev == curr.val) counter++; else counter = 1;
                     // System.out.println(prev+" => "+curr.val+" , "+counter+" , "+maxCouter);
