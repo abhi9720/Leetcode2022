@@ -123,7 +123,7 @@ class Node{
             return 0;
         }
         
-        long val =  (p1.data*p2.data);
+        long val =  (p1.data*p2.data)%MOD;
         
         long l =  dfs(p1.left,p2.right);
         long r =  dfs(p1.right,p2.left);
