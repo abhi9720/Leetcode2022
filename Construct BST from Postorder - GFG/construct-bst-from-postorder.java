@@ -46,26 +46,39 @@ class GFG2
 // } Driver Code Ends
 
 
+//User function Template for Java
+/*class Node{
+    int data;
+    Node left,right;
+    Node(int d)
+    {
+        data=d;
+        left=right=null;
+    }
+}*/
+
 // Function should return the root of the bst formed using postorder traversal.
 class GFG
 {
+	static int idx;
     public static Node constructTree(int post[],int n)
     {
+		idx =  n-1;
+		return postOrder(post,Integer.MIN_VALUE,Integer.MAX_VALUE);
         
-        return helper(post,0,n-1);
     }
-    private static Node helper(int []post,int i,int j){
-        if(i>j){
-            return null;
-        }
-        if(i==j){
-            return new Node(post[j] );
-        }
-        Node root =  new Node(post[j] );
-        int idx =  i;
-        while(idx<j && post[idx] < post[j] ) idx++;
-        root.left =  helper(post,i,idx-1);
-        root.right = helper(post,idx,j-1);
-        return root;
-    }
+	private static Node postOrder(int post[], int min, int max){
+		if(idx<0) return null;
+		else if(post[idx]>min && post[idx]<max){
+			Node root  =  new Node(post[idx]);
+			idx-=1;
+			root.right =  postOrder(post,root.data,max);
+			root.left =  postOrder(post,min,root.data);
+			return root;
+		}
+		else{
+			return null;
+		}
+
+	}
 }
