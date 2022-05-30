@@ -15,12 +15,19 @@
  */
 class Solution {
 
+     int prev = -1;
+    int counter = 0;
+    int maxCouter = 0;
+    ArrayList<Integer> ans = new ArrayList<>();
     public int[] findMode(TreeNode root) {
         // morris traversal
-        int prev = -1;
-        int counter = 0;
-        int maxCouter = 0;
-        ArrayList<Integer> ans = new ArrayList<>();
+      
+        
+         prev = -1;
+        counter = 0;
+        maxCouter = 0;
+        ans = new ArrayList<>();
+        
         TreeNode curr = root;
         while (curr != null) {
             TreeNode left = curr.left;
@@ -29,20 +36,7 @@ class Solution {
                     // inorder visit
                     
 //    ------- Checking previous ele and update list START                
-                    if (prev == -1 || prev == curr.val) counter++; else counter = 1;
-                    // System.out.println(prev+" => "+curr.val+" , "+counter+" , "+maxCouter);
-                    
-                    if (counter > maxCouter) {
-                        maxCouter = counter;
-                        ans.clear();
-                        ans.add(curr.val);
-                    } else if (counter == maxCouter) {
-                        if (ans.size() > 0) {
-                            if (ans.get(ans.size() - 1) != curr.val) {
-                                ans.add(curr.val);
-                            }
-                        }
-                    }
+                  listHandler(curr);
 //    ------- Checking previous code and update list END
                 prev = curr.val;
                 
@@ -57,21 +51,8 @@ class Solution {
                     // inorder visit
                     
 //    ------- Checking previous ele and update list START      
+                    listHandler(curr);
                     
-                    if (prev == -1 || prev == curr.val) counter++; else counter = 1;
-                    // System.out.println(prev+" => "+curr.val+" , "+counter+" , "+maxCouter);
-                    
-                    if (counter > maxCouter) {
-                        maxCouter = counter;
-                        ans.clear();
-                        ans.add(curr.val);
-                    } else if (counter == maxCouter) {
-                        if (ans.size() > 0) {
-                            if (ans.get(ans.size() - 1) != curr.val) {
-                                ans.add(curr.val);
-                            }
-                        }
-                    }
 //    ------- Checking previous code and update list END
                     prev = curr.val;
                     
@@ -101,6 +82,26 @@ class Solution {
         }
         return res;
         
+        
+    }
+    
+    private void listHandler(TreeNode curr){
+        
+        
+        if (prev == -1 || prev == curr.val) counter++; else counter = 1;
+                    // System.out.println(prev+" => "+curr.val+" , "+counter+" , "+maxCouter);
+                    
+                    if (counter > maxCouter) {
+                        maxCouter = counter;
+                        ans.clear();
+                        ans.add(curr.val);
+                    } else if (counter == maxCouter) {
+                        if (ans.size() > 0) {
+                            if (ans.get(ans.size() - 1) != curr.val) {
+                                ans.add(curr.val);
+                            }
+                        }
+                    }
         
     }
 }
