@@ -104,6 +104,7 @@ class GfG
       }
       
     }
+    map.clear();
 
     Node root  =  new Node(inorder[idx]);
     root.left      =  helper(inorder, levelOrder, ins, idx - 1);
