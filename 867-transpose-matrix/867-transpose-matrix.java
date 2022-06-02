@@ -2,14 +2,15 @@ class Solution {
     public int[][] transpose(int[][] matrix) {
         int n  =  matrix.length, m =  matrix[0].length;
         if(n==m){
-            int grid[][] =  new int[n][n];            
+            
             for(int i=0;i<n;i++){
-                for(int j=0;j<=i;j++){
-                    grid[j][i] =  matrix[i][j];
-                    grid[i][j] =  matrix[j][i];
+                for(int j=0;j<i;j++){                    
+                    int t =  matrix[i][j];
+                    matrix[i][j] =matrix[j][i]; 
+                    matrix[j][i] =  t;                    
                 }			
             }     
-            return grid;
+            return matrix;
         }
         else{
             int grid[][] =  new int[m][n];
