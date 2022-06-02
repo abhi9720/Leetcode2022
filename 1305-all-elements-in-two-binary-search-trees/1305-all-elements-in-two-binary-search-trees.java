@@ -40,13 +40,7 @@ class Solution {
 				}
 			}
 
-		}
-		while(!stk1.isEmpty() ){
-			ans.add(stk1.pop().val);
-		}
-		while(!stk2.isEmpty() ){
-			ans.add(stk2.pop().val);
-		}
+		}	
 		return ans;        
     }
     
