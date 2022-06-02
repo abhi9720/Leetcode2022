@@ -1,3 +1,10 @@
+// aproach 1 
+// get left tree inorder
+// get right tree inorder
+// then Use algo merge two sorted array
+        
+// Approach 2 by maintaining two stacks
+
 class Solution {
     public List<Integer> getAllElements(TreeNode root1, TreeNode root2) {
 		List<Integer> ans =  new ArrayList<>();
