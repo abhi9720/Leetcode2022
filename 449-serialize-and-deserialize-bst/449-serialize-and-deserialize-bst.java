@@ -11,47 +11,46 @@ public class Codec {
 
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
+        if(root==null) return null;
         StringBuilder sb =  new StringBuilder();
-        serializeHelper(root,sb);
-        int size =  sb.length();
         
-        // sb.deleteCharAt(size-1);
+        serializeHelper(root,sb);
+        
+        int size =  sb.length();                
+        sb.deleteCharAt(size-1);
         
         return sb.toString();
         
     }
     private void serializeHelper(TreeNode root,StringBuilder sb){
         if(root==null) return ;
-        
-        sb.append(root.val+",");
-        
-        if(root.left==null) sb.append("#,");
-        else serializeHelper(root.left,sb);                
-        if(root.right==null) sb.append("#,");
-        else serializeHelper(root.right,sb);        
+                
+        sb.append(root.val+",");        
+        serializeHelper(root.left,sb);                        
+        serializeHelper(root.right,sb);        
     }
+    
     int idx = 0;
-    TreeNode deserializeHelper(String nums[]){
-        if(idx>=nums.length) return null;
-        if(nums[idx].trim().equals("#") ){
-            
+    TreeNode deserializeHelper(String nums[],int min , int max){
+       if(idx>=nums.length) return null;
+        int num =  Integer.parseInt(nums[idx] );
+        if(num>min && num<max){
+            TreeNode root =  new TreeNode(num );
             idx+=1;
-            return null;
+            root.left =  deserializeHelper(nums,min,num);
+            root.right =  deserializeHelper(nums,num,max);
+            return root;
         }
-        // System.out.println("nums[idx] : "+nums[idx]);
-        TreeNode root =  new TreeNode(Integer.parseInt(nums[idx] ) );
-        idx+=1;
-        // System.out.println("root.val : "+root.val);
-        root.left = deserializeHelper(nums);
-        root.right = deserializeHelper(nums);
-        return root;
+        else{
+            return null;
+        }        
     }
     
     public TreeNode deserialize(String data) {
-        String nums[] =  data.split(",");
-        if(nums.length==1 ) return null;
+        if(data==null) return null;
+        String nums[] =  data.split(",");        
         
-        return  deserializeHelper(nums);
+        return  deserializeHelper(nums,Integer.MIN_VALUE,Integer.MAX_VALUE);
         
     }
     
