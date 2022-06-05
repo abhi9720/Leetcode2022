@@ -3,23 +3,16 @@ class Solution {
     public String getDirections(TreeNode root, int startValue, int destValue) {
         TreeNode LCA =  findLCA(root,startValue,destValue);
         
-        StringBuilder left =  new StringBuilder(), right =  new StringBuilder();
-        
-        
-        traverse(LCA,startValue,left);
-        
-        
-        
-        traverse(LCA,destValue,right);
-        
-        // in left replace all
-        for(int i=0;i<left.length();i++ ){
-            left.setCharAt(i,'U');
-        }
-        return left.append(right).toString();                
+        StringBuilder path =  new StringBuilder();
+                
+        traverse(LCA,startValue,path,true);
+                        
+        traverse(LCA,destValue,path,false);
+                
+        return path.toString();                
     }
     // find path from node to taregt
-    private boolean traverse(TreeNode node , int target,StringBuilder sb){
+    private boolean traverse(TreeNode node , int target,StringBuilder sb, boolean startVal){
         if(node==null) return false;
         
         if(node.val==target) {            
@@ -27,13 +20,13 @@ class Solution {
         }
         
         
-        sb.append("L");
-        if(traverse(node.left,target,sb))  return true;
-        sb.setLength(Math.max(sb.length() - 1, 0)); // back track 
+        sb.append(startVal?"U":"L");
+        if(traverse(node.left,target,sb,startVal))  return true;
+        sb.setLength(sb.length() - 1); // back track 
         
-        sb.append("R");
-        if(traverse(node.right,target,sb))  return true;
-        sb.setLength(Math.max(sb.length() - 1, 0)); // back track 
+        sb.append(startVal?"U":"R");
+        if(traverse(node.right,target,sb,startVal))  return true;
+        sb.setLength(sb.length() - 1); // back track 
         
         
         return false;
