@@ -10,9 +10,22 @@
  */
 class Solution {
     public ListNode reverseList(ListNode head) {
-        // Approach 1 using recursive 
-        return reverse(head);
+        
+        // return reverse(head);
+        return iterative(head);
     }
+    private ListNode iterative(ListNode head){
+        ListNode prev =  null , curr =  head , next;
+        while(curr!=null){
+            next =  curr.next;
+            curr.next = prev;
+            prev =  curr;
+            curr =  next;
+        }
+        return prev;
+    }
+    
+    // Approach 1 using recursive 
     private ListNode reverse(ListNode head){
         if(head==null) return null;
         if(head.next==null) return head;
