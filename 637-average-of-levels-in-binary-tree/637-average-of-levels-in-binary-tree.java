@@ -21,11 +21,10 @@ class Solution {
         
         while(q.size() >0 ){
             int size  =  q.size();
-            double sum =0,  count = 0;
+            double sum =0,  count = size;
             while(size-- >0 ){
                 TreeNode peekNode =  q.remove();
-                sum+=peekNode.val;
-                count+=1;
+                sum+=peekNode.val;                
                 if(peekNode.left!=null) q.add(peekNode.left);
                 if(peekNode.right!=null) q.add(peekNode.right);
             }
