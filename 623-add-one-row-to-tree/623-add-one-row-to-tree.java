@@ -4,41 +4,41 @@
  *     int val;
  *     TreeNode left;
  *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
+ *     TreeNode(int x) { val = x; }
  * }
  */
-class Solution {
-    public TreeNode addOneRow(TreeNode root, int val, int depth) {
-        if(depth==1){
-            TreeNode newRoot = new TreeNode(val);
-            newRoot.left =  root;
-            return newRoot;
+public class Solution {
+    public TreeNode addOneRow(TreeNode t, int v, int d) {
+        if (d == 1) {
+            TreeNode n = new TreeNode(v);
+            n.left = t;
+            return n;
         }
-        return helper(root,val,depth,1);
-    }
-    private TreeNode helper(TreeNode root, int val, int depth , int curr_depth){
-        if(root==null) return null;
-        if(curr_depth > depth) return root;
-        if(depth - curr_depth ==1 ){
-            TreeNode leftSubtree =  root.left;
-            root.left =  new TreeNode(val);
-            root.left.left =  helper(leftSubtree,val,depth,curr_depth+1) ;            
-            
-            TreeNode rightSubTree =  root.right;
-            root.right =  new TreeNode(val);
-            root.right.right = helper(rightSubTree,val,depth,curr_depth+1) ;           
+        Queue < TreeNode > queue = new LinkedList < > ();
+        queue.add(t);
+        int depth = 1;
+        while (depth < d - 1) {
+            Queue < TreeNode > temp = new LinkedList < > ();
+            while (!queue.isEmpty()) {
+                TreeNode node = queue.remove();
+                if (node.left != null) temp.add(node.left);
+                if (node.right != null) temp.add(node.right);
+            }
+            queue = temp;
+            depth++;
         }
-        else{
-            root.left =  helper(root.left,val,depth,curr_depth+1);
-            root.right =  helper(root.right,val,depth,curr_depth+1);            
+        // now there we have all the nodes , whose left and right is going 
+        // to be updated new nodes going to be added 
+        // 
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.remove();
+            TreeNode temp = node.left;
+            node.left = new TreeNode(v);
+            node.left.left = temp;
+            temp = node.right;
+            node.right = new TreeNode(v);
+            node.right.right = temp;
         }
-        return root;
-        
+        return t;
     }
 }
