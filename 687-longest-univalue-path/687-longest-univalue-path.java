@@ -31,24 +31,19 @@ class Solution {
         int path = 0;
         
             
-            if(root.left!=null && root.left.val==root.val){
-                // System.out.println("left child equal  ");
+            if(root.left!=null && root.left.val==root.val){                
                 path+=left+1;    
-                left+=1;
+                left+=1; // as left path is going to be extended
             }
             
-            if(root.right!=null && root.right.val==root.val){
-                // System.out.println("right child equal  ");
+            if(root.right!=null && root.right.val==root.val){                
                 path+=right+1;
-                right+=1;
-            }
-        // System.out.println("path : "+path+"  root.val  => "+root.val);
+                right+=1; // right path is going to be extened by 1
+            }        
         maxCount =  Math.max(maxCount,path);
-        if(parent!=null && parent!=root.val) {
-            // System.out.println("Not equal  ");
+        if(parent!=null && parent!=root.val) {            
             return 0;}
-        int val  =  Math.max(left,right);
-        // System.out.println("return val :  "+val);
+        int val  =  Math.max(left,right);        
         return val;
         
        
