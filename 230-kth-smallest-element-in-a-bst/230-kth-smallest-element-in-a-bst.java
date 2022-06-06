@@ -1,7 +1,36 @@
-
+/*
+Using Stack : Time -> O(n) and space -> o(n);
 class Solution {
     public int kthSmallest(TreeNode root, int k) {
-        // run morris traversal
+        Stack<TreeNode> stk =  new Stack<>();
+        TreeNode temp  =  root;
+        while(temp!=null){
+            stk.push(temp);
+            temp =  temp.left;
+        }
+        
+        while(stk.size() > 0 ){
+            TreeNode peekNode =  stk.pop();
+            k--;
+            if(k==0) return peekNode.val;
+            // now check left of TreeNode
+            temp  =  peekNode.right;
+            while(temp!=null){
+                stk.push(temp);
+                temp =  temp.left;
+            }            
+        }
+        return -1;
+        
+    }
+}
+*/
+
+
+// run morris traversal => Time -> O(n) ans space : O(1)
+class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        
         TreeNode curr = root;
         while(curr!=null){
             TreeNode left =  curr.left;
