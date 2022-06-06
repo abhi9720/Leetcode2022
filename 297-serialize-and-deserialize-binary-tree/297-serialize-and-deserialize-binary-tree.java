@@ -12,8 +12,8 @@ public class Codec {
     public String serialize(TreeNode root) {
         StringBuilder sb  =  new StringBuilder();        
         serializeHelper(root,sb);
-        // delete last char
-        sb.setLength( Math.max(0,sb.length()-1 ) );
+        
+        
         return sb.toString();
     }
     private void serializeHelper(TreeNode root,StringBuilder sb){
