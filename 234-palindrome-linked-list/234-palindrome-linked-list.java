@@ -8,19 +8,19 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+
 class Solution {
-   ListNode ref;
+    ListNode front=null;    
     public boolean isPalindrome(ListNode head) {
-        ref = head;        
-        return check(head);
+        this.front =  head;
+        return helper(head);
     }
     
-    public boolean check(ListNode node){
-        if(node == null) return true;
-        boolean ans = check(node.next);
-        boolean isEqual = (ref.val == node.val)? true : false; 
-        ref = ref.next;
-        return ans && isEqual;
+    private boolean helper(ListNode head){
+        if(head==null) return true;
+        if(!helper(head.next) ) return false;
+        if(head.val!=front.val) return false;
+        front =  front.next;        
+        return true;
     }
-  
 }
