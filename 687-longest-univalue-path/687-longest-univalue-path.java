@@ -29,23 +29,30 @@ class Solution {
         int right = helper(root.right, root.val);
         int path = 0; // max length path from node
 
-        if (root.left != null && root.left.val == root.val) {
-            path += left + 1;
-            left += 1; // as left path is going to be extended by 1
+        if (root.left != null  ) {
+            if(root.left.val == root.val){
+                path += left + 1;
+                left += 1; // as left path is going to be extended by 1}
+            }
+            else{
+                left = 0;
+            }
         }
 
-        if (root.right != null && root.right.val == root.val) {
-            path += right + 1;
-            right += 1; // right path is going to be extened by 1
+        if (root.right != null ) {
+            if(root.right.val == root.val){
+                path += right + 1;
+                right += 1; // right path is going to be extened by 1                
+            }
+            else{
+                right=0;
+            }
+            
         }
 
         maxCount = Math.max(maxCount, path);
         
-        if (parent != null && parent != root.val) {
-            // if child not equal to parent , that means this will not contribute to maxpath of 
-            // root;
-            return 0;
-        }
+        
         int val = Math.max(left, right); // max length path passing from this for parent
         return val;
     }
