@@ -15,9 +15,8 @@ class Solution {
     }
 
     private ListNode helper(ListNode head, int k, int l) {
-        if(l<k){            
-            return head;
-        }
+        if(l<k) return head;
+        
         ListNode newhead =  null,tail = null,nextNode=null;
         
         for(int i=0;i<k;i++){
