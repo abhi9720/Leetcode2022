@@ -1,47 +1,59 @@
-//Approach 1 : Find the LCA from node and move to left and right and in left path replace every thiing bby U
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 class Solution {
-    public String getDirections(TreeNode root, int startValue, int destValue) {
-        TreeNode LCA =  findLCA(root,startValue,destValue);
+    public String getDirections(TreeNode root, int start, int dest) {
+        TreeNode lca_node =  LCA(root,start,dest);
+        StringBuilder left  =  new StringBuilder() ,
+                      right =  new StringBuilder();
+        pathToNode(lca_node,start,left);
+        pathToNode(lca_node,dest,right);
         
-        StringBuilder path =  new StringBuilder();
-                
-        traverse(LCA,startValue,path,true);
-                        
-        traverse(LCA,destValue,path,false);
-                
-        return path.toString();                
-    }
-    // find path from node to taregt
-    private boolean traverse(TreeNode node , int target,StringBuilder sb, boolean startVal){
-        if(node==null) return false;
-        
-        if(node.val==target) {            
-            return true;
+        for(int i=0;i<left.length();i++ ){
+            left.setCharAt(i,'U');
         }
+        left.append(right);
+        return left.toString();        
+    }
+    
+    private boolean pathToNode(TreeNode node , int target, StringBuilder sb){
+        if(node==null) return false;
+        if(node.val==target) return true;
+        
+        sb.append("L");
+        if(pathToNode(node.left,target,sb) ) return true;
+        sb.setLength(sb.length()-1 );
         
         
-        sb.append(startVal?"U":"L");
-        if(traverse(node.left,target,sb,startVal))  return true;
-        sb.setLength(sb.length() - 1); // back track 
-        
-        sb.append(startVal?"U":"R");
-        if(traverse(node.right,target,sb,startVal))  return true;
-        sb.setLength(sb.length() - 1); // back track 
-        
-        
+        sb.append("R");
+        if(pathToNode(node.right,target,sb) ) return true ;
+        sb.setLength(sb.length()-1 );
         return false;
         
-        
-        
     }
-    private TreeNode findLCA(TreeNode node,int s, int d){
-        if(node==null) return null;
+    
+    private TreeNode LCA(TreeNode root, int start, int dest) {
+        if(root==null) return root;
+        if(root.val==start || root.val==dest ) return root;
         
-        if(node.val==s || node.val==d) return node;
-        TreeNode left = findLCA(node.left,s,d);
-        TreeNode right =  findLCA(node.right,s,d);
-        if(left!=null && right!=null) return node;
-        else if(left==null) return right;
-        else return left;        
+        TreeNode leftLCA =  LCA(root.left,start,dest);
+        TreeNode rightLCA =  LCA(root.right,start,dest);
+        
+        if(leftLCA!=null && rightLCA!=null) return root;
+        else if(leftLCA!=null) return leftLCA;
+        else return rightLCA;
     }
+    
 }
