@@ -47,7 +47,7 @@ class Solution
       int[] JobScheduling(Job arr[], int n){
         int count = 0, profit = 0;
         Arrays.sort(arr,(o1,o2)-> o2.profit - o1.profit );
-        int time[] =  new int[100+1];
+        int time[] =  new int[101];
         Arrays.fill(time,-1);
         for(int i=0;i<n;i++){
             int t =  arr[i].deadline;
