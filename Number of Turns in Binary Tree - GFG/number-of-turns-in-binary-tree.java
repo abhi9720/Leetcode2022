@@ -108,23 +108,44 @@ class Solution {
             return -1;
         int count[] = new int[1];
 
-        if(lcaNode.data!=first && lcaNode.data!=second){
-            if(pathTurn(lcaNode.left, first, count, true) || pathTurn(lcaNode.right, first, count, false));
-            if(pathTurn(lcaNode.left, second, count, true) || pathTurn(lcaNode.right, second, count, false));
-            return (count[0] +1);
-        }
+        // if(lcaNode.data!=first && lcaNode.data!=second){
+        //     if(pathTurn(lcaNode.left, first, count, true) || pathTurn(lcaNode.right, first, count, false));
+        //     if(pathTurn(lcaNode.left, second, count, true) || pathTurn(lcaNode.right, second, count, false));
+        //     return (count[0] +1);
+        // }
 
-        if(lcaNode.data==first){
+        // if(lcaNode.data==first){
+        //     pathTurn(lcaNode.left, second, count, true);
+        //     pathTurn(lcaNode.right, second, count, false);
+        //     return (count[0] );
+        // }
+        // else {
+        //     pathTurn(lcaNode.left, first, count, true);
+        //     pathTurn(lcaNode.right, first, count, false);
+        //     return (count[0] );
+        // }
+        
+        
+        //--------------------
+        
+          if(lcaNode.data==first){
             pathTurn(lcaNode.left, second, count, true);
             pathTurn(lcaNode.right, second, count, false);
-            return (count[0] );
+             return (count[0] );
         }
-        else {
+        else if(lcaNode.data==second){
             pathTurn(lcaNode.left, first, count, true);
             pathTurn(lcaNode.right, first, count, false);
-            return (count[0] );
+             return (count[0] );
+        }
+        else{
+            if(pathTurn(lcaNode.left, first, count, true) || pathTurn(lcaNode.right, first, count, false));
+            if(pathTurn(lcaNode.left, second, count, true) || pathTurn(lcaNode.right, second, count, false));
+             return (count[0] +1);
         }
         
+        
+    
         
         
     }
