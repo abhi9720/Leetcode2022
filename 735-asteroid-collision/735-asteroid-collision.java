@@ -1,18 +1,19 @@
 class Solution {
 
     public int[] asteroidCollision(int[] asteroids) {
-        Stack<Integer> stk = new Stack<>();
+        int stk[] =  new int[asteroids.length];
+        int i=-1;
         for (int ele : asteroids) {
-            if (stk.size() == 0 || !willCollide(stk.peek(), ele)) {
-                stk.push(ele);
+            if (i==-1 || !willCollide(stk[i], ele)) {
+                stk[++i] =  ele;
             } else {
                 boolean isCollapse = false;
-                while (!stk.isEmpty() && willCollide(stk.peek(), ele)) {
-                    int ele1 = Math.abs(ele), ele2 = Math.abs(stk.peek());
+                while (i>=0 && willCollide(stk[i], ele)) {
+                    int ele1 = Math.abs(ele), ele2 = Math.abs(stk[i]);
                     if (ele1 > ele2) {
-                        stk.pop();
+                        --i;
                     } else if (ele1 == ele2) {
-                        stk.pop();
+                        --i;
                         isCollapse = true;
                         break;
                     } else {
@@ -21,13 +22,13 @@ class Solution {
                     }
                 }
                 if (!isCollapse) {
-                    stk.push(ele);
+                    stk[++i] =  ele;
                 }
             }
         }
-        int arr[] = new int[stk.size()];
-        for (int i = arr.length - 1; i >= 0; i--) {
-            arr[i] = stk.pop();
+        int arr[] = new int[i+1 ];
+        for ( ;i >= 0; i--) {
+            arr[i] = stk[i];
         }
         return arr;
     }
