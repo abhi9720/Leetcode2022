@@ -17,8 +17,7 @@ class Solution {
         idx-=1;
 
         if(idx!=-1){
-            int idx2=  n-1;
-            
+            int idx2=  n-1;            
             while(idx2>=0 && ch[idx2] < ch[idx] ) idx2-=1;
             if(idx2!=-1){
                 char temp =  ch[idx];
