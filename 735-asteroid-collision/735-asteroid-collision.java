@@ -27,9 +27,7 @@ class Solution {
             }
         }
         int arr[] = new int[i+1 ];
-        for ( ;i >= 0; i--) {
-            arr[i] = stk[i];
-        }
+        System.arraycopy(stk,0,arr,0,i+1);
         return arr;
     }
 
