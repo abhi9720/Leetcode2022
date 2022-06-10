@@ -30,7 +30,7 @@ class Solution {
         }
         for(int i=idx;i<n;i++){
             if(i>idx && cand[i] == cand[i-1] ) continue;
-            
+            if(target < cand[i]) break;
                 curr.add(cand[i] );
                 combinationSum2(cand, target-cand[i], i+1, ans, curr);
                 curr.remove(curr.size()-1 );
