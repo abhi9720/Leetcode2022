@@ -1,32 +1,21 @@
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> ans =  new ArrayList<>();
-        boolean used[] =  new boolean[nums.length];
-        helper(ans,new ArrayList<Integer>(),nums,used);
+        permuteHelper(nums,ans,new LinkedList<Integer>() );
         return ans;
     }
-    
-    private void helper(List<List<Integer>> ans, ArrayList<Integer>path, int nums[], boolean used[]){
-
-        if(path.size()==used.length ){
-            ans.add(new ArrayList(path) );
-            return;
+    private void permuteHelper(int nums[], List<List<Integer>> ans,LinkedList<Integer> curr  ){
+        if(curr.size() == nums.length){
+            ans.add(new ArrayList<>(curr) );
+            return ;
         }
         
-        for(int i=0;i<used.length;i++){
-            if(!used[i] ){
-                used[i] =  true;
-                path.add(nums[i] );
-                helper(ans,path,nums,used);
-                used[i] =  false;
-                path.remove(path.size()-1 );                
-            }            
-        }
-        
-        
-        
-        
-        
+        for(int i=0;i<nums.length;i++){
+            if(!curr.contains(nums[i] ) ){
+                curr.addLast(nums[i] );
+                permuteHelper(nums,ans,curr);
+                curr.removeLast();
+            }
+        }    
     }
-    
 }
