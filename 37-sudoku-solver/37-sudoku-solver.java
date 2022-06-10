@@ -1,57 +1,48 @@
 class Solution {
-     
     public void solveSudoku(char[][] board) {
-        solveSudokuHelper(board);
-       
+        helper(board,0,0);
+        
+    }
+    private boolean helper(char [][]board, int i , int j ){
+        int n  = board.length ;
+        if(i==n)  {            
+            return true;
+        }
+            
+        
+        int new_j = j==n-1?0:j+1;
+        int new_i = j==n-1?i+1:i;
+        
+        // System.out.println(board+"["+i+" , "+j+"]");
+        if(board[i][j]!='.' ){            
+            return helper(board,new_i,new_j);
+            
+        }
+        
+        for(char num='1';num<='9';num++){            
+            if(canPlace(board,i,j,num) ){
+                board[i][j] =  num;
+                if(helper(board,new_i,new_j)) return true;
+                board[i][j] =  '.';
+            }
+        } 
+        return false;
     }
     
-    
-    public  boolean solveSudokuHelper(char[][] board) {
-    
-    for(int i = 0; i < board.length; i++){
-            for(int j = 0; j < board[0].length; j++){
-                if(board[i][j] == '.'){
-                    for(char c = '1'; c <= '9'; c++){//trial. Try 1 through 9
-                        if(isSafe(board, i, j, c)){
-                            board[i][j] = c; //Put c for this cell
-                            
-                            if(solveSudokuHelper(board))
-                                return true; //If it's the solution return true
-                            else
-                                board[i][j] = '.'; //Otherwise go back
-                        }
-                    }
-                    
-                    return false;
-                }
+    private boolean canPlace(char grid[][], int i, int j ,char n ){
+        int x1 =  i-i%3;
+        int y1 =  j-j%3;
+        for(int x = x1;x<=x1+2;x++){
+            for(int y=y1;y<=y1+2;y++){
+                if(grid[x][y]== n ) return false;
             }
         }
-        return true;      
-  }
-    
-    private static boolean isSafe(char[][] board , int i ,int j,char num){
-        int x1 =  i-i%3, x2  =  x1+2;
-        int y1 =  j-j%3, y2  =  y1+2;
-
-        // System.out.println("num  : "+num );
-        for(int x= x1;x<=x2;x++){
-            for(int y=y1;y<=y2;y++){
-                if(board[x][y] == num ){
-                    return false;
-                }
-            }
+        
+        for(int y=0;y<grid.length;y++ ){
+            if(grid[i][y]==n ) return false;
         }
-        // check column 
-        for(int x=0;x<board.length;x++){
-            if(board[x][j]==num){ 
-                return false;}
-        }
-        //check row 
-        for(int y=0;y<board.length;y++){
-            if(board[i][y]==num ){
-                // System.out.println("{"+i+" "+y+"} used   : "+board[i][y] );
-                return false;
-            }
+        for(int x=0;x<grid.length;x++){
+            if(grid[x][j]==n ) return false;
         }
         return true;
     }
