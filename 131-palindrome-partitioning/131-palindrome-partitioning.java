@@ -1,21 +1,23 @@
+/**/
+
 class Solution {
 
     public List<List<String>> partition(String s) {
         List<List<String>> ans =  new ArrayList<>();
-        partitionHelper(s,ans,new LinkedList<>() );
+        partitionHelper(s,0,ans,new LinkedList<>() );
         return ans;
     }
 
-    private void partitionHelper(String s, List<List<String>> ans, LinkedList<String> curr) {
-        if (s.length() == 0) {
+    private void partitionHelper(String s,int idx, List<List<String>> ans, LinkedList<String> curr) {
+        if (idx == s.length()) {
             ans.add(new ArrayList<String>(curr));
             return;
         }
         int n = s.length();
-        for (int i = 0; i < n; i++) {
-            if(isPalindrome(s,0,i) ){
-                curr.addLast( s.substring(0,i+1) );
-                partitionHelper(s.substring(i+1) , ans,curr );
+        for (int i = idx; i < n; i++) {
+            if(isPalindrome(s,idx,i) ){
+                curr.addLast( s.substring(idx,i+1) );
+                partitionHelper(s ,i+1, ans,curr );
                 curr.removeLast();
             }
         }
