@@ -1,3 +1,17 @@
+/*
+Use map to cache result 
+
+=> ["a","aa","aaa"]
+    aaaaaaaaa
+      aaaaaaa - we can cache this string resuly how 
+     
+     removing 2a's in 2 times same equivalne to removing 2 a's in one time 
+      so "aaaaaaa" same this string result can be returned 
+     
+     
+
+*/
+
 class Solution {
 
     public boolean wordBreak(String s, List<String> wordDict) {
