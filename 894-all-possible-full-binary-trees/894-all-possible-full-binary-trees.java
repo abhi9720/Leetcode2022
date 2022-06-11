@@ -1,10 +1,27 @@
 /*
 Break our problem to smaller problem
-like for n =  7
-    left root right
-    1     1     5
-    3     1     3
-    5     1     1
+-----------------------
+like for n =  7        |
+left root right        |
+1     1     5          |
+3     1     3          |
+5     1     1          |
+-----------------------    
+like for n = 5         |
+left root right        |
+1     1     3          |
+3     1     1          | 
+-----------------------
+like for n = 3         |
+left root right        |
+1     1     1          |
+1     1     1          |
+-----------------------
+like for n = 1         |
+left root right        |
+null   1   null        |
+-----------------------
+
 */
 class Solution {
     public List<TreeNode> allPossibleFBT(int n) {
