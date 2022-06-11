@@ -3,16 +3,18 @@ class Solution {
         // binary search
         if(x<=1) return x;
         
-        double  i = 0, j =  x/2;
-        while(j-i >= 1e-5){
-            double mid =  (j-i)/2+i;
-            if(mid*mid > x ){
+        int  i = 0, j =  x;
+        while(i<j){
+            int mid =  (j-i)/2+i;
+            if(mid > x/mid ){
                 j =  mid;
             }
             else{
-                i =  mid;
-            }
-            
+                // mid <= x / mid && (mid + 1) > x / (mid + 1
+                if ( (mid + 1) > x / (mid + 1))// Found the result
+			        return mid; 
+                i =  mid+1;
+            }            
         }
         
         return (int)j;
