@@ -7,13 +7,7 @@ class Solution {
         int i = 0, j = 0;
         int maxSum = 0;
         while (j < nums.length) {
-            int ele = nums[j];
-            if (map.containsKey(nums[j])) {
-                while (nums[i] != ele) {
-                    sum -= nums[i];
-                    map.remove(nums[i]);
-                    i++;
-                }
+            while (map.containsKey(nums[j])) {
                 sum -= nums[i];
                 map.remove(nums[i]);
                 i++;
