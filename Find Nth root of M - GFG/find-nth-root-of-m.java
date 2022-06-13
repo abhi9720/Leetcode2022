@@ -29,17 +29,43 @@ class GFG
 
 class Solution
 {
-     int NthRoot(int n, int m){
-	    long  a=0;
-	    long  ele=0;
-	    while(ele<=m){
-	        ele=(long)Math.pow(a,n);
-	        if(ele==m){
-	            return (int)a;
-	        }
-	         a++;
-	    }
-	    return -1;
-     }  
+
+
+ int NthRoot(int n, int m)
+{
+    // Code here.
+    if(n == 1){
+        return m;
+    }
+    if(m == 1){
+        return 1;
+    }
+    
+    int low = 1, high = (int)Math.sqrt(m);
+    while(low <= high){
+        int mid = low + (high - low)/2;
+        long  power = 1;
+        for(int i = 1; i <= n; i++){
+            power *= mid;
+            if(power > m*1L){
+                break;
+            }
+        }
+        
+        if(power == m){
+            return mid;
+        }
+        
+        if(power > m){
+            high = mid-1;
+        }
+        
+        else{
+            low = mid+1;
+        }
+        
+    }
+    return -1;
+}   
    
 }
