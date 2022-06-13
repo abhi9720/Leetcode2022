@@ -47,7 +47,7 @@ class Solution
         long  power = 1;
         for(int i = 1; i <= n; i++){
             power *= mid;
-            if(power > m*1L){
+            if(power > m){
                 break;
             }
         }
