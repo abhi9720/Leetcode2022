@@ -1,15 +1,34 @@
 
 class Solution {
-  public boolean isCompleteTree(TreeNode root) {
-        Queue<TreeNode> bfs = new LinkedList<TreeNode>();
-        bfs.offer(root);
-        while (bfs.peek() != null) {
-            TreeNode node = bfs.poll();
-            bfs.offer(node.left);
-            bfs.offer(node.right);
+    public boolean isCompleteTree(TreeNode root) {
+        Queue<TreeNode> q =  new LinkedList<>();;
+        q.add(root);
+        q.add(null);
+        int child= 1;
+        int count = 0;
+        boolean noChildFalg =  false;
+        while(q.size()  >= 1){
+            TreeNode peek =  q.remove();
+            if(peek==null){                
+                if(q.size()==0 ) break;
+                q.add(null);                                
+                count=0;                
+                continue;                
+            }
+            count++;
+                                    
+            if(peek.left!=null){
+                if(noChildFalg) return false;
+                q.add(peek.left);}
+            else  noChildFalg =  true;
+            
+            if(peek.right!=null){
+                if(noChildFalg) return false;
+                q.add(peek.right);                        
+            }
+            else  noChildFalg =  true;
         }
-        while (!bfs.isEmpty() && bfs.peek() == null)
-            bfs.poll();
-        return bfs.isEmpty();
+        
+        return true;
     }
 }
