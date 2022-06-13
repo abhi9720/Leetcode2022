@@ -2,21 +2,10 @@
 class Solution {
     public boolean isCompleteTree(TreeNode root) {
         Queue<TreeNode> q =  new LinkedList<>();;
-        q.add(root);
-        q.add(null);
-        int child= 1;
-        int count = 0;
+        q.add(root);                
         boolean noChildFalg =  false;
         while(q.size()  >= 1){
-            TreeNode peek =  q.remove();
-            if(peek==null){                
-                if(q.size()==0 ) break;
-                q.add(null);                                
-                count=0;                
-                continue;                
-            }
-            count++;
-                                    
+            TreeNode peek =  q.remove();                                        
             if(peek.left!=null){
                 if(noChildFalg) return false;
                 q.add(peek.left);}
