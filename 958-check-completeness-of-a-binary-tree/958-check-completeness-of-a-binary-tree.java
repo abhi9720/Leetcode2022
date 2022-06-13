@@ -11,13 +11,9 @@ class Solution {
             TreeNode peek =  q.remove();
             if(peek==null){                
                 if(q.size()==0 ) break;
-                q.add(null);
-                if(count!=child) return false;
-                child*=2;
-                count=0;
-                
-                continue;
-                
+                q.add(null);                                
+                count=0;                
+                continue;                
             }
             count++;
                                     
