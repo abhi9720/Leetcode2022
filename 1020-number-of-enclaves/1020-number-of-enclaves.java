@@ -9,7 +9,8 @@ class Solution {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if (i == 0 || j == 0) continue;
-                if (grid[i][j] == 1 && !visited[i][j]) {                    
+                if (grid[i][j] == 1 && !visited[i][j]) {
+                    
                     int val = helper(grid, visited, i, j);
                     if(val!=-1) count+=val;                        
                 }
@@ -21,8 +22,7 @@ class Solution {
     private int helper(int grid[][], boolean visited[][], int i, int j) {
         int n = grid.length,m = grid[0].length;
         
-        if(i<0 || j<0 || i>=n || j>=m || grid[i][j]==0 || visited[i][j] ) return 0;
-        
+        if(i<0 || j<0 || i>=n || j>=m || grid[i][j]==0 || visited[i][j] ) return 0;        
         if(grid[i][j]==1 && (i==0 || j==0 || i==n-1 || j==m-1 )) return -1;
         int count = 0;
         
