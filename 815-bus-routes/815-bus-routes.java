@@ -20,7 +20,7 @@ class Solution {
             int len = q.size();
             count+=1;
             while(len-->0){
-                int st  =  q.remove();
+                int st  =  q.poll();
                 // for this stations get all buses 
                 ArrayList<Integer> buses =  map.get(st);
                 for(int bus : buses){
