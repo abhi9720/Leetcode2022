@@ -27,12 +27,12 @@ class Solution {
                     if(visited.contains(bus) ) continue;
                     visited.add(bus);
                     // if this bus not used 
-                    // then we can exlore all the which can be visited by this bus 
-                    for(int route : routes[bus]){ 
-                        if(route== target ){
+                    // then we can exlore all the station which can be visited by this bus 
+                    for(int s : routes[bus]){ 
+                        if(s== target ){
                             return count;
                         }
-                        q.offer(route);
+                        q.offer(s);
                     }
                 }
             }
