@@ -5,11 +5,13 @@ class Solution {
         
         
         Integer visited[] = new Integer[vtx];
+        // bfs
         // for (int i = 0; i < vtx; i++) {
         //     if (visited[i] == null && bfs(graph, visited, i) == false) return false;
         // }        
         // return true;
         
+        // dfs
         for(int i=0;i<vtx;i++){
             if(visited[i]==null && !dfs(graph,1,i,visited)) return false;            
         }
