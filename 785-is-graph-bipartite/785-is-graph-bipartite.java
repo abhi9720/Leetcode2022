@@ -1,86 +1,36 @@
-class pair{
-    int v,l;
-    public pair(int v,int l){
-        this.v =  v;
-        this.l  = l;
-    }
-    @Override
-    public String toString(){
-        return v+"@"+l+", ";
-    }
-}
- 
 class Solution {
-    
+
     public boolean isBipartite(int[][] graph) {
-        int n =  graph.length;
-        int colors[] =  new int[n];
-        for(int i=0;i<n;i++){
-            if(colors[i]==0 && !dfs(graph,colors,1,i) ){
-                return false;
-            }
+        int vtx = graph.length;
+        
+        
+        Integer visited[] = new Integer[vtx];
+        for (int i = 0; i < vtx; i++) {
+            if (visited[i] == null && bfs(graph, visited, i) == false) return false;
         }
+
+        
+
         return true;
     }
-    // 0  = not colored yet
-    // 1 =  colored red
-    // -1 = colored blue 
-    private boolean dfs(int [][]graph,int colors[],int color,int src){
+
+    private boolean bfs(int graph[][],Integer visited[],int vtx) {
+        Queue<int[]> q = new LinkedList<>();
         
-        if(colors[src]!=0 ){
-            return colors[src]==color;
-        }
-        
-        colors[src]  =  color;
-        for(int nbr:graph[src]){
-            if(!dfs(graph,colors,-color,nbr)){
-                return false;
+        q.add(new int[] { vtx, 0 });
+        while (q.size() > 0) {
+            int peek[] = q.remove();
+            if (visited[peek[0]] != null) {
+                if (visited[peek[0]] != peek[1]) return false;
+                continue;
             }
-        }
-        return true;
-    }
-  
-    /*
-//     bfs
-    public boolean isBipartite(int[][] graph) {
-        int n =  graph.length;
-        Integer visited[]= new Integer[n];
-        
-        
-        
-        for(int i=0;i<n;i++){
-            if(visited[i]==null && !isBipartite(graph,visited,i)){
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    boolean isBipartite(int [][]graph, Integer visited[], int src ){
-        ArrayDeque<pair> q =  new ArrayDeque<>();
-        q.add(new pair(src,1) );
-        while(q.size() >0 ){
-            pair rm = q.remove();
-            if(visited[rm.v]!=null ){
+            visited[peek[0]] = peek[1];
+            // itertate over nbr            
+            for (int nbr : graph[peek[0]]) {                
+                q.add(new int[] { nbr, (peek[1] + 1) % 2 });
                 
-                // means we are visiting same vertex again
-                // check its level same or not
-                int orginalLevel =  visited[rm.v];
-                int newLevel = rm.l;
-                
-                if(orginalLevel!=newLevel) return false;
             }
-            
-            visited[rm.v] = rm.l;
-            for(int nbr:graph[rm.v]){
-                if(visited[nbr]==null)
-                q.add(new pair(nbr,rm.l+1) );
-            }   
-            
         }
-        return true;        
+        return true;
     }
-    */
-    
-    
 }
