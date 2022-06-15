@@ -1,41 +1,24 @@
-class Solution {
-
+class Solution { // 5 ms, faster than 99.66%
     public int[][] updateMatrix(int[][] mat) {
-        int n = mat.length;
-        int m = mat[0].length;
-        Queue<int[]> q = new ArrayDeque<>();
-        for (int i = 0; i < mat.length; i++) {
-            for (int j = 0; j < mat[i].length; j++) {
-                if (mat[i][j] == 0) {
-                    q.offer(new int[] { i, j });
-                }
+        int m = mat.length, n = mat[0].length, INF = m + n; // The distance of cells is up to (M+N)
+        for (int r = 0; r < m; r++) {
+            for (int c = 0; c < n; c++) {
+                if (mat[r][c] == 0) continue;
+                int top = INF, left = INF;
+                if (r - 1 >= 0) top = mat[r - 1][c];
+                if (c - 1 >= 0) left = mat[r][c - 1];
+                mat[r][c] = Math.min(top, left) + 1;
             }
         }
-
-        int ans[][] = new int[mat.length][mat[0].length];
-        for(int row [] : ans){
-            Arrays.fill(row,-1);
-        }
-        
-        int dist = 0;
-        int dirs[][] = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
-        while (q.size() > 0) {
-            int size = q.size();
-            for (int i = 0; i < size; i++) {
-                int peek[] = q.poll();
-                int x = peek[0], y = peek[1];                
-                if(ans[x][y] !=-1 ) continue;            
-                ans[x][y] = dist;
-                // get its all nbr which are one
-                for (int d[] : dirs) {
-                    int nx = d[0] + x, ny = d[1] + y;
-                    if (nx >= 0 && ny >= 0 && nx < n && ny < m && mat[nx][ny] == 1) {
-                        q.offer(new int[] { nx, ny });
-                    }
-                }
+        for (int r = m - 1; r >= 0; r--) {
+            for (int c = n - 1; c >= 0; c--) {
+                if (mat[r][c] == 0) continue;
+                int bottom = INF, right = INF;
+                if (r + 1 < m) bottom = mat[r + 1][c];
+                if (c + 1 < n) right = mat[r][c + 1];
+                mat[r][c] = Math.min(mat[r][c], Math.min(bottom, right) + 1);
             }
-            dist++;
         }
-        return ans;
+        return mat;
     }
 }
