@@ -17,7 +17,7 @@ class Solution {
             Arrays.fill(row,-1);
         }
         
-        int time = 0;
+        int dist = 0;
         int dirs[][] = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
         while (q.size() > 0) {
             int size = q.size();
@@ -25,7 +25,7 @@ class Solution {
                 int peek[] = q.poll();
                 int x = peek[0], y = peek[1];                
                 if(ans[x][y] !=-1 ) continue;            
-                ans[x][y] = time;
+                ans[x][y] = dist;
                 // get its all nbr which are one
                 for (int d[] : dirs) {
                     int nx = d[0] + x, ny = d[1] + y;
@@ -34,7 +34,7 @@ class Solution {
                     }
                 }
             }
-            time++;
+            dist++;
         }
         return ans;
     }
