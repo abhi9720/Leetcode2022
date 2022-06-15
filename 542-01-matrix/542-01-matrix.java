@@ -14,9 +14,9 @@ class Solution {
 
         int ans[][] = new int[mat.length][mat[0].length];
         for(int row [] : ans){
-            Arrays.fill(row,Integer.MAX_VALUE);
+            Arrays.fill(row,-1);
         }
-        boolean visited[][] = new boolean[mat.length][mat[0].length];
+        
         int time = 0;
         int dirs[][] = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
         while (q.size() > 0) {
@@ -24,10 +24,8 @@ class Solution {
             for (int i = 0; i < size; i++) {
                 int peek[] = q.poll();
                 int x = peek[0], y = peek[1];                
-                if(ans[x][y] < time ) continue;
-                
+                if(ans[x][y] !=-1 ) continue;            
                 ans[x][y] = time;
-
                 // get its all nbr which are one
                 for (int d[] : dirs) {
                     int nx = d[0] + x, ny = d[1] + y;
