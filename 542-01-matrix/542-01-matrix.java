@@ -28,7 +28,7 @@ class Solution {
                 // get its all nbr which are one 
                 for(int d[] : dirs){
                     int nx = d[0]+x , ny =  d[1]+y;
-                    if(nx>=0 && ny>=0 && nx<n && ny<m && mat[nx][ny]==1){
+                    if(nx>=0 && ny>=0 && nx<n && ny<m && !visited[nx][ny]  && mat[nx][ny]==1){
                         // System.out.println("add nbr : "+nx+" :  "+ny);
                         q.offer(new int[]{nx,ny});
                     }
