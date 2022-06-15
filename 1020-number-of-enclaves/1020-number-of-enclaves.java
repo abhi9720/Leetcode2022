@@ -9,8 +9,7 @@ class Solution {
         for (int i = 1; i < n-1; i++) {
             for (int j = 1; j < m-1; j++) {
                 if (i == 0 || j == 0) continue;
-                if (grid[i][j] == 1 && !visited[i][j]) {
-                    
+                if (grid[i][j] == 1 && !visited[i][j]) {                    
                     int val = helper(grid, visited, i, j);
                     if(val!=-1) count+=val;                        
                 }
@@ -31,11 +30,15 @@ class Solution {
             int x = i+d[0], y = j+d[1];                                 
             int val =  helper(grid,visited,x,y);            
             
-            if(val==-1){visited[i][j]=false; return -1;}
+            if(val==-1){
+                visited[i][j]=false; 
+                return -1;
+            }
             count+=val;
         }
         
         return count+1;
         
     }
+   
 }
