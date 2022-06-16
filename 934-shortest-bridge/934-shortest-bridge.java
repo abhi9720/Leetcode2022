@@ -1,5 +1,5 @@
 
-// Here we have changes 1 to 2 for the island whose border cells are added 
+// Using new visited array 
 class Solution {
 
     public int shortestBridge(int[][] grid) {
@@ -16,6 +16,7 @@ class Solution {
             if (border.size() != 0) break;
         }
 
+        boolean visited2[][] = new boolean[n][m];
         int dis = 0;
         int dirs[][] = { { -1, 0 }, { 0, 1 }, { 0, -1 }, { 1, 0 } };
         while (border.size() > 0) {
@@ -25,15 +26,15 @@ class Solution {
 
                 // we have to avoid checking for first island 1, so we change them to 2
                 // as they went visited by dfs call
-                if (visited[p[0]][p[1]] && grid[p[0]][p[1]] != 2) continue;
+                if (visited2[p[0]][p[1]]) continue;
 
-                visited[p[0]][p[1]] = true;
+                visited2[p[0]][p[1]] = true;
                 if (grid[p[0]][p[1]] == 1) return dis - 1;
 
                 for (int d[] : dirs) {
                     int x = d[0] + p[0];
                     int y = d[1] + p[1];
-                    if (x >= 0 && y >= 0 && x < n && y < m && !visited[x][y]) {
+                    if (x >= 0 && y >= 0 && x < n && y < m && !visited2[x][y] && !visited[x][y]) {
                         border.offer(new int[] { x, y });
                     }
                 }
