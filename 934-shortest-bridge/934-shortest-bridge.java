@@ -13,9 +13,7 @@ class Solution {
             }
             if (border.size() != 0) break;
         }
-        // for(int bd[]:border){
-        //     System.out.println(bd[0]+"  "+bd[1]);
-        // }
+        
 
         int dis = 0;
         int dirs[][] = { { -1, 0 }, { 0, 1 }, { 0, -1 }, { 1, 0 } };        
@@ -23,17 +21,19 @@ class Solution {
             int size = border.size();
             while (size-- > 0) {
                 int p[] = border.remove();
+                
+                // we have to avoid checking for first island 1, so we change them to 2 
+                // as they went visited by dfs call
                 if (visited[p[0]][p[1]] && grid[p[0]][p[1]]!=2) continue;
                 
-                // System.out.println("for : "+p[0]+"  "+p[1]+" -> "+grid[p[0]][p[1]]);
+                
                 visited[p[0]][p[1]] = true;
                 if (grid[p[0]][p[1]]==1) return dis-1;
 
                 for (int d[] : dirs) {
                     int x = d[0] + p[0];
                     int y = d[1] + p[1];
-                    if (x >= 0 && y >= 0 && x < n && y < m && !visited[x][y]) {
-                        // System.out.println("offer : "+x+"  "+y);
+                    if (x >= 0 && y >= 0 && x < n && y < m && !visited[x][y]) {                    
                         border.offer(new int[] { x, y });
                     }
                 }
