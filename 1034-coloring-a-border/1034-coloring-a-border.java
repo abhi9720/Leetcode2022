@@ -25,7 +25,7 @@ class Solution {
             for(int d[] : dirs){
                 int x =  d[0]+p[0];
                 int y =  d[1]+p[1];;                
-                if(x>=0 && y>=0 && x<n && y<m && grid[x][y]==cc){
+                if(x>=0 && y>=0 && x<n && y<m && grid[x][y]==cc && !visited[x][y]){
                     q.offer(new int[]{x,y});
                 }
             }                                    
