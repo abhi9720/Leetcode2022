@@ -1,10 +1,17 @@
 class Solution {
     public int[][] colorBorder(int[][] grid, int row, int col, int color) {
         int n  =  grid.length,m = grid[0].length;            
+        int ans[][] = new int[n][m];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                ans[i][j] =  grid[i][j];
+            }
+        }
         // start doing bfs from point of orgin 
         Queue<int[]> q  =  new ArrayDeque<>();
         q.offer(new int[]{row,col});
-        Queue<int[]> border =  new ArrayDeque<>();
+        
+        
         boolean visited[][] =  new boolean[n][m];
         int cc  =  grid[row][col];
         int dirs[][] =  {{-1,0},{0,1},{0,-1},{1,0}};
@@ -12,8 +19,8 @@ class Solution {
             int p[] =  q.remove();
             if(visited[p[0]][p[1]] ) continue;
             visited[p[0]][p[1]] =  true;
-            if(isBorder(grid,p[0],p[1],grid[p[0]][p[1]])){                
-                border.offer(new int[]{p[0],p[1]}) ;
+            if(isBorder(grid,p[0],p[1],grid[p[0]][p[1]])){                                
+                ans[p[0]][p[1]] =  color;
             }
             for(int d[] : dirs){
                 int x =  d[0]+p[0];
@@ -23,11 +30,8 @@ class Solution {
                 }
             }                                    
         }
-        while(border.size()!=0 ){
-            int c[] =  border.poll();
-            grid[c[0]][c[1]] =  color;
-        }
-        return grid;
+        
+        return ans;
         
     }
     
