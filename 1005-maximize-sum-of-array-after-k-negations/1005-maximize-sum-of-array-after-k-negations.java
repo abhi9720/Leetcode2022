@@ -1,18 +1,18 @@
 class Solution {
-    // time complexity :  nlogn + O(k) 
-    public int largestSumAfterKNegations(int[] nums, int k) {
-        PriorityQueue<Integer> pq =  new PriorityQueue<>();
-        int sum = 0;
-        for(int ele : nums){
-            pq.offer(ele);
-            sum+=ele;
+
+    public int largestSumAfterKNegations(int[] A, int K) {
+        int[] cnt = new int[201];
+        int res = 0;
+        for (int i : A) ++cnt[i + 100];
+        for (int i = -100; i <= 100 && K > 0; ++i) {
+            if (cnt[i + 100] > 0) {
+                int k = i < 0 ? Math.min(K, cnt[i + 100]) : K % 2;
+                cnt[-i + 100] += k;
+                cnt[i + 100] -= k;
+                K = i < 0 ? K - k : 0;
+            }
         }
-        while(k-->0){
-            int peek  =  pq.remove();
-            if(peek==0) break;
-            sum+= -2*peek; 
-            pq.offer(-peek);
-        }
-        return sum;
+        for (int i = -100; i <= 100; ++i) res += i * cnt[i + 100];
+        return res;
     }
 }
