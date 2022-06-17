@@ -1,13 +1,13 @@
 class Solution {
 
-    public int[][] colorBorder(int[][] grid, int r0, int c0, int color) {
+    public int[][] colorBorder(int[][] grid, int r, int c, int color) {
         int n = grid.length;
         int m = grid[0].length;
 
-        if (grid[r0][c0] == color) return grid;
+        if (grid[r][c] == color) return grid;
 
         boolean[][] visited = new boolean[n][m];
-        dfs(grid, r0, c0, grid[r0][c0], visited, color, n, m);
+        dfs(grid, r, c, grid[r][c], visited, color, n, m);
 
         return grid;
     }
