@@ -1,67 +1,80 @@
-
-// Using new visited array 
 class Solution {
 
+    public class Pair {
+        int i;
+        int j;
+        int lev;
+
+        Pair(int i, int j, int lev) {
+            this.i = i;
+            this.j = j;
+            this.lev = lev;
+        }
+        
+    }
+
     public int shortestBridge(int[][] grid) {
-        int n = grid.length, m = grid[0].length;
-        Queue<int[]> border = new ArrayDeque<>();
-        boolean visited[][] = new boolean[n][m];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
+        ArrayDeque<Pair> q = new ArrayDeque<>();
+        boolean[][] vis1 = new boolean[grid.length][grid[0].length];
+        boolean found = false;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
                 if (grid[i][j] == 1) {
-                    dfs(grid, visited, i, j, border);
+                    dfs(grid, vis1, q, i, j);
+                    found = true;
                     break;
                 }
             }
-            if (border.size() != 0) break;
+            if (found) break;
         }
+        
+        
+        
+        
+        int dist = -1;
+        boolean[][] vis2 = new boolean[grid.length][grid[0].length];
+        while (q.size() > 0) {
+            Pair rem = q.remove();
 
-        boolean visited2[][] = new boolean[n][m];
-        int dis = 0;
-        int dirs[][] = { { -1, 0 }, { 0, 1 }, { 0, -1 }, { 1, 0 } };
-        while (border.size() > 0) {
-            int size = border.size();
-            while (size-- > 0) {
-                int p[] = border.remove();
-
-                // we have to avoid checking for first island 1, so we change them to 2
-                // as they went visited by dfs call
-                if (visited2[p[0]][p[1]]) continue;
-
-                visited2[p[0]][p[1]] = true;
-                if (grid[p[0]][p[1]] == 1) return dis - 1;
-
-                for (int d[] : dirs) {
-                    int x = d[0] + p[0];
-                    int y = d[1] + p[1];
-                    if (x >= 0 && y >= 0 && x < n && y < m && !visited2[x][y] && !visited[x][y]) {
-                        border.offer(new int[] { x, y });
-                    }
-                }
+            if (vis2[rem.i][rem.j]) {
+                continue;
             }
-            dis++;
-        }
+            
 
-        return dis - 1;
+            vis2[rem.i][rem.j] = true;
+
+            if (grid[rem.i][rem.j] == 1) {
+                return rem.lev - 1;
+            }
+            
+            
+            addNbr(grid, vis2, q, rem.i, rem.j + 1, rem.lev + 1);
+            addNbr(grid, vis2, q, rem.i, rem.j - 1, rem.lev + 1);
+            addNbr(grid, vis2, q, rem.i + 1, rem.j, rem.lev + 1);
+            addNbr(grid, vis2, q, rem.i - 1, rem.j, rem.lev + 1);
+            
+            
+        }
+        return dist;
     }
 
-    private void dfs(int grid[][], boolean visited[][], int i, int j, Queue<int[]> border) {
-        int n = grid.length, m = grid[0].length;
-        if (i < 0 || j < 0 || i >= n || j >= m || visited[i][j] || grid[i][j] == 0) return;
+    public void dfs(int[][] grid, boolean[][] vis1, ArrayDeque<Pair> q, int i, int j) {
+        if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || vis1[i][j] == true || grid[i][j] == 0) return;
 
-        visited[i][j] = true;
-        dfs(grid, visited, i, j - 1, border);
-        dfs(grid, visited, i, j + 1, border);
-        dfs(grid, visited, i + 1, j, border);
-        dfs(grid, visited, i - 1, j, border);
+        vis1[i][j] = true;
+        q.add(new Pair(i, j, 0));
+        dfs(grid, vis1, q, i + 1, j);
+        dfs(grid, vis1, q, i - 1, j);
+        dfs(grid, vis1, q, i, j + 1);
+        dfs(grid, vis1, q, i, j - 1);
+        grid[i][j] = 2;
+    }
 
-        if (i == 0 || j == 0 || i == n - 1 || j == m - 1 || 
-            grid[i][j - 1] == 0 || grid[i - 1][j] == 0 || 
-            grid[i][j + 1] == 0 || grid[i + 1][j] == 0) {
-            
-            border.add(new int[] { i, j });
-            grid[i][j] = 2;
-            
+    public void addNbr(int[][] grid, boolean[][] vis2, ArrayDeque<Pair> q, int i, int j, int lev) {
+        if (i < 0 || j < 0 || i >= grid.length ||
+            j >= grid[0].length || vis2[i][j] == true || grid[i][j] == 2) {
+            return;
         }
+        q.add(new Pair(i, j, lev));
     }
 }
