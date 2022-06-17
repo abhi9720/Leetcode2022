@@ -1,32 +1,44 @@
 class Solution {
 
-    public int[][] colorBorder(int[][] grid, int r, int c, int color) {
-        int n = grid.length;
-        int m = grid[0].length;
-
-        if (grid[r][c] == color) return grid;
-
-        boolean[][] visited = new boolean[n][m];
-        dfs(grid, r, c, grid[r][c], visited, color, n, m);
-
+    public int[][] colorBorder(int[][] grid, int row, int col, int color) {
+        boolean[][] visit = new boolean[grid.length][grid[0].length];
+        help(grid, row, col,grid[row][col], color, visit);
+        
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] < 0) grid[i][j] = color;
+            }
+        }
+        
         return grid;
     }
 
-    public void dfs(int[][] grid, int i, int j, int col, boolean[][] visited, int target, int n, int m) {
-        if (i > n - 1 || i < 0 || j > m - 1 || j < 0 || grid[i][j] != col || visited[i][j]) return;
-
-        visited[i][j] = true;
-        boolean border = false;
-
-        if (i == 0 || j == 0 || j == m - 1 || i == n - 1 
-            || grid[i + 1][j] != col || grid[i - 1][j] != col || 
-            grid[i][j - 1] != col || grid[i][j + 1] != col) border = true;
-
-        dfs(grid, i + 1, j, col, visited, target, n, m);
-        dfs(grid, i - 1, j, col, visited, target, n, m);
-        dfs(grid, i, j + 1, col, visited, target, n, m);
-        dfs(grid, i, j - 1, col, visited, target, n, m);
-
-        if (border) grid[i][j] = target;
+    public void help(int[][] grid, int row, int col,int selfcolor, int color, boolean[][] visit) {
+       if(row<0 || col<0 || row>=grid.length || col>=grid[0].length|| visit[row][col]
+          || grid[row][col]==0
+          || grid[row][col]!=selfcolor
+         ){
+           return;
+       }
+        
+        grid[row][col] = -grid[row][col];
+        visit[row][col] = true;
+        
+        
+        help(grid, row - 1, col,selfcolor, color, visit);
+        help(grid, row, col - 1,selfcolor, color, visit);
+        help(grid, row + 1, col,selfcolor, color, visit);
+        help(grid, row, col + 1,selfcolor, color, visit);
+        
+        if (
+            row>0 && col>0 && row<grid.length-1 && col<grid[0].length-1 &&
+            Math.abs(grid[row - 1][col]) == selfcolor &&
+            Math.abs(grid[row + 1][col]) == selfcolor &&
+            Math.abs(grid[row][col + 1]) == selfcolor &&
+            Math.abs(grid[row][col - 1]) == selfcolor
+        ) {
+            grid[row][col] = -grid[row][col] ;
+        }
     }
+     
 }
