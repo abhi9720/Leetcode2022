@@ -17,8 +17,7 @@ class Solution {
         
         int sort[] =  new int[j-i+1];
         int p1 = i, p2 = mid + 1;
-        // System.out.println(p1+" - "+(mid) +"  | "+ p2+" - "+j);
-        // System.out.println(Arrays.toString(ans) );
+        
         int itr = 0;
         while (p1 <= mid && p2 <= j) {
                             
@@ -34,19 +33,19 @@ class Solution {
         
     }
 
-//     public int bitCount(Integer n) {
-//         int bit = 0;
-//         while (n != 0) {
-//             int rsb = n & -n;
-//             n = n - rsb;
-//             bit++;
-//         }
+    public int bitCount(Integer n) {
+        int bit = 0;
+        while (n != 0) {
+            int rsb = n & -n;
+            n = n - rsb;
+            bit++;
+        }
 
-//         return bit;
-//     }
+        return bit;
+    }
 
     public int compareTo(int a, int b) {
-        int diff = Integer.bitCount(a) - Integer.bitCount(b);
+        int diff = bitCount(a) - bitCount(b);
         if(diff==0) return Integer.compare(a,b);
         else return diff;
     }
