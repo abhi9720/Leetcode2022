@@ -97,7 +97,7 @@ class Solution
         }
         
         
-        int ans[] =  new int[n+1];
+        int ans[] =  new int[n];
         
          for (int i=0; i<n; i++)
         {
@@ -107,14 +107,14 @@ class Solution
             // arr[i] is a possible answer for this length
             // 'len' interval, check if arr[i] is more than
             // max for 'len'
-            ans[len] = Math.max(ans[len], arr[i]);
+            ans[len-1] = Math.max(ans[len-1], arr[i]);
         }
-          for (int i=n-1; i>=1; i--)
+          for (int i=n-2; i>=0; i--)
             ans[i] = Math.max(ans[i], ans[i+1]);
             
-        int fans[] =  new int[n];
-        System.arraycopy(ans,1,fans,0,n);
-        return fans;
+        // int fans[] =  new int[n];
+        // System.arraycopy(ans,1,fans,0,n);
+        return ans;
         
         
         
