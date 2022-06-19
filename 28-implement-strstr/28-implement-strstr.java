@@ -1,47 +1,55 @@
-// Implementation 2
-// basic rabinkarp
 class Solution {
+    public int strStr(String haystack, String needle) {
+        return KMP(haystack, needle);
+    }
+    
+      private  int KMP(String src, String pattern){
 
-    public int strStr(String source, String target) {
-        int n = source.length();
-        int m = target.length();
-
-        if (n < m) return -1;
-
-        long hSource = 0; // hash of source
-        long hTarget = 0; // hash of target
-        long base = 31; // base
-        long mod = 997; // hash table size , to handle very large number
-
-        // preCompute =  base^(N-1) need to remove out of window character
-        // as we need to remove out of window digit we multiply it wit char*base^(N-1)
-        long preCompute = 1;
-        for (int i = 1; i < m; i++) {
-            preCompute = (preCompute * base) % mod;
-        }
-
-        // calculated intiial hashvalues
-        for (int i = 0; i < m; i++) {
-            hSource = ((hSource * base) % mod + source.charAt(i)) % mod;
-            hTarget = ((hTarget * base) % mod + target.charAt(i)) % mod;
-        }
-
-        for (int j = m; j <= n; j++) {
-            if (hSource == hTarget) {
-                if (source.substring(j - m, j).equals(target)) {
-                    return j - m;
+        int loopup[] =  createLookUpTable(pattern);
+        int i = 0, j = 0;
+        while(i<src.length() && j<pattern.length()){
+            if(src.charAt(i)==pattern.charAt(j)){
+                
+                i++;
+                j++;                
+            }
+            else{
+                if(j>0){
+                    j =  loopup[j-1];
+                }
+                else{
+                    i++;
                 }
             }
-
-            if (j < n) {
-                // this is where we are rolling our hash value to calculate next hashvlaue
-                // removed out of window character
-                hSource = (hSource+mod - (source.charAt(j - m) * preCompute)%mod) % mod;
-
-                // add new character of this window
-                hSource = (hSource * base + source.charAt(j )) % mod;
+            if(j==pattern.length()){                
+                return i-j;
             }
         }
         return -1;
+    }
+
+
+    private  int[] createLookUpTable( String pattern){
+        int lookup[] =  new int[pattern.length()];
+        int i = 1;
+        int index = 0;
+        while(i<pattern.length() ){
+            if(pattern.charAt(i)== pattern.charAt(index) ){
+                lookup[i] =  index+1;
+                index++;
+                i++;
+            }
+            else{
+                if(index>0){
+                    index = lookup[index-1];
+                }
+                else{
+                    lookup[i]  = 0;
+                    i++;
+                }
+            }
+            
+        }
+        return lookup;
     }
 }
