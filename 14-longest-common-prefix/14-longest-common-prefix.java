@@ -11,6 +11,7 @@ class Solution {
                 j++;
             }
             prefix = prefix.substring(0,j);                        
+            if(prefix.length()==0 ) break;
         }
         return prefix;
     }
