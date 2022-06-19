@@ -1,26 +1,31 @@
 class Solution {
 
-    public int myAtoi(String s) {
-        if(s.length()==0) return 0;
+    public int myAtoi(String s) {        
         int i = 0, n = s.length();
+        // skip spaces 
         while (i < n && s.charAt(i) == 32) i++;
+        
         int num = 0;
-        boolean sign = false;
+        boolean negative = false;
+        
+        // handle sign 
         if (i<n && (s.charAt(i) == '-' || s.charAt(i) == '+')) {
             if (s.charAt(i) == '-') {
-                sign ^= true;
+                negative ^= true;
             }
             i += 1;
         }
+        
+        
         while (i < n && s.charAt(i) >= '0' && s.charAt(i) <= '9') {
             int prev = num;
             num = num * 10 + (s.charAt(i) - '0');
-            if( prev!=num/10){
-                num =  sign?Integer.MIN_VALUE:Integer.MAX_VALUE;
+            if( prev!=num/10){// to handle overflow happend or not 
+                num =  negative?Integer.MIN_VALUE:Integer.MAX_VALUE;
                 return num;
             }
             i++;
         }
-        return sign ? -num : num;
+        return negative ? -num : num;
     }
 }
