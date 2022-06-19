@@ -1,47 +1,40 @@
-class Solution {
-    public int strStr(String source, String target) {
-        int M = source.length();
-        int N = target.length();
-        
-        if (M < N)
+public class Solution {
+    private static final int R = 31;
+    private static final int Q = 997;
+
+    public int strStr(String haystack, String needle) {
+        if (needle.length() > haystack.length()) {
             return -1;
-        
-        
-        long hSource = 0;// hash of source
-        long hTarget = 0;// hash of target
-        long base = 31; // base
-        long mod = 1000000000000000003L; // hash table size
-        
-        
-        // to compute the mod of remove digits, base^(N-1) % q
-        // as we need to remove out of window digit we multiply it wit hbase^(N-1)
-        long preCompute = 1;
-        
-        for (int i = 0; i < N - 1; i++) {
-            preCompute = (preCompute * base) % mod; // (a%n * b%n)%n
         }
-        
-        
-        for(int i=0;i<N;i++){
-            hSource = ( hSource*base + source.charAt(i))%mod;
-            hTarget = ( hTarget*base + target.charAt(i) )%mod;            
+        if (needle.length() == 0) {
+            return 0;
         }
-        if(hTarget==hSource) return 0;
-        
-        for(int j=1;j<=M-N;j++){
-            // removed out of window character
-            hSource =  (hSource - source.charAt(j-1)*preCompute)%mod;
-            
-            // add new character of this window 
-            hSource =  (hSource*base + source.charAt(j+N-1))%mod;
-            
-            if(hSource==hTarget){
-                if(source.substring(j,j+N).equals(target) ){
-                    return j;
-                }                
-            }                
+        int m = needle.length();
+        int n = haystack.length();
+        int mf = 1;
+        for (int i = 1; i < m; i++) {
+            mf = (mf * R) % Q;
+        }
+        int needleHash = hash(needle, 0, m);
+        int hash = hash(haystack, 0, m);
+
+        for (int i = m; i <= n; i++) {
+            if (hash == needleHash && haystack.substring(i - m, i).equals(needle)) {
+                return i - m;
+            }
+            if (i < n) {
+                hash = (hash + Q - (mf * haystack.charAt(i - m) % Q)) % Q;
+                hash = (hash * R + haystack.charAt(i)) % Q;
+            }
         }
         return -1;
     }
-}
 
+    private static int hash(String s, int from, int to) {
+        int hash = 0;
+        for (int i = from; i < to; i++) {
+            hash = ((hash * R) % Q + s.charAt(i)) % Q;
+        }
+        return hash;
+    }
+}
