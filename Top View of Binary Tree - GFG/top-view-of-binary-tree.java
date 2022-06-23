@@ -122,66 +122,41 @@ class Node{
     }
 }
 */
-
-class pair{
-    Node node;
-    int level;
-    int width;
-    // level because  deeper node may visit before the upper node because of recursion
-    public pair(Node node , int level,int width){
-        this.node =  node;
-        this.level  =  level;
-        this.width =  width;
-    }
-}
-
 class Solution
 {
-    //Function to return a list of nodes visible from the top view 
-    //from left to right in Binary Tree.
     
-    
-    static ArrayList<Integer> topView(Node root)
-    {
-        // horizontal_distance , pair
-        HashMap<Integer,Integer> map = new HashMap<>();
-        
-        Queue<pair> q  =  new ArrayDeque<>();
-        if(root==null) return  new ArrayList<>();
-        q.add(new pair(root,0,0) );// node , level , width
-        int min = 0;
-        
-        while(q.size() >0 ){
-            pair peek =  q.remove();
-            Node n =  peek.node;
-            int w =  peek.width;
-            int l =  peek.level;
-            min =  Math.min(w,min);
-            if(!map.containsKey(w) ){
-                map.put(w ,n.data );
-            }
-            
-            if(n.left!=null){
-                q.add(new pair(n.left,l+1,w-1) );
-            }
-            if(n.right!=null){
-                q.add(new pair(n.right,l+1,w+1) );
-            }
-            
-        }
+    int min = 0;
+    public ArrayList <Integer> topView(Node root){
+        min  = 0;
+        // x dis - {depth , node val}
+        HashMap<Integer,int[]> map =  new HashMap<>();
+        dfs(root,0,0,map);
         ArrayList<Integer> ans =  new ArrayList<>();
-        for(int i=min ;i<min+map.size();i++ ){
-            ans.add(map.get(i) );
+        for(int i=min;i<min+map.size();i++ ){
+            ans.add(map.get(i)[1] );
         }
-        
-        
         return ans;
-        
     }
     
-  
+    private void dfs(Node root,int dis,int depth,HashMap<Integer,int[]> map ){
+        if(root==null) return ;
+        
+        min =  Math.min(dis,min);
+        
+        if(map.containsKey(dis) ){
+            int prev[] =  map.get(dis);
+            if(depth <  prev[0]  ){
+                prev[1] = root.data;
+                prev[0]=  depth;
+            }
+        }
+        else{
+            map.put(dis , new int[]{depth,root.data});
+        }
+        
+        dfs(root.left,dis-1,depth+1,map);
+        dfs(root.right,dis+1,depth+1,map);
+    }
+    
+    
 }
-
-
-
-
