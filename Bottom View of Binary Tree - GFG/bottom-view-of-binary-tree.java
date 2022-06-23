@@ -114,56 +114,41 @@ class GfG {
 
 
 
-
-
-
-class pair{
-    Node node;
-    int y;// vertical 
-    int x; // horizonal
-    // level because  deeper node may visit before the upper node because of recursion
-    public pair(Node node , int x, int y){
-        this.node =  node;
-        this.x  = x;
-        this.y  =  y;
-    }
-}
-
 class Solution
 {
     
-    static ArrayList<Integer> bottomView(Node root)
-    {
-        // horizontal_distance , pair
-        HashMap<Integer,pair> map = new HashMap<>();
+    int min = 0;
+    public ArrayList <Integer> bottomView(Node root){
+        min  = 0;
+        // x dis - {depth , node val}
+        HashMap<Integer,int[]> map =  new HashMap<>();
+        dfs(root,0,0,map);
         ArrayList<Integer> ans =  new ArrayList<>();
-        Queue<pair> q =  new ArrayDeque<>();
-        if(root==null) return ans;
-        q.add(new pair(root,0,0) ) ;
-        int min = 0;
-        while(q.size() >0 ){
-           pair p =  q.remove();
-           min =  Math.min(min, p.x);
-           pair mapped =  map.get(p.x);
-           if(mapped==null || mapped.x <= p.x ){
-               map.put(p.x , p );
-           }
-           if(p.node.left!=null){
-               q.add(new pair(p.node.left,p.x-1,p.y+1) );
-           }
-           
-           if(p.node.right!=null){
-               q.add(new pair(p.node.right,p.x+1,p.y+1) );
-           }
-        }
-       
         for(int i=min;i<min+map.size();i++ ){
-            ans.add(map.get(i).node.data );
+            ans.add(map.get(i)[1] );
         }
         return ans;
     }
     
-   
+    private void dfs(Node root,int dis,int depth,HashMap<Integer,int[]> map ){
+        if(root==null) return ;
+        
+        min =  Math.min(dis,min);
+        
+        if(map.containsKey(dis) ){
+            int prev[] =  map.get(dis);
+            if(depth >=  prev[0]  ){
+                // prev[1] = root.data;
+                map.put(dis , new int[]{depth,root.data});
+            }
+        }
+        else{
+            map.put(dis , new int[]{depth,root.data});
+        }
+        
+        dfs(root.left,dis-1,depth+1,map);
+        dfs(root.right,dis+1,depth+1,map);
+    }
+    
     
 }
-
