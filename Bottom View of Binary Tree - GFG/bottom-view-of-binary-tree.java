@@ -138,8 +138,8 @@ class Solution
         if(map.containsKey(dis) ){
             int prev[] =  map.get(dis);
             if(depth >=  prev[0]  ){
-                // prev[1] = root.data;
-                map.put(dis , new int[]{depth,root.data});
+                prev[1] = root.data;
+                prev[0]=  depth;
             }
         }
         else{
