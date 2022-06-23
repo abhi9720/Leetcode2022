@@ -1,18 +1,25 @@
-
 class Solution {
+
     public List<Integer> preorderTraversal(TreeNode root) {
-        Stack<TreeNode> stk =  new Stack<>();
-        List<Integer> list =  new ArrayList<>();
-        while(stk.size() >0  || root!=null){
-            while(root!=null){
-                stk.add(root);
-                list.add(root.val);
-                root = root.left;
-            }
-            TreeNode peekNode =  stk.pop();
-            root =  peekNode.right;
-            
+        Stack<TreeNode> stk = new Stack<>();
+        List<Integer> li = new ArrayList<>();
+        TreeNode temp = root;
+        while (temp != null) {
+            li.add(temp.val);
+            stk.push(temp);
+            temp = temp.left;
         }
-        return list;
+
+        while (stk.size() != 0) {
+            TreeNode p = stk.pop();
+
+            temp = p.right;
+            while (temp != null) {
+                li.add(temp.val);
+                stk.push(temp);
+                temp = temp.left;
+            }
+        }
+        return li;
     }
 }
