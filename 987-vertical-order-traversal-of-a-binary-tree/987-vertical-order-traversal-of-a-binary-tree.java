@@ -1,68 +1,47 @@
-class Solution
-{
-    //Function to find the vertical order traversal of Binary Tree.
-    static class pair implements Comparable<pair>{
-        TreeNode node;
-        int h;
-        int d;
-        pair(TreeNode node,int h,int d)
-        {
-            this.node=node;
-            this.h=h;
-            this.d=d;
+class pair implements Comparable<pair>{
+    TreeNode node;
+    int depth;    
+    public pair(TreeNode node , int depth){
+        this.node =  node;
+        this.depth =  depth;
+    }
+    public int compareTo(pair o){
+        if(this.depth==o.depth){
+            return Integer.compare(this.node.val,o.node.val);
         }
-        public int compareTo(pair other){
-            if(this.d == other.d){
-                return this.node.val - other.node.val;
-            } else {
-                return this.d - other.d;
-            }
+        else{
+            return Integer.compare(this.depth,o.depth);
         }
     }
-    
+}
+class Solution {
+    int min = 0;
     public List<List<Integer>> verticalTraversal(TreeNode root) {
-    
-       LinkedList<pair>list = new LinkedList<>();
-       HashMap<Integer,PriorityQueue<pair>>map=new HashMap<>();
-       int min =0;
-       int max=0;
-       list.add(new pair(root,0,1));
-       while(list.size()>0)
-       {
-           pair p = list.removeFirst();
-           if(!map.containsKey(p.h)){
-               map.put(p.h, new PriorityQueue<>());
-               map.get(p.h).add( p );
-           }
-           else{
-            map.get(p.h).add(p);
-           }
-           
-           min=Math.min(min,p.h);
-           max=Math.max(max,p.h);
-           
-           if(p.node.left!=null)
-           {
-               list.addLast(new pair(p.node.left,p.h-1,p.d+1));
-           }
-           if(p.node.right!=null)
-           {
-               list.addLast(new pair(p.node.right,p.h+1,p.d+1));
-           }
-       }
+        min = 0;
+        HashMap<Integer,PriorityQueue<pair>> map =  new HashMap<>();
+        dfs(root,map,0,0);
+        List<List<Integer>> ans =  new ArrayList<>();
         
-       List<List<Integer>>ans=new ArrayList<>();
-       for(int i=min;i<=max;i++)
-       {
-        PriorityQueue<pair>p=map.get(i);
-        ArrayList<Integer>a=new ArrayList<>();
-        while(p.size()>0)
-        {
-            a.add(p.remove().node.val   );
+        
+        for(int i=min;i<min+map.size();i++ ){
+            PriorityQueue<pair> q =  map.get(i);
+            ArrayList<Integer> vrt =  new ArrayList<>();
+            while(q.size()!=0 ){
+                vrt.add(q.poll().node.val );
+            }
+            ans.add(vrt);
         }
-        ans.add(a);
-       }
-       return ans;
-
+        return ans;
+    }
+    private void dfs(TreeNode node,HashMap<Integer,PriorityQueue<pair>> map, int hd, int depth ){
+        if(node==null) return ;
+        
+        min  =  Math.min(hd,min);
+        map.putIfAbsent(hd , new PriorityQueue<>())   ;
+        map.get(hd).add(new pair(node,depth) );   
+        dfs(node.left,map,hd-1,depth+1);
+        dfs(node.right,map,hd+1,depth+1);
+        
+        
     }
 }
