@@ -6,7 +6,7 @@ class Solution {
         if (d1 == d2) {
             TreeNode lca = lowestCommonAncestor(root, x, y);
 
-            if (lca.val != x && lca.val != y && lca.left != null && lca.right != null) {
+            if (lca.val != x && lca.val != y ) {
                 return !((lca.left.val == x && lca.right.val == y) 
                          || (lca.left.val == y && lca.right.val == x));
             } else {
