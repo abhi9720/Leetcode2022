@@ -110,56 +110,46 @@ class Solution
 {
 	ArrayList <Integer> boundary(Node node)
 	{
-	    ArrayList<Integer> ans =  new ArrayList<>();
-	    if(node.left!=null || node.right!=null){
-	        ans.add(node.data);
-	    }
-	    leftBoundary(node.left,ans);
-	    leaveNodes(node,ans);
-	    rightBoundary(node.right,ans);
-	    
-	    return ans;
-	    
+	    ArrayList<Integer> bound =  new ArrayList<>();
+	    bound.add(node.data);
+        leftBoundary(node.left,bound);
+        
+        addLeave(node.left,bound);
+        addLeave(node.right,bound);
+        
+        rightBounary(node.right,bound);
+        return bound;
 	}
-	//@post order
-	private void rightBoundary(Node node, ArrayList<Integer> ans){
-	    if(node==null) return ;
-	    
-	    
-	    if(node.right!=null){
-	        rightBoundary(node.right,ans);
-	    }
-	    else{
-	        rightBoundary(node.left,ans);
-	    }
+	private void leftBoundary(Node node , ArrayList<Integer> bound){
+	    while(node!=null){
 	    if(node.left!=null || node.right!=null){
-	        ans.add(node.data);
+	         bound.add(node.data);
+	    }
+	        if(node.left==null) node = node.right;
+	        else node=  node.left;
 	    }
 	}
-	private void leaveNodes(Node node ,ArrayList<Integer> ans ){
+	private void addLeave(Node node , ArrayList<Integer> bound){
 	    if(node==null) return ;
-	    
 	    if(node.left==null && node.right==null){
-	        ans.add(node.data);
+	        bound.add(node.data);
 	        return ;
 	    }
-	    leaveNodes(node.left,ans);
-	    leaveNodes(node.right,ans);
-	    
+	    addLeave(node.left,bound);
+	    addLeave(node.right,bound);
 	}
-	private void leftBoundary(Node node ,ArrayList<Integer> ans ){
+	
+	private void rightBounary(Node node , ArrayList<Integer> bound){
 	    if(node==null) return ;
 	    
+	    if(node.right==null) rightBounary(node.left,bound);
+	    else rightBounary(node.right,bound);
 	    if(node.left!=null || node.right!=null){
-	        ans.add(node.data);
+	         bound.add(node.data);
 	    }
-	    
-	    if(node.left!=null){
-	        leftBoundary(node.left,ans);
-	    }
-	    else{
-	        leftBoundary(node.right,ans);
-	    }
-	    
 	}
+	
+	
+	
+	
 }
