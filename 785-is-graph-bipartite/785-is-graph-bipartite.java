@@ -1,5 +1,5 @@
 class Solution {
-    int parent[] , rank[];
+    
     public boolean isBipartite(int[][] graph) {
         int vtx =  graph.length;
         parent =    new int[vtx];
@@ -25,6 +25,8 @@ class Solution {
         }
         return true;
     }
+    
+    int parent[] , rank[];
     
     private int find(int x){        
         if(x!=parent[x]) parent[x] = find(parent[x]);
