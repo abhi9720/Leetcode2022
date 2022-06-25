@@ -17,6 +17,9 @@ class Solution {
                 // donot do union of i with graph[i][j]
                 // as we nbr graph[i][j] check for its nbr and i will be parent in it 
                 // and they have parent as we union them before and its return false 
+                
+                
+                // union will call on lead of set
                 union(find(graph[i][0]),find(graph[i][j]));
             }
         }
