@@ -1,32 +1,51 @@
 class Solution {
-    public int[] findOrder(int nc, int[][] prs) {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        //prepare
+        List<List<Integer>> graph = new ArrayList<>();
+        for(int i = 0; i < numCourses; i++){
+            graph.add(new ArrayList<>());
+        }
+
+        for(int[] pair : prerequisites){
+            int prev = pair[1];
+            int next = pair[0];
+            graph.get(prev).add(next);
+        }
+
+        int [] visited = new int[numCourses];
         
-        ArrayList<Integer>[] graph =  new ArrayList[nc];
-        for(int i=0;i<nc;i++){
-            graph[i]=  new ArrayList<>();
+        List<Integer> res = new ArrayList<>();
+        for(int i = 0; i < numCourses; i++){
+            if(!topoSort(res, graph, visited, i)) return new int[0];
         }
-        int indeg[] =  new int[nc];
-        for(int ed[] :prs ){
-            int v1 =  ed[0], v2 =  ed[1];
-            graph[v1].add(v2);
-            indeg[v2]++;
+
+        int[] result = new int[numCourses];
+        for(int i = 0; i < numCourses; i++){
+            result[i] = res.get(numCourses - i - 1);
         }
-        Queue<Integer> q =  new ArrayDeque<>();
-        for(int i=0;i<nc;i++){
-            if( indeg[i] == 0 ) q.offer(i) ;
-        }        
-        int order[] = new int[nc];
-        int i =  nc-1;
-        while(q.size()!=0 ){
-            int vtx =  q.poll();
-            order[i--] =  vtx;
-            for(int nbr : graph[vtx] ){
-                indeg[nbr]--;
-                if(indeg[nbr]==0) q.offer(nbr);
-            }
-        }
-        if(i!=-1) return new int[0];
-        return order;
+        return result;
     }
-    
+
+    private boolean topoSort(List<Integer> res, List<List<Integer>> graph, int [] visited, int i){
+        int visit = visited[i];
+        
+        if(visit == 2){ // dependency of this vtx done , like its is again visited by some other component 
+            // vtx
+            return true;
+        }
+        if(visit == 1){  
+            // means some of its nbr to nbr visit it again ,means all its  dependecy not resolved 
+            // means cycle present 
+            return false;
+        }
+
+        visited[i] =  1;
+        for(int j : graph.get(i)){
+            if(!topoSort(res, graph, visited, j)) return false;
+        }
+        visited[i] =  2;
+        res.add(i);//the only difference with traversing a graph
+
+        return true;
+    }
 }
