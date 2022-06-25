@@ -85,7 +85,7 @@ class Solution
 {
     public String findOrder(String [] dict, int N, int K)
     {
-        ArrayList<Integer>[] graph = (ArrayList<Integer>[])new ArrayList[K];
+        ArrayList<Integer>[] graph = new ArrayList[K];
         for(int i=0;i<K;i++){
             graph[i] = new ArrayList<>();
         }
