@@ -60,41 +60,33 @@ class Main {
 class Solution
 {
     //Function to return list containing vertices in Topological order. 
-    static int[] topoSort(int V, ArrayList<ArrayList<Integer>> graph) 
+    static int[] topoSort(int V, ArrayList<ArrayList<Integer>> adj) 
     {
-        
-        boolean visited[] =  new boolean[V];
-        Stack<Integer> stk =  new Stack<>();
-        for(int i=0;i<V;i++){
-            if(!visited[i]){
-                sort(graph,visited,stk,i);
-        }
-    }
-    
-    
-    
-    int arr[] = new int[stk.size()];
-    for(int i=0;i<arr.length;i++){
-        arr[i] =  stk.pop();
-    }
-
-    return arr;
-  
-}
-  static void sort(ArrayList<ArrayList<Integer>> graph,boolean visited[], Stack<Integer> stk, int src){
-        
-        
-        visited[src] =  true;
-        // explore nbr
-        for(Integer nbr : graph.get(src)){
-            if(!visited[nbr]){
-                // System.out.println("next call : "+nbr);
-                sort(graph,visited,stk,nbr);
+        int indegree[] =  new int[V];
+        for(ArrayList<Integer> nbrs : adj ){
+            for(int nbr :  nbrs ){
+                indegree[nbr]++;
             }
         }
         
-        stk.add(src);
-        
-        
+        Queue<Integer> q =  new ArrayDeque<>();
+        for(int i=0;i<V;i++){
+            if(indegree[i]==0 ){
+                q.offer(i);
+            }
+        }
+        int idx = 0;
+        int order[] =  new int[V];
+        while(!q.isEmpty() ){
+            int vtx  =  q.poll();
+            order[idx++] =  vtx;
+            for(int nbr : adj.get(vtx) ){
+                indegree[nbr]--;
+                if(indegree[nbr] ==0){
+                    q.offer(nbr);
+                }
+            }
+        }
+        return order;
     }
 }
