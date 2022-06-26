@@ -1,48 +1,44 @@
 class Solution {
-    int parent[];
-    int rank[];
+    /// in union if there is edge a edge which connecting two vertex of same set
+    // then such edge form cycle 
+    int parent[] , rank[];
     public int[] findRedundantConnection(int[][] edges) {
-        parent =  new int[edges.length+1];
-        rank =  new int[edges.length+1];
-        for(int i=0;i<parent.length;i++){
-            parent[i] = i;
-            rank[i] = 0;
+        int v =  edges.length;
+        parent =  new int[v+1];
+        rank =  new int[v];
+        for(int i=0;i<v;i++){
+            parent[i] =  i;
         }
-        for(int e[]:edges){
-            int xl =  find(e[0]);
-            int yl =  find(e[1]);
-            if(xl!=yl){
-                union(xl,yl);
-            }
-            else{
-                return e;
-            }
-            
+        for(int ed[] : edges){
+            int v1 =  ed[0];
+            int v2 =  ed[1];
+            int s1L =  find(v1) ,s2L = find(v2);
+            if(s1L==s2L){
+                return ed;
+            }       
+            union(s1L,s2L);
         }
         return null;
-    }
-    
-    void union(int xl , int yl){
-        if(rank[xl] < rank[yl]){
-            parent[xl] =  yl;
-        }
-        else if(rank[yl] < rank[xl]){
-            parent[yl]  =  xl;            
-        }else{
-            // if same rank merges then the rank of the vtx which become parent
-            // of other 
-            parent[xl] =  yl;
-            rank[yl]++;
-        }
         
     }
-    int find(int x){
-        if(parent[x]==x) return x;
+    
+    private int find(int  x){
+        while(x!=parent[x])
+            x= parent[x];
+        return parent[x];
+    }
+    private void union(int s1L , int s2L){
+        if(rank[s1L] < rank[s2L]){
+            parent[s1L] =  s2L;            
+        }
+        else if(rank[s2L] < rank[s1L] ){
+            parent[s2L] =  s1L;
+        }
         else{
-            int posx =  parent[x];
-            int sl =  find(posx);
-            parent[x] =  sl;
-            return sl ;
+            parent[s1L] =  s2L;
+            rank[s2L]++;
         }
     }
+    
+    
 }
