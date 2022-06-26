@@ -16,13 +16,14 @@ class Solution {
                 count+=1;
             }
             else{
-                // System.out.println(Arrays.toString(ed)+" "+s1L+" : "+s2L );
+        
                 union(s1L , s2L);
             }
         }
-        // System.out.println(Arrays.toString(parent) );
+        
         HashSet<Integer> unique =  new HashSet<>();
         for(int ele : parent){
+            // as some of them will left to connect with set lead direct
             unique.add(find(ele));
         }
         int wirerequired  = unique.size() - 1 ;
