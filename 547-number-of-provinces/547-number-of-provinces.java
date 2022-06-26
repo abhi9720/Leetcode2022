@@ -9,13 +9,15 @@ class Solution {
             parent[i] = i;
         }
         int count = v;
+        // intiall are diff 
         for (int i = 0; i < v; i++) {
             for (int j = 0; j < v; j++) {
                 if (connect[i][j] == 1) {                    
                     if (i != j) {
                         int s1L = find(i);
                         int s2L = find(j);
-                        if (s1L != s2L) {
+                        if (s1L != s2L) { // if already union no need to call again
+                            // is islands combine so count decrease by 1
                             count -= 1;
                             union(s1L, s2L);
                         }
