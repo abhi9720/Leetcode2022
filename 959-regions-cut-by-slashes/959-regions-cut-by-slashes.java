@@ -18,29 +18,29 @@ class Solution {
                 int base = 4 * (i * n + j);
 
                 if (ch == '/') {
-                    // System.out.println("forward slash");
+                     
                     union(base, base + 3);
                     union(base + 1, base + 2);
                 } else if (ch == '\\') {
-                    // System.out.println("back slash");
+                    
                     union(base, base + 1);
                     union(base + 2, base + 3);
                 } else {
-                    // System.out.println("no slash");
+                    
                     union(base, base + 3);
                     union(base + 1, base + 2);
                     union(base, base + 2);
                 }
 
                 if (j < n - 1) {
-                    // System.out.println("hori : " + (base + 1) + "  , " + (base + 7));
+                    
                     union(base + 1, base + 7); // horizontal
                 }
                 if (i < n - 1) {
-                    // System.out.println("verti : " + (base + 2) + "  , " + ((i + 1) * n + j));
+                    //vertical union
                     union(base + 2, 4 * ((i + 1) * n + j));
                 }
-                // System.out.println(Arrays.toString(parent));
+                
             }
         }
         HashSet<Integer> set = new HashSet<>();
@@ -48,7 +48,7 @@ class Solution {
             parent[i] = find(i);
             set.add(parent[i]);
         }
-        // System.out.println(Arrays.toString(parent));
+
 
         return set.size();
     }
