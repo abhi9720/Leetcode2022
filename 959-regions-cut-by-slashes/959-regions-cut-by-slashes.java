@@ -3,8 +3,7 @@ class Solution {
 
     public int regionsBySlashes(String[] grid) {
         int n = grid.length;
-        // char g[][]  =  new char[n][n];
-
+ 
         parent = new int[4 * n * n];
         rank = new int[4 * n * n];
 
@@ -17,8 +16,7 @@ class Solution {
                 char ch = grid[i].charAt(j);
                 int base = 4 * (i * n + j);
 
-                if (ch == '/') {
-                     
+                if (ch == '/') {                     
                     union(base, base + 3);
                     union(base + 1, base + 2);
                 } else if (ch == '\\') {
@@ -43,14 +41,14 @@ class Solution {
                 
             }
         }
-        HashSet<Integer> set = new HashSet<>();
+        int count = 0;
         for (int i = 0; i < parent.length; i++) {
-            parent[i] = find(i);
-            set.add(parent[i]);
+            // count number of parent , and set lead parent is same 
+            if(parent[i]==i) count++;
         }
 
 
-        return set.size();
+        return count;
     }
 
     private int find(int x) {
