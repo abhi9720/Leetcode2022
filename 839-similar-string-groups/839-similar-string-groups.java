@@ -27,18 +27,18 @@ class Solution {
 
     boolean isSimilar(String s1, String s2) {
         int l1 = s1.length(), l2 = s2.length();
-        if (l1 != l2) return false;
-        Set<Character> set1 = new HashSet<>(), set2 = new HashSet<>();
+        
+        char diff[] =  new char[2];
+        int idx = 0;
         for (int i = 0; i < l1; i++) {
-            if (s1.charAt(i) != s2.charAt(i)) {
-                set1.add(s1.charAt(i));
-                set2.add(s2.charAt(i));
+            if (s1.charAt(i) != s2.charAt(i)) {                
+                if(idx==0) diff[idx++] =  s1.charAt(i);
+                else if(idx==1) diff[idx++] =  s2.charAt(i);
+                else return false;
             }
-            if (set1.size() > 2) return false;
+            
         }
-        if (set1.size() == 0) return true;
-        if (set1.size() != 2) return false;
-        return set1.equals(set2);
+        return idx!=1 && ( diff[0] == diff[1]  );
     }
 
     private int find(int x) {
