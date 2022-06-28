@@ -1,65 +1,54 @@
 class Solution {
- private  Map<String, Map<String, Double>> makeGraph(List<List<String>> e, double[] values){
-        // build a graph
-        // like a -> b = values[i]
-        // and b -> a  = 1.0 / values[i];
-        Map<String, Map<String, Double>> graph = new HashMap<>();
-        String u, v;
-        
-        for(int i = 0; i < e.size(); i++){
-            u = e.get(i).get(0);
-            v = e.get(i).get(1);
-            
-            graph.putIfAbsent(u, new HashMap<>());
-            graph.get(u).put(v, values[i]);
-            
-            graph.putIfAbsent(v, new HashMap<>());
-            graph.get(v).put(u, 1/values[i]);
-            
-        }
-        return graph;
-    }
-    
+
     public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
-        Map<String, Map<String, Double>> graph = makeGraph(equations, values);
-        
-        double []ans = new double[queries.size()];
-        
-        // check for every Querie
-        // store it in ans array;
-        for(int i = 0; i < queries.size(); i++){
-            ans[i] = dfs(queries.get(i).get(0) , queries.get(i).get(1) , new HashSet<>(), graph);
+        int q = queries.size();
+        Map<String, Map<String, Double>> graph = new HashMap<>();
+
+        for (int i = 0; i < equations.size(); i++) {
+            String v1 = equations.get(i).get(0);
+            String v2 = equations.get(i).get(1);
+            graph.putIfAbsent(v1, new HashMap<>());
+            graph.putIfAbsent(v2, new HashMap<>());
+            graph.get(v1).put(v2, values[i]);
+            graph.get(v2).put(v1, 1.0 / values[i]);
         }
+
+        double ans[] = new double[q];
+        
+        for (int i = 0; i < queries.size(); i++) {
+            HashSet<String> visit = new HashSet<>();
+            
+            String v1 = queries.get(i).get(0);
+            String v2 = queries.get(i).get(1);
+            
+            if(graph.containsKey(v1) && graph.containsKey(v2) ){
+                ans[i] = dfs(v1,v2,graph,visit);
+            }
+            else{
+                ans[i] =  -1.0;
+            }
+            
+        }
+        
+        
+
         return ans;
     }
-    
-    public double dfs(String src, String dest, Set<String> visited, Map<String, Map<String, Double>> graph){
-        // check the terminated Case
-        // if string is not present in graph return -1.0;
-        // like [a, e] or [x, x] :)
-        if(graph.containsKey(src ) == false)
-            return -1.0;
-        
-        // simply say check src and dest are equal :) then return dest 
-        // store it in weight varaible;
-        //case like [a,a] also handle
-        if(graph.get(src).containsKey(dest)){
-            return graph.get(src).get(dest);
+
+    private double dfs(String src, String dest, Map<String, Map<String, Double>> graph, HashSet<String> visit) {
+        visit.add(src);
+        if (src.equals(dest)) {
+            return 1.0;
         }
-        
-        visited.add(src);
-        
-        for(Map.Entry<String, Double> nbr : graph.get(src).entrySet()){
-            if(visited.contains(nbr.getKey()) == false){
-                double weight = dfs(nbr.getKey(), dest, visited, graph);
-                
-                // if weight is not -1.0(terminate case)
-                // then mutliply it 
-                // like in querie   a -> c => 2 * 3 = 6
-                if(weight != -1.0){
-                    return nbr.getValue() * weight;
+
+        Map<String, Double> nbrs = graph.get(src);
+        for (String nbr : nbrs.keySet()) {
+            if (!visit.contains(nbr)) {
+                double val = dfs(nbr, dest, graph, visit);
+                if (val != -1.0) {
+                    return val * nbrs.get(nbr);
                 }
-            }
+            }            
         }
         return -1.0;
     }
