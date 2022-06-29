@@ -7,7 +7,7 @@ class Solution {
         while (num != 0) {
             // num&(radix-1) =  num%radix
             sb.append(hexchars[num&15]);            
-            num = num >>> 4;
+            num = num >>> 4; // n/16 =  n>>>4
         }
         return sb.reverse().toString();
     }
