@@ -39,38 +39,59 @@ class DriverClass
 class Solution
 {
     //Function to find if the given edge is a bridge in graph.
+    static int res=0;
+    static int time = 0;
     static int isBridge(int V, ArrayList<ArrayList<Integer>> adj,int c,int d)
     {
         
-        boolean visited[] =  new boolean[V];
-        int co = 0;
+        res = 0;
+        
+       
+       
+        boolean visit[] =  new boolean[V];
+        int discoverTime[] =  new int[V]; // discover time         
+        int lowTime[] =  new int[V];
+        boolean aps[] = new boolean[V];
+
         for(int i=0;i<V;i++){
-            if(!visited[i]){
-                dfs(adj,-1,-1,visited,i);
-                co++;
+            if(!visit[i]){
+                dfs(adj,visit,discoverTime,lowTime,aps,i,-1,c,d);
             }
         }
-        
-        visited =  new boolean[V];
-        int c1 = 0;
-        for(int i=0;i<V;i++){
-            if(!visited[i]){
-                dfs(adj,c,d,visited,i);
-                c1++;
-            }
-        }
-        
-        return co==c1?0:1;
+       
+       
+       
+        return res;
     }
-    private static void dfs(ArrayList<ArrayList<Integer>> adj,int c,int d , boolean visited[] ,int src
-    ){
-        visited[src] =  true;
+     
+    private static void dfs(ArrayList<ArrayList<Integer>> adj , boolean visit[] , int discoverTime[] , int lowTime[] ,
+    boolean aps[], int u , int p , int c , int d ){
+        visit[u]  =  true;
+        discoverTime[u] =  lowTime[u] =  ++time;
+
         
-        for(int nbr : adj.get(src) ){
-            if((src==c && nbr==d) || (src==d && nbr==c) ) continue;
-            if(!visited[nbr]){
-                dfs(adj,c,d,visited,nbr);
+        for(int v : adj.get(u) ){
+            
+            if(v==p){
+                continue;
+            }
+            else if(visit[v]){
+                // if already visited 
+                lowTime[u]  =  Math.min(lowTime[u] , discoverTime[v]);
+            }
+            else{
+                
+                dfs(adj,visit,discoverTime,lowTime,aps,v,u,c,d);
+                lowTime[u] =  Math.min(lowTime[u] , lowTime[v]);
+                // below vextex 
+                if(lowTime[v]  > discoverTime[u]  ){
+                    if((v==c && u==d) || (v==d && u==c) ){
+                        res =  1;
+                    }
+                }
             }
         }
+
+
     }
 }
