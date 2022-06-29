@@ -77,7 +77,8 @@ class Solution
                 continue;
             }
             else if(visit[v]){
-                lowTime[u]  =  Math.min(lowTime[u] , discoverTime[v]);
+                // if already visited 
+                lowTime[u]  =  Math.min(lowTime[u] , lowTime[v]);
             }
             else{
                 c++;
@@ -87,6 +88,8 @@ class Solution
                 if(p==-1 && c>1){
                     aps[u]  =  true;
                 }
+                
+                // means out nbr have reach below or equal to curr node u
                 if(p!=-1 && lowTime[v]  >= discoverTime[u]  ){
                     aps[u] =  true;
                 }
