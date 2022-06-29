@@ -8,11 +8,11 @@ class Employee {
 */
 
 class Solution {
-    int mapIdToIndex[];
+    short mapIdToIndex[];
 
     public int getImportance(List<Employee> employees, int id) {
-        mapIdToIndex = new int[2001];
-        int idx = 0;
+        mapIdToIndex = new short[2001];
+        short idx = 0;
         for (Employee e : employees) {
             mapIdToIndex[e.id] = idx++;
         }
