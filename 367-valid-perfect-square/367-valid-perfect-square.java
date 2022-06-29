@@ -1,7 +1,7 @@
 class Solution {
     public boolean isPerfectSquare(int num) {
         double i = 1 , j =  2147483647;
-        while(j-i >= 1e-7){
+        while(j-i >= 1e-1){
             double mid =  (j-i)/2+i;
             if(mid < num/mid ){
                 i =  mid+1;
@@ -11,7 +11,6 @@ class Solution {
             }
             else{
                 return true;
-
             }            
         }
         
