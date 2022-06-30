@@ -1,5 +1,5 @@
 # Articulation Point - I
-## Hard 
+##  Hard 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Given an undirected connected graph&nbsp;with&nbsp;<strong>V&nbsp;</strong>vertices and adjacency list&nbsp;<strong>adj</strong>. You are required to find all the vertices removing which&nbsp;(and edges through it) disconnects the graph into 2 or more components.<br>
 <strong>Note:&nbsp;</strong>Indexing is zero-based i.e nodes numbering from (0 to V-1). There might be loops present in the graph.</span></p>
