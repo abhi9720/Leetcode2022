@@ -38,6 +38,9 @@ class Solution {
             }
             
         }
+        // why we are not caring both other two char , they can also be mismatches
+        // it is given both string are anagram , so if mismatch are 2 , 
+        // then idx =2 goes to idx=-1 otherwise if more than 2 mismatch then idx<-1
         return idx!=1 && ( diff[0] == diff[1]  );
     }
 
