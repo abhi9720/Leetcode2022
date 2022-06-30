@@ -37,62 +37,64 @@ class GFG
 
 class Solution
 {
-    public ArrayList<Integer> articulationPoints(int V, ArrayList<ArrayList<Integer>> adj)
+    //Function to return Breadth First Traversal of given graph.
+    public ArrayList<Integer> articulationPoints(int V,ArrayList<ArrayList<Integer>> adj)
     {
         boolean visit[] =  new boolean[V];
-        int discoverTime[] =  new int[V]; // discover time         
+        int discoveryTime[] =  new int[V];
         int lowTime[] =  new int[V];
-        boolean aps[] = new boolean[V];
-
+        HashSet<Integer> arp =  new HashSet<>();
         for(int i=0;i<V;i++){
             if(!visit[i]){
-                dfs(adj,visit,discoverTime,lowTime,aps,i,-1);
+                dfs(adj,visit,discoveryTime,lowTime,i,-1,arp);
             }
         }
-        ArrayList<Integer> ans =  new ArrayList<>();
-        for(int i=0;i<V;i++){
-            if(aps[i]){
-                ans.add(i);
-            }
-        }
+        
+        
+        ArrayList<Integer> ans =  new ArrayList<>(arp);
+        
+        
         if(ans.size()==0 ) ans.add(-1);
+        Collections.sort(ans);
         return ans;
         
     }
     int time = 0;
-    private void dfs(ArrayList<ArrayList<Integer>> adj , boolean visit[] , int discoverTime[] , int lowTime[] ,
-    boolean aps[], int u , int p ){
-        visit[u]  =  true;
-        discoverTime[u] =  lowTime[u] =  ++time;
-
-        int c  = 0;
-        for(int v : adj.get(u) ){
-            
-            if(v==p){
+    private void dfs(ArrayList<ArrayList<Integer>> adj , boolean visit[] , int discoveryTime[],
+    int lowTime[] , int src, int parent ,
+    HashSet<Integer> arp
+    ){
+        
+        lowTime[src] =  discoveryTime[src] = ++time;
+        visit[src] =  true;
+        
+        // explore all its nbr
+        int child = 0;
+        for(int nbr :  adj.get(src) ){
+            if(nbr==parent){
                 continue;
             }
-            else if(visit[v]){
-                // if already visited 
-                lowTime[u]  =  Math.min(lowTime[u] , discoverTime[v]);
+            else if( visit[nbr] ){
+                lowTime[src]  =  Math.min(lowTime[src] , discoveryTime[nbr] );
             }
             else{
-                c++;
-                dfs(adj,visit,discoverTime,lowTime,aps,v,u);
-                lowTime[u] =  Math.min(lowTime[u] , lowTime[v]);
-
-                if(p==-1 && c>1){
-                    aps[u]  =  true;
-                }
+                child+=1;
+                dfs(adj,visit,discoveryTime,lowTime , nbr ,  src,arp);
+                lowTime[src] =  Math.min(lowTime[src] , lowTime[nbr] );
                 
-                // means out nbr have reach below or equal to curr node u
-                if(p!=-1 && lowTime[v]  >= discoverTime[u]  ){
-                    aps[u] =  true;
+                if(parent==-1 && child>1){
+                    arp.add(src);
+                }
+        
+                if(parent!=-1 && discoveryTime[src] <= lowTime[nbr] ){
+                    arp.add(src);
                 }
             }
         }
-
-
+         
+        
+        
+        
+        
     }
 }
-
-
