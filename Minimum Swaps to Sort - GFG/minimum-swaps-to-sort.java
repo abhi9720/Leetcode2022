@@ -65,7 +65,7 @@ class Solution
                 
             }
         }
-        
+        // same set sub component size not added,
         boolean used[] =  new boolean[n];
         for(int i=0;i<n;i++){
             int lead = find(i);
