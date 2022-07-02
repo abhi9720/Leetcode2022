@@ -31,7 +31,8 @@ class Solution {
         long count = 0;
         for (int i = 0; i < nums.length; i++) {
             long gcd_i =  gcd(nums[i] ,  k );
-            for(Map.Entry<Integer,Integer> entry :  gcdMap.entrySet()){
+            
+            for(var entry :  gcdMap.entrySet()){
                 if(gcd_i*entry.getKey()%k==0) {
                 	count+=entry.getValue();
                 }
