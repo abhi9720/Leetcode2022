@@ -1,28 +1,18 @@
 class Solution {
-
     public int maxResult(int[] nums, int k) {
-        Deque<Pair<Integer, Integer>> deque = new LinkedList<>() {
-
-            {
-                offer(new Pair<>(0, nums[0]));
+        int n  =  nums.length;
+        int dp[] =  new int[n];
+        ArrayDeque<Integer> q =  new ArrayDeque<>();
+        q.offer(0);
+        dp[0] =  nums[0];
+        for(int i=1;i<n;i++){
+            if(q.peek()< i-k ) q.removeFirst();
+            dp[i] = nums[i] +  dp[q.peek()];
+            while( !q.isEmpty() &&  dp[i] >= dp[q.peekLast()]  ){
+                q.removeLast();
             }
-        };
-        int max = nums[0];
-
-        for (int i = 1; i < nums.length; i++) {
-            while (!deque.isEmpty() && deque.peekFirst().getKey() < i - k) {
-                deque.pollFirst();
-            }
-
-            max = nums[i] + (deque.isEmpty() ? 0 : deque.peekFirst().getValue());
-
-            while (!deque.isEmpty() && deque.peekLast().getValue() <= max) {
-                deque.pollLast();
-            }
-
-            deque.offerLast(new Pair<>(i, max));
+            q.offer(i);
         }
-
-        return max;
+        return dp[n-1];
     }
 }
