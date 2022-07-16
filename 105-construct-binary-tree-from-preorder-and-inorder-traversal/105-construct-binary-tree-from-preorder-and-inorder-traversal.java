@@ -1,47 +1,29 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
 class Solution {
-
-    public static TreeNode buildTree(int[] pre, int[] in) {
-        // hashmap only work for unique entry of binary tree
-        // i.e., no two nodes of same data
-        HashMap<Integer,Integer> inordermap =  new HashMap<>();
-        for(int i=0;i<in.length;i++){
-            inordermap.put(in[i], i );
+    int preorderIndex;
+    Map<Integer, Integer> inorderIndexMap;
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        preorderIndex = 0;
+        // build a hashmap to store value -> its index relations
+        inorderIndexMap = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) {
+            inorderIndexMap.put(inorder[i], i);
         }
-        return helper(pre, in, 0, pre.length - 1, 0, in.length - 1,inordermap);
+
+        return arrayToTree(preorder, 0, preorder.length - 1);
     }
 
-    public static TreeNode helper(int[] pre, int[] in, int sp, int ep, int si, int ei ,
-                                 HashMap<Integer,Integer> inordermap
-                                 ) {
-        if (sp > ep || si > ei) {
-            return null;
-        }
+    private TreeNode arrayToTree(int[] preorder, int left, int right) {
+        // if there are no elements to construct the tree
+        if (left > right) return null;
 
-        // make root
-        TreeNode root = new TreeNode(pre[sp]);
-        int count = inordermap.get(pre[sp]) - si ;
-        // for (int i = si; i <= ei; i++) {
-        //     if (in[i] == pre[sp]) break;
-        //     count++;
-        // }
+        // select the preorder_index element as the root and increment it
+        int rootValue = preorder[preorderIndex++];
+        TreeNode root = new TreeNode(rootValue);
 
-        root.left = helper(pre, in, sp + 1, sp + count, si, si + count - 1,inordermap);
-        root.right = helper(pre, in, sp + count + 1, ep, si + count + 1, ei,inordermap);
+        // build left and right subtree
+        // excluding inorderIndexMap[rootValue] element because it's the root
+        root.left = arrayToTree(preorder, left, inorderIndexMap.get(rootValue) - 1);
+        root.right = arrayToTree(preorder, inorderIndexMap.get(rootValue) + 1, right);
         return root;
     }
 }
