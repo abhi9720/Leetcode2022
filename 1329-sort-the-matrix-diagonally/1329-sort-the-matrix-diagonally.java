@@ -6,10 +6,11 @@ class Solution {
 
         int i = 0, j = m - 1;
         while (i != n - 1 || j != 0) {
+          // insert digonally in matrix 
             for (int x = i, y = j; x < n && y < m; x++, y++) {
                 pq.offer(mat[x][y]);
             }
-
+            // pop out and fill back in matrix 
             for (int x = i, y = j; x < n && y < m; x++, y++) {
                 mat[x][y] = pq.poll();
             }
