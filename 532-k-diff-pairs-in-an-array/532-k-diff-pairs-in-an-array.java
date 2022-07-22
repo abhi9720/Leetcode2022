@@ -18,7 +18,7 @@ class Solution {
             if(k!=0 && map.containsKey(ele-k) ){
                 count+=1;
             }
-            if(k==0 && map.containsKey(ele) && map.get(ele) > 1 ){
+            if(k==0  && map.get(ele) > 1 ){
                 count+=1;
             }
             map.remove(ele);
