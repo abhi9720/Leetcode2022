@@ -9,6 +9,8 @@ class Solution {
             if (A[mid] > A[hi]) lo = mid + 1; 
             else hi = mid;
         }
+        
+        
 
         int rot = lo;
         lo = 0;
@@ -18,7 +20,8 @@ class Solution {
             int mid = (lo + hi) / 2;
             int realmid = (mid + rot) % n;
             if (A[realmid] == target) return realmid;
-            if (A[realmid] < target) lo = mid + 1; else hi = mid - 1;
+            if (A[realmid] < target) lo = mid + 1; 
+            else hi = mid - 1;
         }
         return -1;
     }
