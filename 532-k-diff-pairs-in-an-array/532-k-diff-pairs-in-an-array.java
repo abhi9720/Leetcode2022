@@ -9,8 +9,8 @@ class Solution {
         int count =0 ;
         
         for(int ele : nums){
-            // an element can be repeated many time , we need to take of it 
-            if(map.get(ele)==null) continue;
+            // an element can be repeated many time , we need to take of it             
+            if(!map.containsKey(ele)) continue;
             if(k!=0 && map.containsKey(ele+k) ){
                 count+=1;
             }
