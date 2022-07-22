@@ -1,35 +1,28 @@
 class Solution {
     public int numSubarrayBoundedMax(int[] nums, int left, int right) {
-        int i = 0, j = 0, n =  nums.length;
-        int max  =  nums[0];
+        int c = 0;
         int count = 0;
-        int c  = 0;
-        while(j<n){
-            // acquire
-           int x =inrange(nums[j],left,right);
-                if( x==0){
-                    count+=(j-i+1);
-                    c=(j-i+1);
-                
-                                        
-            } else if(x==-1){
-                count+=c;
+        int prev = 0;
+        
+        for(int ele : nums){            
+            
+            if(ele >= left && ele<=right){                
+                c++;
+                count+=c;                
+                prev = c;                                
             }
-            else{                               
-                i=j+1;
-                c=0;                
+            else if(ele < left){
+                count+=prev;
+                c++;
             }
-            j++;
+            else{
+                c = 0;   
+                prev = 0;
+            }                        
             
             
-            // release
+            
         }
         return count;
     }
-    private int inrange(int ele , int left, int right){
-        if(ele > right) return 1;
-        else if(ele < left) return -1;
-        else return 0;
-    }
 }
-// ,5,55,14,9,7,72,52
