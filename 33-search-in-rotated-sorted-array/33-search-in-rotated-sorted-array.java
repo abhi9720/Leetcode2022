@@ -11,7 +11,7 @@ class Solution {
             } else hi = mid;
         }
 
-        System.out.println("lo : " + lo);
+        
 
         int rot = lo;
         lo = 0;
