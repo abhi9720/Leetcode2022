@@ -2,14 +2,13 @@ class Solution {
     public int reachNumber(int target) {
         target =  Math.abs(target);        
         int sum = 0;
-    int move = 0;
- 
-    // Continue till number is lesser or not in same parity
-    while (getSum(move) < target || ((getSum(move) - target) & 1)==1){
-        move++;
- }
+        for(int i=0;true;i++){
+             sum = getSum(i);            
+            if( target <= sum && (((sum-target)&1)==0) ){
+                return i;
+            }
+        }
         
-        return move;
     }
     private int getSum(int n ){
         return n*(n+1)/2;
