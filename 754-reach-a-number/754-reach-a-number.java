@@ -4,7 +4,7 @@ class Solution {
         int sum = 0;
         for(int i=0;true;i++){
              sum = getSum(i);            
-            if( target <= sum && (((sum-target)&1)==0) ){
+            if( target <= sum && ((sum-target)&1)==0 ){
                 return i;
             }
         }
