@@ -1,16 +1,20 @@
 class Solution {
 
-    public static int maxSubArray(int[] nums) {
-        int storage[] = new int[nums.length];
-        int max = nums[0];
-        storage[0] = nums[0];
-        for (int i = 1; i < nums.length; i++) {
-            storage[i] = Math.max(storage[i - 1] + nums[i], nums[i]);
-            if (storage[i] > max) {
-                max = storage[i];
-            }
-        }
+    public int maxSubArray(int[] nums) {
+        // total sum from starting point to current index become
+        // negative , it make no sense to continue to same subarray
+        // discard that array , and start new subarray
 
-        return max;
+        int sum = 0, n = nums.length, maxSum = nums[0];
+        for (int i = 0; i < n; i++) {
+            sum += nums[i];
+            maxSum = Math.max(maxSum, sum);
+            if (sum < 0) sum = 0; 
+            // there no sense to continue 
+            // negative subarray , discard it and start new subarray from 
+            // next index 
+            
+        }
+        return maxSum;
     }
 }
