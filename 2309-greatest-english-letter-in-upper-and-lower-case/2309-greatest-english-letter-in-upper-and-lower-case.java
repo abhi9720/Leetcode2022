@@ -9,15 +9,14 @@ class Solution {
             //     : (freq[idx]/MOD )*MOD + freq[idx]%MOD +1 ;
             int small = freq[idx] % MOD;
             int large = freq[idx] / MOD;
-            if (ch > 'Z') {                                
-                large =  large+1;                
+            if (ch > 'Z') {
+                large = large == 0 ? large + 1 : large;
+            } else {
+                // small =  small+1;
+                small = small == 0 ? small + 1 : small;
             }
-            else{
-                small =  small+1;
-            }
-            freq[idx] =  large*MOD + small;
+            freq[idx] = large * MOD + small;
         }
-        
 
         for (int i = 25; i >= 0; i--) {
             if (freq[i] != 0) {
