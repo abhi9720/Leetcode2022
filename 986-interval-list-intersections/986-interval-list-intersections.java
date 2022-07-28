@@ -15,35 +15,16 @@ class Solution {
                 int s = Math.max(l1[i][0], l2[j][0]);
                 int e = Math.min(l1[i][1], l2[j][1]);
                 ans.add(new int[] { s, e });
-                // System.out.println("block first :  " + s + " : " + e);
-                if (e1 > e2) {
-                    j++;
-                    // System.out.println("j++");
-                } else {
-                    i++;
-                    // System.out.println("i++");
-                }
             } else if (s1 <= e2 && s1 >= s2) {
-                // System.out.println(i+" "+j+"   true  : s1 <= e2 && s1 >= s2");
                 int s = Math.max(l1[i][0], l2[j][0]);
                 int e = Math.min(l1[i][1], l2[j][1]);
                 ans.add(new int[] { s, e });
-                // System.out.println("block second :  " + s + " : " + e);
-                if (e1 > e2) {
-                    j++;
-                    // System.out.println("j++");
-                } else {
-                    i++;
-                    // System.out.println("i++");
-                }
+            }
+
+            if (e1 > e2) {
+                j++;
             } else {
-                if (e1 > e2) {
-                    j++;
-                    // System.out.println("j++");
-                } else {
-                    i++;
-                    // System.out.println("i++");
-                }
+                i++;
             }
         }
         return ans.toArray(new int[ans.size()][]);
