@@ -7,17 +7,17 @@ class Solution {
         int n1 = l1.length;
         int n2 = l2.length;
         List<int[]> ans = new ArrayList<>();
+        int s1, s2, e1, e2, s, e;
         while (i < n1 && j < n2) {
-            int s1 = l1[i][0], e1 = l1[i][1];
-            int s2 = l2[j][0], e2 = l2[j][1];
+            s1 = l1[i][0];
+            e1 = l1[i][1];
+            s2 = l2[j][0];
+            e2 = l2[j][1];
 
-            if (s2 <= e1 && s2 >= s1) {
-                int s = Math.max(l1[i][0], l2[j][0]);
-                int e = Math.min(l1[i][1], l2[j][1]);
-                ans.add(new int[] { s, e });
-            } else if (s1 <= e2 && s1 >= s2) {
-                int s = Math.max(l1[i][0], l2[j][0]);
-                int e = Math.min(l1[i][1], l2[j][1]);
+            s = Math.max(l1[i][0], l2[j][0]);
+            e = Math.min(l1[i][1], l2[j][1]);
+
+            if ((s2 <= e1 && s2 >= s1) || (s1 <= e2 && s1 >= s2)) {
                 ans.add(new int[] { s, e });
             }
 
