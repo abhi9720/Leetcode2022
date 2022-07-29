@@ -16,6 +16,8 @@ class Solution {
             if (M.get(w) != p) return false;
         }
 
+        // check for p also point to 'a' and c also point to 'a'  
+        // in this case return false;
         boolean[] seen = new boolean[26];
         for (char p: M.values()) {
             if (seen[p - 'a']) return false;
