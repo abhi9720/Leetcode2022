@@ -2,7 +2,7 @@ class Solution {
 
     public int kthSmallest(int[][] arr, int k) {
         int n = arr.length;
-        // element , index
+        // element , rowIndex, eleIndex
         PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] - b[0]);
         for (int i = 0; i < n; i++) {
             pq.offer(new int[] { arr[i][0], i, 0 });
