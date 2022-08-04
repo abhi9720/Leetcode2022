@@ -1,10 +1,8 @@
 class Solution {
 
     public int smallestDivisor(int[] nums, int threshold) {
-        int l = 1, h = 0;
-        for(int ele : nums){
-            h =  Math.max(ele,h);
-        }
+        int l = 1, h = (int)1e6;
+        
         while (l < h) {
             int mid = (l + h) / 2;            
             int count = sumTheSivision(nums, mid);
