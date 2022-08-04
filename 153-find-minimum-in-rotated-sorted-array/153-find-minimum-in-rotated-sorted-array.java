@@ -1,16 +1,17 @@
 class Solution {
-    public int findMin(int[] nums) {
+    public int findMin(int[] A) {
         
         
         // first find the roated point
-        int n =  nums.length;
-        int l =  0 , h = n-1;
-        while(l<h){
-            int mid =  (l+h)/2;
-            if(nums[h] > nums[mid] ) h =  mid;
-            else l =  mid+1;
+        int n =  A.length;
+         int lo = 0, hi = n - 1;
+
+        while (lo < hi) {
+            int mid = (lo + hi) / 2;
+            if (A[mid] > A[hi]) {
+                lo = mid + 1;
+            } else hi = mid;
         }
-        
-        return nums[l];
+        return A[lo];
     }
 }
