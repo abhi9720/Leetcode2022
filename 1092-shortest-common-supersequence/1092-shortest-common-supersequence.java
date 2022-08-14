@@ -24,14 +24,17 @@ class Solution {
                 }
             }
         }
+
         while (i > 0) {
-            sb.append(x.charAt(i-1));
+            sb.append(x.charAt(i - 1));
             i--;
         }
+
         while (j > 0) {
-            sb.append(y.charAt(j-1));
+            sb.append(y.charAt(j - 1));
             j--;
         }
+
         return sb.reverse().toString();
     }
 
@@ -52,7 +55,7 @@ class Solution {
                 if (x.charAt(i - 1) == y.charAt(j - 1)) {
                     dp[i][j] = 1 + dp[i - 1][j - 1];
                 } else {
-                    dp[i][j] = Math.min(2 + dp[i - 1][j - 1], 1 + Math.min(dp[i - 1][j], dp[i][j - 1]));
+                    dp[i][j] =  1 + Math.min(dp[i - 1][j], dp[i][j - 1]);
                 }
             }
         }
