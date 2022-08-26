@@ -30,13 +30,15 @@ class Solution {
         // }
         // return maxProfit;
 
+        
+        
         // O(nlogn) Approach
-
         Arrays.sort(jobs, (a, b) -> a[1] - b[1]);
         // maintaining tail in sorted order 
         TreeMap<Integer, Integer> dp = new TreeMap<>();
         dp.put(0, 0);
         for (int[] job : jobs) {
+            // end time <= start time 
             int cur = dp.get( dp.floorKey(job[0]) ) + job[2];
             if (cur > dp.lastEntry().getValue()) dp.put(job[1], cur);
         }
