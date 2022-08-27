@@ -1,30 +1,21 @@
 class Solution {
+
     public List<Integer> largestValues(TreeNode root) {
-        List<Integer> ans =  new ArrayList<>();
-        if(root==null) return ans;
-        Queue<TreeNode> q =  new LinkedList<>();
-        q.add(root);
-        q.add(null);
-        int max = Integer.MIN_VALUE;
-        while(q.size() >1 ){
-            TreeNode peek =  q.remove();
-            if(peek==null){
-                ans.add(max);
-                max = Integer.MIN_VALUE;
-                q.add(null);
-                continue;
-            }
-            if( max < peek.val){
-                max =  peek.val;
-            }
-            if(peek.left!=null){
-                q.add(peek.left);
-            }
-            if(peek.right!=null){
-                q.add(peek.right);
-            }
+        HashMap<Integer, Integer> map = new HashMap<>();
+        helper(root, map, 0);
+        return new ArrayList<>(map.values() );
+    }
+
+    private void helper(TreeNode root, HashMap<Integer, Integer> map, int h) {
+        if (root == null) return;
+
+        if (map.get(h) == null) {
+            map.put(h, root.val);
         }
-        ans.add(max);
-        return ans;
+
+        map.put(h, Math.max(map.get(h), root.val));
+
+        helper(root.left, map,h+1);
+        helper(root.right, map,h+1);
     }
 }
