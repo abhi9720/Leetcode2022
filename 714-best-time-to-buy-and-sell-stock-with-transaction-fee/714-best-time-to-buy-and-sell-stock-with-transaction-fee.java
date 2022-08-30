@@ -11,7 +11,7 @@ class Solution {
             sell[i] =  Math.max( buy[i-1] +prices[i]-fee, sell[i-1]     );
         }
         
-        return Math.max(buy[n-1] ,sell[n-1]);
+        return sell[n-1];
         
         
     }
