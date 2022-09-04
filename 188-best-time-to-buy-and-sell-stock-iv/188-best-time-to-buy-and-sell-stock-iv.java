@@ -15,6 +15,8 @@ class Solution {
             //     dp[i][j] = max;
             // }
             /*
+            we can reduce this n^3 to n^2 by removing  inner loop of jj
+            ans maintain max 
             example => dp[6][4]  ->
                                 dp[5][4] + 0
                                 dp[5][3] - price[3] + price[6]
