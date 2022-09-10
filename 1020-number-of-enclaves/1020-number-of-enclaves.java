@@ -1,44 +1,41 @@
 class Solution {
-    int dir[][] = { {0,1},{0,-1},{-1,0},{1,0}};
-
+    int ans,res;
     public int numEnclaves(int[][] grid) {
-        int n = grid.length;
-        int m = grid[0].length;
-        boolean visited[][] = new boolean[n][m];
-        int count = 0;
-        for (int i = 1; i < n-1; i++) {
-            for (int j = 1; j < m-1; j++) {
-                if (i == 0 || j == 0) continue;
-                if (grid[i][j] == 1 && !visited[i][j]) {                    
-                    int val = helper(grid, visited, i, j);
-                    if(val!=-1) count+=val;                        
-                }
-            }
-        }
-        return count;
-    }
-
-    private int helper(int grid[][], boolean visited[][], int i, int j) {
-        int n = grid.length,m = grid[0].length;
+        int cnt=0;
         
-        if(i<0 || j<0 || i>=n || j>=m || grid[i][j]==0 || visited[i][j] ) return 0;        
-        if(grid[i][j]==1 && (i==0 || j==0 || i==n-1 || j==m-1 )) return -1;
-        int count = 0;
-        
-        visited[i][j] =  true;
-        for(int d[] : dir ){
-            int x = i+d[0], y = j+d[1];                                 
-            int val =  helper(grid,visited,x,y);            
+        for(int i=0;i<grid.length;i++)
+        {
             
-            if(val==-1){
-                visited[i][j]=false; 
-                return -1;
+            for(int j=0;j<grid[0].length;j++)
+            {
+                ans=0;
+                res=1;
+               if(grid[i][j]==1)
+              {
+                  
+               dfs(grid,i,j,grid.length,grid[0].length);
+                   if(res==0)
+                       cnt+=0;
+                   else cnt+=ans;
+                  System.out.println(res);
+              }
             }
-            count+=val;
         }
-        
-        return count+1;
+        return cnt;
+    }
+    void dfs(int[][] grid,int row,int col,int m,int n)
+    {
+        if(row>=m||row<0||col>=n||col<0 || grid[row][col]==0) return;
+        if((row==m-1 || row==0||col==n-1||col==0) && grid[row][col]==1) {
+            res=0;
+        }
+        ans+=1;
+        grid[row][col]=0;
+        dfs(grid,row+1,col,m,n);
+        dfs(grid,row,col+1,m,n);
+        dfs(grid,row,col-1,m,n);
+        dfs(grid,row-1,col,m,n);
         
     }
-   
+    
 }
