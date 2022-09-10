@@ -21,12 +21,22 @@ class Solution {
         if (!(new String(ch1).equals(new String(ch2)))) return false;
         for (int i = 1; i < n1; i++) {
             // 1st with 1st and 2nd with second
-            boolean ans1 = helper(s1.substring(0, i), s2.substring(0, i)) 
+            boolean ans1 = 
+                
+                helper(s1.substring(0, i), s2.substring(0, i)) 
                 && helper(s1.substring(i), s2.substring(i));
+            
+            if (ans1) {
+                dp.put(key, true);
+                return true;
+            }
+            
             // 1st with 2nd part and 2nd part with 1st part
-            boolean ans2 = helper(s1.substring(0, i), s2.substring(n1 - i)) && helper(s1.substring(i), s2.substring(0, n1 - i));
+            boolean ans2 = 
+                helper(s1.substring(0, i), s2.substring(n1 - i)) 
+                && helper(s1.substring(i), s2.substring(0, n1 - i));
 
-            if (ans1 || ans2) {
+            if (ans2) {
                 dp.put(key, true);
                 return true;
             }
