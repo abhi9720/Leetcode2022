@@ -1,27 +1,19 @@
 class Solution {
     public String convertToTitle(int columnNumber) {
-        
-       return helper(columnNumber).toString();
-    }
-    private StringBuilder helper(int columnNumber){
-        
-        if(columnNumber<=26){        
-            StringBuilder sb =  new StringBuilder();
-            char ch = (char)('A'+columnNumber-1);
-            sb.append(ch);
-            return sb;
+
+        StringBuilder sb = new StringBuilder();
+        while(columnNumber >0){            
+            int idx =  columnNumber%26;
+            columnNumber/=26;
+            if(idx==0){
+                idx = 26;                
+                columnNumber-=1;
+            }
+            
+            
+            sb.append((char)(idx-1+'A'));
         }
-        int mod =  columnNumber%26;
-        int nextnum =  columnNumber/26;
-        if(mod==0){
-            mod =  26;
-            nextnum-=1;
-        }
-        StringBuilder sb =  new StringBuilder();
-        sb.append(helper(nextnum));
-        sb.append( (char)('A'+mod-1) );
         
-        return sb;
-        
+        return sb.reverse().toString();
     }
 }
