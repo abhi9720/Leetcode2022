@@ -1,7 +1,5 @@
 class Solution {
-    // start removing from leaf node in one connected component failed because
-    // there can be cycle also , that strategy only work for tree like structure
-    // which guranteey leaf nodes and we can start removing in bottom to up manner
+   
 
     HashMap<Integer,Integer> parent, rank;
     
@@ -18,8 +16,10 @@ class Solution {
         // ans =  total_stone  -  no_of_island
 
         for (int stone[] : stones) {
+            
             int s1L =  find(stone[0]);
             int s2L  = find(~stone[1]);
+            // System.out.println(s1L +"  "+s2L);
             if(s1L!=s2L){
                 union(s1L, s2L );
             }
@@ -28,6 +28,7 @@ class Solution {
     }
 
     private int find(int x) {
+        // System.out.println(x);
         // if not present in map means first time coming
         if (!parent.containsKey(x)) {
             islands++;
@@ -43,7 +44,7 @@ class Solution {
     }
 
     private void union(int s1L, int s2L) {
-        int r1 = rank.get(s1L) ,r2 =  rank.get(s2L);
+        int r1 = rank.get(s1L), r2 =  rank.get(s2L);
         if(r1<r2){
             parent.put(s1L , s2L);
         }
