@@ -1,4 +1,4 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 import java.util.*;
 import java.io.*;
 import java.lang.*;
@@ -12,7 +12,7 @@ class DriverClass {
             ArrayList<ArrayList<Integer>> list = new ArrayList<>();
             int V = sc.nextInt();
             int E = sc.nextInt();
-            for (int i = 0; i < V + 1; i++)
+            for (int i = 0; i < V; i++)
                 list.add(i, new ArrayList<Integer>());
             for (int i = 0; i < E; i++) {
                 int u = sc.nextInt();
@@ -25,39 +25,32 @@ class DriverClass {
                 System.out.println("0");
         }
     }
-}// } Driver Code Ends
+}
+// } Driver Code Ends
 
 
 /*Complete the function below*/
 
 class Solution {
     // Function to detect cycle in a directed graph.
-    public boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adj) {
-        boolean visited[] =  new boolean[V];
-        boolean dfsVisit[] =  new boolean[V];
+    public boolean isCyclic(int n, ArrayList<ArrayList<Integer>> adj) {
+        int visited[] =  new int[n];
         
-        for(int i=0;i<V;i++){
-            if(!visited[i]  ){
-                if(dfs(adj,visited,dfsVisit,i)) return true;
+        for(int i=0;i<n;i++){
+            if(visited[i]==0 && adj.get(i).size()!=0){
+                if(topoSort(adj, i , visited)) return true;
             }
         }
         return false;
     }
-    private  boolean dfs(ArrayList<ArrayList<Integer>> adj,boolean visited[],boolean dfsVisit[],int src){
-        visited[src] =  true;
-        dfsVisit[src] =  true;
+    boolean topoSort( ArrayList<ArrayList<Integer>> adj , int src , int visited[]){
         
-        // explore nbr
-        for(Integer nbr : adj.get(src) ){
-            if(!visited[nbr] ){
-                if(dfs(adj,visited,dfsVisit,nbr)) return true;
-            }
-            else if(dfsVisit[nbr]){
-                return true;
-            }
+        visited[src] =  2;
+        for(int nbr : adj.get(src)){
+            if(visited[nbr]==2) return true;
+            else if(visited[nbr]==0) if(topoSort(adj , nbr , visited)) return true;
         }
-        dfsVisit[src] =  false;
+        visited[src ] =  1;
         return false;
-        
     }
 }
