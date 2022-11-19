@@ -37,7 +37,7 @@ class Solution {
         int visited[] =  new int[n];
         
         for(int i=0;i<n;i++){
-            if(visited[i]==0 && adj.get(i).size()!=0){
+            if(visited[i]==0  ){
                 if(topoSort(adj, i , visited)) return true;
             }
         }
