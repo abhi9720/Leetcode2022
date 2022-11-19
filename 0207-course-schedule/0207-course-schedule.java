@@ -1,41 +1,34 @@
 class Solution {
-
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        List<Integer> graph[] = new ArrayList[numCourses];
-        for (int i = 0; i < numCourses; i++) {
-            graph[i] = new ArrayList<>();
-        }
         
+        int visited[] =  new int[numCourses];
         
-        int indegree[] =  new int[numCourses];   
-        for (int edges[] : prerequisites) {
-            int src = edges[0], dest = edges[1];
-            graph[src].add(dest);
-            indegree[dest]++;
-        }
-        
-        Queue<Integer> q =  new ArrayDeque<>();
+        List<Integer> graph[] =  new ArrayList[numCourses];
         for(int i=0;i<numCourses;i++){
-            if(indegree[i]==0){
-                q.offer(i);
+            graph[i] =  new ArrayList<>();
+        }
+        for(int ed [] :  prerequisites){
+            int src =  ed[0];
+            int dest =  ed[1];
+            graph[src].add(dest);            
+        }
+        for(int i=0;i<numCourses;i++){
+            if(visited[i]==0 && graph[i].size()!=0){
+                if(!topoSort(graph,visited,i)) return false;
             }
         }
+        return true;
+    }
+    public static boolean topoSort(List<Integer> graph[] , int visited[], int src){
         
-        
-        int count  =  numCourses;
-        while(!q.isEmpty()){
-            int rm =  q.poll();
-            
-            for(int nbr : graph[rm]){
-                if(--indegree[nbr]==0){
-                    q.offer(nbr);
-                }
-            }  
-            count--;
+        visited[src] =  2;
+        for(int nbr : graph[src]){
+            if(visited[nbr]==2) return false;
+            else if(visited[nbr]==0){
+                if(!topoSort(graph,visited,nbr)) return false;
+            }
         }
-        return count==0;
-        
-        
-      
+        visited[src] =  1;        
+        return true;
     }
 }
