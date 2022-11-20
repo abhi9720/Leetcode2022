@@ -50,35 +50,62 @@ class DriverClass
 
 class Solution
 {
+    static class Edge{
+        int u,v,wt;
+        public Edge(int u, int v, int wt){
+            this.u =  u;
+            this.v =  v;
+            this.wt =  wt;
+        }
+    }
+    static int find(int x){
+        if(x==parent[x]) return x;
+        return parent[x] =  find(parent[x]);
+    }
+    
+    static void union(int s1 , int s2){
+        if(rank[s1]<= rank[s2]){
+            parent[s1] =  s2;
+            if(rank[s1]==rank[s2]) rank[s2]++;
+        }
+        else{
+            parent[s2] = s1;
+            rank[s1]++;
+        }
+    }
+    
+    static int parent[];
+    static int rank[];
     //Function to find sum of weights of edges of the Minimum Spanning Tree.
     static int spanningTree(int n, ArrayList<ArrayList<ArrayList<Integer>>> adj) 
     {
-        boolean visited[] =  new boolean[n];
-        PriorityQueue<int[]> pq =  new PriorityQueue<>( (o1,o2) -> o1[1] - o2[1] );
-        pq.offer(new int[]{0,0});
-        int cost[] =  new int[n];
-        Arrays.fill(cost, Integer.MAX_VALUE);
-        
-        while(pq.size()!=0 ){
-            
-            int rm[] =  pq.remove();
-            if(visited[rm[0]]) continue;
-            
-            visited[rm[0]] =  true;
-            cost[rm[0]] =  Math.min(rm[1], cost[rm[0]]);
-            for(ArrayList<Integer> nbr : adj.get(rm[0]) ){
-                int nbrNode =  nbr.get(0) ;
-                if(!visited[nbrNode ] || cost[nbrNode] > nbr.get(1)  ){
-                    pq.offer(new int[]{nbrNode , nbr.get(1) });    
-                }
+        parent = new int[n];
+        rank =  new int[n];
+        for(int i=0;i<n;i++){
+            parent[i] =  i;
+        }
+        ArrayList<int[]> edges =  new ArrayList<>();
+        for(int i=0;i<n;i++){
+            for(int j=0;j<adj.get(i).size() ; j++ ){
+                int u = adj.get(i).get(j).get(0);
+                int v =  adj.get(i).get(j).get(1);
+                edges.add(new int[]{i,u,v});
             }
         }
-        
-        int totalCost = 0;
-        for(int i=0;i<n;i++){
-            totalCost+=cost[i];
-        }
-        return totalCost;
+       int cost = 0;
+       Collections.sort( edges , (a,b)-> a[2] - b[2] );
+       for(int edge[] : edges){
+           int u =  edge[0] , v =  edge[1] , wt =  edge[2];
+           if(find(u)!= find(v)){
+               cost+=wt;
+               union(find(u), find(v));
+           }
+       }
+        return cost;
         
     }
 }
+
+
+
+
