@@ -1,7 +1,6 @@
 # Subarrays with equal 1s and 0s
-## Medium 
-<div class="problem-statement">
-                <p></p><p><span style="font-size:18px">Given an array containing 0s and 1s. Find the number of&nbsp;subarrays having equal number of 0s and 1s. </span></p>
+## Medium
+<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given an array containing 0s and 1s. Find the number of&nbsp;subarrays having equal number of 0s and 1s. </span></p>
 
 <p><strong><span style="font-size:18px">Example 1:</span></strong></p>
 
@@ -31,5 +30,4 @@ You don't need to read input or print anything. Your task is to complete the fun
 <p><span style="font-size:18px"><strong>Constraints:</strong><br>
 1 &lt;= n&nbsp;&lt;= 10<sup>6</sup><br>
 0 &lt;= A[i] &lt;= 1</span></p>
- <p></p>
-            </div>
+</div>
