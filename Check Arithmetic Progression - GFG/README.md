@@ -1,7 +1,6 @@
 # Check Arithmetic Progression
 ## Easy
-<div class="problem-statement">
-                <p></p><p><span style="font-size:18px">Given an array of <strong>N</strong> integers. Write a program to check whether an arithmetic progression can be formed using all the given elements.&nbsp;</span><br>
+<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given an array of <strong>N</strong> integers. Write a program to check whether an arithmetic progression can be formed using all the given elements.&nbsp;</span><br>
 &nbsp;</p>
 
 <p><span style="font-size:18px"><strong>Example 1:</strong></span></p>
@@ -37,5 +36,4 @@ Since, this is a function problem. You don't need to take any input, as it is al
 2 ≤ N ≤ 10<sup>5</sup></span></p>
 
 <p>&nbsp;</p>
- <p></p>
-            </div>
+</div>
