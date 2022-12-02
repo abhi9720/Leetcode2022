@@ -1,4 +1,4 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 //Initial Template for Java
 
 //Initial Template for Java
@@ -9,7 +9,7 @@ import java.io.*;
 import java.util.*;
 
 
- // } Driver Code Ends
+// } Driver Code Ends
 //User function Template for Java
 
 
@@ -18,36 +18,18 @@ class Solution
 {
     boolean checkIsAP(int arr[] ,int n)
     {
-        int min1 , min2;
-        min2 =  min1 =  Integer.MAX_VALUE;
-        HashMap<Integer,Integer> map =  new HashMap<Integer,Integer>();
-        for(int ele : arr){
-            if(ele < min1){
-                min2 =  min1;
-                min1 =  ele;
-            }else if(ele < min2){
-                min2 =  ele;
-            }
-            map.put(ele , map.getOrDefault(ele,0)+1 );
+        Arrays.sort(arr);
+        int diff =  arr[1] - arr[0];
+        for(int i=1;i<n;i++){
+            if(arr[i]-arr[i-1]!= diff) return false;
         }
-        
-        int diff =  min2 - min1;
-        int term =  min1;
-        int count  = 0;
-        while( map.containsKey(term) ){
-            count++;
-            term =  term+diff;
-        }
-        return count ==  n;
-        
-
-    
+        return true;
     }
 }
 
 
 
-// { Driver Code Starts.
+//{ Driver Code Starts.
 
 // Driver class
 class Array {
@@ -82,4 +64,5 @@ class Array {
 
 
 
-  // } Driver Code Ends
+
+// } Driver Code Ends
