@@ -1,4 +1,4 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 import java.util.*;
 import java.lang.*;
 import java.io.*;
@@ -17,33 +17,57 @@ class GFG
         }
     }
 }
+
 // } Driver Code Ends
 
 
 class Solution
 {
-    public String FirstNonRepeating(String s)
+    public String FirstNonRepeating(String A)
     {
-        StringBuilder sb =  new StringBuilder();
         
-         int map[]= new int[26];
-	        Queue<Character> q =  new ArrayDeque();
-	        for(char ch : s.toCharArray() ){
-	            map[ ch-'a' ]++;
-	            int f = map[ ch-'a'];
-	            
-	            if(f>1 && !q.isEmpty() &&q.peek()==ch){
-	                while(!q.isEmpty() && map[q.peek()-'a']!=1 ){
-	                    q.poll();
-	                }
-	            
-	            }else if(f==1){
-	                q.add(ch);
-	            }
-	            
-	            sb.append(q.size()==0?'#':q.peek() );
-	        }
-	        return sb.toString();
-      
+        StringBuilder sb =  new StringBuilder();
+        Queue<Character> q =  new ArrayDeque<>();
+        HashMap<Character,Integer> map =  new HashMap<>();
+        char nonrepeated =  A.charAt(0);
+        map.put( nonrepeated ,1 );
+        sb.append(nonrepeated);
+        for(int i=1;i<A.length();i++){
+            char ch =  A.charAt(i);
+            map.put( ch , map.getOrDefault(ch,0)+1 );
+            int occ =  map.get(ch);
+            if(occ==1){
+                q.offer(ch);
+            }
+            if(nonrepeated == ch){
+                nonrepeated =  '#';
+            }
+            
+            if(nonrepeated=='#'){
+                nonrepeated =  findNonRepeatedCharTillNow(map,q);
+            }
+            
+           
+            sb.append(nonrepeated);
+            
+            
+            
+           
+            
+        }
+       
+        return sb.toString();
     }
+    
+    char findNonRepeatedCharTillNow(HashMap<Character,Integer> map, Queue<Character>q){
+        // System.out.println(q);
+        // System.out.println(map);
+        // System.out.println();
+         while(q.size()!=0 && map.get(q.peek()) >1 ){
+             q.poll();
+         }
+         return q.size()==0 ? '#' :q.peek();
+    }
+    
+    
 }
