@@ -1,7 +1,6 @@
 # First non-repeating character in a stream
-## Medium 
-<div class="problem-statement">
-                <p></p><p><span style="font-size:18px">Given an input stream of <strong>A </strong>of <strong>n</strong>&nbsp;characters consisting only of lower case alphabets. The task is to find the first non repeating character, each time a character is inserted to the stream. If there is no such character then append '#' to the answer.</span><br>
+## Medium
+<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given an input stream of <strong>A </strong>of <strong>n</strong>&nbsp;characters consisting only of lower case alphabets. The task is to find the first non repeating character, each time a character is inserted to the stream. If there is no such character then append '#' to the answer.</span><br>
 &nbsp;</p>
 
 <p><span style="font-size:18px"><strong>Example 1:</strong></span></p>
@@ -38,5 +37,4 @@ You don't need to read or print anything. Your task is to complete the function&
 
 <p><span style="font-size:18px"><strong>Constraints:</strong><br>
 1 &lt;= n &lt;= 10<sup>5</sup></span></p>
- <p></p>
-            </div>
+</div>
