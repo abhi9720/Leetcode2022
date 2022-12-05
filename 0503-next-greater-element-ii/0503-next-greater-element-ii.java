@@ -5,11 +5,9 @@ class Solution {
         // here we store index 
         int idx = n-1;
         int ans[] =  new int[n];
-        stk.push(idx);
-        ans[idx] =  -1;
-        idx--;
+      
         int count = 0;
-        while(stk.size()!=0 && count <=1 && idx>=0 ){
+        while(count <=1  ){
             while(stk.size()!=0 && nums[stk.peek()] <= nums[idx] ){
                 stk.pop();
             }
