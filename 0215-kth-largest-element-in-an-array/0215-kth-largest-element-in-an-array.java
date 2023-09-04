@@ -17,6 +17,11 @@ class Solution {
     public int partition(int nums[], int i , int j){
         
        
+       
+        Random rand = new Random();
+        int pid = rand.nextInt(j - i + 1) + i;
+        
+        swap(nums,pid,j);
         int pivot = nums[j];
         int pivotloc =  i;
         
